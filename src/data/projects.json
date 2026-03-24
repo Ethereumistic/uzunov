@@ -1,0 +1,275 @@
+[
+  {
+    "id": "office-kremi-gabrovo",
+    "title": "Офис сграда - гр. ГАБРОВО (КРЕМИ)",
+    "category": "Office",
+    "location": "гр. Габрово",
+    "area": 2500,
+    "investor": "КРЕМИ ООД",
+    "completionDate": null,
+    "featured": false,
+    "status": "done",
+    "awards": [],
+    "images": [
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall-office/1.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall-office/2.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall-office/3.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall-office/4.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall-office/5.webp"
+    ]
+  },
+  {
+    "id": "office-bilbest-gabrovo",
+    "title": "Офис сграда - гр. ГАБРОВО (БИЛБЕСТ)",
+    "category": "Office",
+    "location": "гр. Габрово",
+    "area": 2700,
+    "investor": "БИЛБЕСТ АД",
+    "completionDate": "2013-01-01",
+    "featured": true,
+    "status": "done",
+    "awards": ["Номинация в конкурс „Сграда на годината“ (2013 г.)"],
+    "images": [
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/bau/1.webp"
+    ]
+  },
+  {
+    "id": "scentia-complex",
+    "title": "Търговско-административен комплекс \"СИЕНТИА\"",
+    "category": "Office",
+    "location": "гр. Габрово",
+    "details": [
+      {"name": "Сграда 1", "area": 2500},
+      {"name": "Сграда 2", "area": 2500},
+      {"name": "Сграда 3", "area": 3650},
+      {"name": "Сграда 4", "area": 3650}
+    ],
+    "area": 12300,
+    "investor": "СИЕНТИА ООД",
+    "completionDate": null,
+    "featured": true,
+    "status": "done",
+    "awards": [],
+    "images": [
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/1.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/2.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/scientia-slide1.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/scientia-slide2.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/scientia-slide3.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/scientia-slide4.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/slide4.webp"
+    ]
+  },
+  {
+    "id": "ivan-rilski-hospital",
+    "title": "МБАЛ „СВ. ИВАН РИЛСКИ“",
+    "category": "Healthcare",
+    "location": "гр. Габрово",
+    "area": 3600,
+    "investor": "МДМ ИНВЕСТ АД",
+    "completionDate": null,
+    "featured": true,
+    "status": "done",
+    "awards": [],
+    "images": [
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/1.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/2.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/3.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/4.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/5.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/6.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/7.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/8.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/9.webp"
+    ]
+  },
+  {
+    "id": "vasilii-veliki-social-home",
+    "title": "Дом за възрастни хора „СВ. ВАСИЛИЙ ВЕЛИКИ“",
+    "category": "Healthcare",
+    "location": "гр. Габрово",
+    "area": 4247,
+    "investor": "РАМУС МЕДИКАЛ ЕООД",
+    "completionDate": "2021-01-01",
+    "featured": true,
+    "status": "done",
+    "awards": ["Носител на наградата „Сграда на годината“ (2021 г.)"],
+    "images": [
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/1.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/2.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/3.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/4.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/5.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/6.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/7.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/8.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/9.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/10.webp"
+    ]
+  },
+  {
+    "id": "mall-gabrovo",
+    "title": "МОЛ ГАБРОВО",
+    "category": "Commercial",
+    "location": "гр. Габрово",
+    "area": 16600,
+    "investor": "МОЛ ГАБРОВО ООД",
+    "completionDate": "2010-01-01",
+    "featured": true,
+    "status": "done",
+    "awards": ["Специална награда в конкурс „Сграда на годината“ (2010 г.)"],
+    "images": [
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall/1.webp"
+    ]
+  },
+  {
+    "id": "marina-retail-complex",
+    "title": "Търговски комплекс „МАРИНА“",
+    "category": "Commercial",
+    "location": "гр. Габрово",
+    "details": [
+      {"name": "Търговска сграда", "area": 5000},
+      {"name": "Складова база", "area": 3600}
+    ],
+    "area": 8600,
+    "investor": "МАРИНА ООД",
+    "completionDate": null,
+    "featured": false,
+    "status": "done",
+    "awards": [],
+    "images": []
+  },
+  {
+    "id": "zala-300-sevlievo",
+    "title": "Зала 300 - Община Севлиево",
+    "category": "Commercial",
+    "location": "гр. Севлиево",
+    "area": 170,
+    "investor": "Община Севлиево",
+    "completionDate": null,
+    "featured": false,
+    "status": "done",
+    "awards": [],
+    "images": []
+  },
+  {
+    "id": "sevlievo-plaza-restaurant",
+    "title": "Ресторант и лоби бар (Хотел \"СЕВЛИЕВО ПЛАЗА\")",
+    "category": "Commercial",
+    "location": "гр. Севлиево",
+    "area": null,
+    "investor": "Хотел \"СЕВЛИЕВО ПЛАЗА\"",
+    "completionDate": null,
+    "featured": false,
+    "status": "done",
+    "awards": [],
+    "images": [
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/sevlievo-plaza/1.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/sevlievo-plaza/2.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/sevlievo-plaza/3.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/sevlievo-plaza/4.webp"
+    ]
+  },
+  {
+    "id": "nts-facade-renewal",
+    "title": "Обновяване фасада на сграда НТС",
+    "category": "Commercial",
+    "location": "гр. Габрово",
+    "area": null,
+    "investor": "Областен управител - Габрово",
+    "completionDate": null,
+    "featured": true,
+    "status": "done",
+    "awards": ["Специална награда за зелени инвестиции"],
+    "description": "Внедряване на фасадна фотоволтаична система SCHÜCO",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/nts/1.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/nts/2.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/nts/3.webp"
+    ]
+  },
+  {
+    "id": "koltek-factory",
+    "title": "Фабрика \"КОЛТЕК\"",
+    "category": "Industrial",
+    "location": "гр. Габрово",
+    "area": 9000,
+    "investor": "Българо-швейцарско дружество \"КОЛТЕК\"",
+    "completionDate": null,
+    "featured": false,
+    "status": "done",
+    "awards": [],
+    "description": "Фабрика за производство на пластмасови и метални изделия",
+    "images": [
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/plastmasa/1.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/plastmasa/2.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/plastmasa/3.webp",
+      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/plastmasa/4.webp"
+    ]
+  },
+  {
+    "id": "planzee-workshop",
+    "title": "Цех за термична обработка",
+    "category": "Industrial",
+    "location": "гр. Габрово",
+    "area": 4606,
+    "investor": "\"ПЛАНЗЕЕ\" ООД",
+    "completionDate": null,
+    "featured": false,
+    "status": "done",
+    "awards": [],
+    "images": []
+  },
+  {
+    "id": "till-industrial-factory",
+    "title": "Фабрика за телфери",
+    "category": "Industrial",
+    "location": "гр. Габрово",
+    "area": 2700,
+    "investor": "\"ТИЛЛ ИНДУСТРИАЛ ГАБРОВО\" ЕООД",
+    "completionDate": null,
+    "featured": false,
+    "status": "done",
+    "awards": [],
+    "images": []
+  },
+  {
+    "id": "tisikon-factory",
+    "title": "Производствена сграда - гр. ДРЯНОВО",
+    "category": "Industrial",
+    "location": "гр. Дряново",
+    "area": 2900,
+    "investor": "\"ТИСИКОН\" ЕООД",
+    "completionDate": null,
+    "featured": false,
+    "status": "done",
+    "awards": [],
+    "images": []
+  },
+  {
+    "id": "vivet-metalworking",
+    "title": "Фабрика за металообработване",
+    "category": "Industrial",
+    "location": "гр. Габрово",
+    "area": null,
+    "investor": "\"ВИВЕТ\" ЕООД",
+    "completionDate": null,
+    "featured": false,
+    "status": "done",
+    "awards": [],
+    "images": []
+  },
+  {
+    "id": "vivet-electronics",
+    "title": "Фабрика за електроника",
+    "category": "Industrial",
+    "location": "гр. Габрово",
+    "area": null,
+    "investor": "\"ВИВЕТ\" ЕООД",
+    "completionDate": null,
+    "featured": false,
+    "status": "done",
+    "awards": [],
+    "images": []
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "projectName": "uzunov",
+  "mode": "file-router",
+  "typescript": true,
+  "packageManager": "pnpm",
+  "includeExamples": true,
+  "tailwind": true,
+  "addOnOptions": {},
+  "envVarValues": {
+    "CONVEX_DEPLOYMENT": "uzunov",
+    "VITE_CONVEX_URL": "https:/intent-cricket-248.convex.cloud"
+  },
+  "git": true,
+  "install": false,
+  "routerOnly": false,
+  "version": 1,
+  "framework": "react",
+  "chosenAddOns": [
+    "cloudflare",
+    "convex",
+    "shadcn",
+    "better-auth",
+    "tanstack-query",
+    "table",
+    "t3env",
+    "form"
+  ]
+}
