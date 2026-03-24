@@ -56,14 +56,14 @@ export function Navbar() {
 
     return (
         <header className="sticky top-4 mt-8 mb-[-96px] left-0 right-0 z-50 flex justify-center px-4 pointer-events-none transition-all duration-500 ease-in-out">
-            <div ref={navRef} className="w-full max-w-[27rem] sm:max-w-xl md:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl pointer-events-auto transition-all duration-300">
+            <div ref={navRef} className="w-full max-w-[27rem] sm:max-w-xl md:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl pointer-events-auto transition-all duration-300 relative h-[64px]">
                 {/*
                   ROUNDING FIX: Always rounded-3xl — never toggle the border-radius.
                   Animating between rounded-full and a lower radius causes ugly shape
                   distortion during the transition. rounded-3xl (24px) reads as a pill
                   at 64px tall and smoothly becomes a rounded-rect when expanded.
                 */}
-                <div className="relative px-6 rounded-4xl transition-all duration-300 ease-in-out border border-white/20 bg-gradient-to-b from-white/80 to-white/60 backdrop-blur-[22px] shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] saturate-150">
+                <div className="absolute top-0 left-0 right-0 px-6 rounded-4xl transition-all duration-300 ease-in-out border border-white/20 bg-gradient-to-b from-white/80 to-white/60 backdrop-blur-[22px] shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] saturate-150">
 
                     {/* Main bar */}
                     <div className="flex items-center justify-between h-[64px]">
