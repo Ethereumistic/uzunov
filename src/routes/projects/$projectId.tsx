@@ -11,7 +11,6 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
-  Images,
 } from "lucide-react"
 import { getProjectById, categoryLabels } from "#/data/projects"
 import { cn } from "#/lib/utils"
@@ -73,20 +72,21 @@ function ProjectDetailPage() {
           {/* ── Left: Bento gallery */}
           <div className="flex flex-col gap-3">
             {hasImages ? (
-              <BentoGallery images={images} onImageClick={openLightbox} />
+              <>
+                <BentoGallery images={images} onImageClick={openLightbox} />
+                {images.length > 1 && (
+                  <button
+                    onClick={() => openLightbox(0)}
+                    className="self-end inline-flex items-center gap-1.5 text-xs font-medium text-black/40 hover:text-black/70 transition-colors"
+                  >
+                    Виж всички {images.length} снимки
+                  </button>
+                )}
+              </>
             ) : (
               <div className="relative overflow-hidden rounded-3xl bg-stone-100 aspect-video flex items-center justify-center">
                 <span className="text-[5rem] opacity-10">◻</span>
               </div>
-            )}
-            {images.length > 1 && (
-              <button
-                onClick={() => openLightbox(0)}
-                className="self-end inline-flex items-center gap-1.5 text-xs font-medium text-black/40 hover:text-black/70 transition-colors"
-              >
-                <Images size={13} />
-                Виж всички {images.length} снимки
-              </button>
             )}
           </div>
 
@@ -186,28 +186,84 @@ function ProjectDetailPage() {
 
 // ─────────────────────────────────────────────
 // BentoGallery
-// A single unified CSS-grid gallery. No carousel.
-// Layouts are defined per image count bucket so
-// every cell gets a deliberate col/row span.
+// Main carousel with navigation + thumbnail row below
 // ─────────────────────────────────────────────
 
+function BentoGallery({
+  images,
+  onImageClick,
+}: {
+  images: string[]
+  onImageClick: (index: number) => void
+}) {
+  const count = images.length
+  const [carouselIndex, setCarouselIndex] = useState(0)
+
+  const prevImage = useCallback(() => {
+    setCarouselIndex((p) => (p - 1 + count) % count)
+  }, [count])
+
+  const nextImage = useCallback(() => {
+    setCarouselIndex((p) => (p + 1) % count)
+  }, [count])
+
+  return (
+    <div className="flex flex-col gap-3">
+      {/* Main carousel */}
+      <button
+        onClick={() => onImageClick(carouselIndex)}
+        className="relative overflow-hidden rounded-2xl bg-stone-100 aspect-[16/10] group"
+      >
+        <img
+          key={carouselIndex}
+          src={images[carouselIndex]}
+          alt={`Изображение ${carouselIndex + 1}`}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+        />
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/8 transition-colors duration-300" />
+
+        {count > 1 && (
+          <>
+            <button
+              onClick={(e) => { e.stopPropagation(); prevImage() }}
+              className="absolute left-3 top-1/2 -translate-y-1/2 size-10 rounded-full bg-white/80 backdrop-blur-sm border border-black/10 flex items-center justify-center text-black/70 hover:bg-white hover:text-black transition-all shadow-lg"
+              aria-label="Предишна"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <button
+              onClick={(e) => { e.stopPropagation(); nextImage() }}
+              className="absolute right-3 top-1/2 -translate-y-1/2 size-10 rounded-full bg-white/80 backdrop-blur-sm border border-black/10 flex items-center justify-center text-black/70 hover:bg-white hover:text-black transition-all shadow-lg"
+              aria-label="Следваща"
+            >
+              <ChevronRight size={18} />
+            </button>
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 text-xs text-white/90 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
+              {carouselIndex + 1} / {count}
+            </div>
+          </>
+        )}
+      </button>
+
+      {/* Bento grid below carousel */}
+      {count > 1 && (
+        <BentoGrid images={images} onImageClick={onImageClick} activeIndex={carouselIndex} setActiveIndex={setCarouselIndex} />
+      )}
+    </div>
+  )
+}
+
 type BentoItem = {
-  /** CSS grid-column value, e.g. "span 2" */
   col: string
-  /** CSS grid-row value, e.g. "span 2" */
   row: string
-  /** aspect-ratio applied when the cell does NOT span rows */
   aspect?: string
 }
 
-/** Returns a bento layout spec for each image given the total count. */
 function getBentoLayout(count: number): BentoItem[] {
-  // Single image — full width hero
   if (count === 1) {
     return [{ col: "span 3", row: "span 2", aspect: undefined }]
   }
 
-  // 2 images — side by side
   if (count === 2) {
     return [
       { col: "span 2", row: "span 2" },
@@ -215,7 +271,6 @@ function getBentoLayout(count: number): BentoItem[] {
     ]
   }
 
-  // 3 images — large hero left, two stacked right
   if (count === 3) {
     return [
       { col: "span 2", row: "span 2" },
@@ -224,7 +279,6 @@ function getBentoLayout(count: number): BentoItem[] {
     ]
   }
 
-  // 4 images — large hero top-left, three filling right + bottom
   if (count === 4) {
     return [
       { col: "span 2", row: "span 2" },
@@ -234,7 +288,6 @@ function getBentoLayout(count: number): BentoItem[] {
     ]
   }
 
-  // 5 images — large hero left, 2×2 grid right
   if (count === 5) {
     return [
       { col: "span 2", row: "span 2" },
@@ -245,12 +298,10 @@ function getBentoLayout(count: number): BentoItem[] {
     ]
   }
 
-  // 6 images — 2 rows of 3
   if (count === 6) {
     return Array(6).fill({ col: "span 1", row: "span 1" })
   }
 
-  // 7 images — hero top-left (2×2), 3 right, 2 bottom spanning
   if (count === 7) {
     return [
       { col: "span 2", row: "span 2" },
@@ -263,7 +314,6 @@ function getBentoLayout(count: number): BentoItem[] {
     ]
   }
 
-  // 8 images — hero top-left (2×2), 2 right column, bottom row of 3 + 1 wide
   if (count === 8) {
     return [
       { col: "span 2", row: "span 2" },
@@ -277,12 +327,10 @@ function getBentoLayout(count: number): BentoItem[] {
     ]
   }
 
-  // 9 images — 3×3 uniform grid
   if (count === 9) {
     return Array(9).fill({ col: "span 1", row: "span 1" })
   }
 
-  // 10–11 images — hero (2×2) + fill the rest in a 3-col grid
   if (count === 10 || count === 11) {
     const layout: BentoItem[] = [{ col: "span 2", row: "span 2" }]
     for (let i = 1; i < count; i++) {
@@ -291,12 +339,10 @@ function getBentoLayout(count: number): BentoItem[] {
     return layout
   }
 
-  // 12 images — 4 rows of 3
   if (count === 12) {
     return Array(12).fill({ col: "span 1", row: "span 1" })
   }
 
-  // 13–15 — hero + uniform fill
   if (count >= 13 && count <= 15) {
     const layout: BentoItem[] = [{ col: "span 3", row: "span 2" }]
     for (let i = 1; i < count; i++) {
@@ -305,7 +351,6 @@ function getBentoLayout(count: number): BentoItem[] {
     return layout
   }
 
-  // Anything bigger — hero (2×2) + uniform 3-col fill, cap visible at 12 (rest in lightbox)
   const layout: BentoItem[] = [{ col: "span 2", row: "span 2" }]
   for (let i = 1; i < count; i++) {
     layout.push({ col: "span 1", row: "span 1" })
@@ -313,28 +358,30 @@ function getBentoLayout(count: number): BentoItem[] {
   return layout
 }
 
-function BentoGallery({
+function BentoGrid({
   images,
   onImageClick,
+  activeIndex,
+  setActiveIndex,
 }: {
   images: string[]
   onImageClick: (index: number) => void
+  activeIndex: number
+  setActiveIndex: (index: number) => void
 }) {
   const count = images.length
-  const layout = getBentoLayout(count)
+  const layout = getBentoLayout(count - 1)
 
-  // For very large sets (>15), show only the first 13 cells in the grid
-  // and the last visible cell becomes an overlay showing the remaining count.
   const MAX_VISIBLE = 15
-  const showOverflow = count > MAX_VISIBLE
-  const visibleImages = showOverflow ? images.slice(0, MAX_VISIBLE) : images
+  const showOverflow = count > MAX_VISIBLE + 1
+  const visibleImages = showOverflow ? images.slice(1, MAX_VISIBLE + 1) : images.slice(1)
   const visibleLayout = showOverflow ? layout.slice(0, MAX_VISIBLE) : layout
-  const overflow = count - MAX_VISIBLE
+  const overflow = count - MAX_VISIBLE - 1
 
   return (
     <div
       className="grid gap-2"
-      style={{ gridTemplateColumns: "repeat(3, 1fr)", gridAutoRows: "160px" }}
+      style={{ gridTemplateColumns: "repeat(3, 1fr)", gridAutoRows: "140px" }}
     >
       {visibleImages.map((img, i) => {
         const spec = visibleLayout[i] ?? { col: "span 1", row: "span 1" }
@@ -343,11 +390,11 @@ function BentoGallery({
         return (
           <button
             key={i}
-            onClick={() => onImageClick(i)}
+            onClick={() => { setActiveIndex(i + 1); onImageClick(i + 1) }}
             className={cn(
               "relative overflow-hidden rounded-2xl bg-stone-100",
-              "border-2 border-transparent hover:border-[#1a1916]/15",
-              "transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a1916]/30"
+              "border-2 transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a1916]/30",
+              i + 1 === activeIndex ? "border-[#1a1916]" : "border-transparent hover:border-[#1a1916]/15"
             )}
             style={{
               gridColumn: spec.col,
@@ -356,13 +403,11 @@ function BentoGallery({
           >
             <img
               src={img}
-              alt={`Изображение ${i + 1}`}
+              alt={`Изображение ${i + 2}`}
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
             />
-            {/* Subtle dark overlay on hover */}
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/8 transition-colors duration-300" />
 
-            {/* Overflow count badge on last visible cell */}
             {isLastAndOverflow && (
               <div className="absolute inset-0 bg-black/55 backdrop-blur-[2px] flex flex-col items-center justify-center gap-1">
                 <span className="text-white text-2xl font-bold leading-none">+{overflow}</span>
