@@ -9,6 +9,7 @@ import {
   type ProjectCategory,
 } from "#/data/projects"
 import { cn } from "#/lib/utils"
+import { PageHeader } from "#/components/layout/PageHeader"
 
 export const Route = createFileRoute("/projects/")({
   component: ProjectsPage,
@@ -129,23 +130,14 @@ function ProjectsPage() {
     activeTab === "All" ? projects : projects.filter((p) => p.category === activeTab)
 
   return (
-    <main className="min-h-screen px-5 pt-32 pb-24">
-      <div className="max-w-6xl mx-auto">
+    <main className="min-h-screen p-5 bg-[#faf9f6]">
 
-        <div className="mb-14">
-          <p className="text-[0.6875rem] font-semibold tracking-[0.2em] uppercase text-black/35 mb-3">
-            Портфолио
-          </p>
-          <h1 className="font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-none tracking-tight text-[#1a1916] m-0 mb-5">
-            Нашите{" "}
-            <em className="italic font-light">проекти</em>
-          </h1>
-          <p className="text-[#1a1916]/50 text-base font-light leading-relaxed max-w-[50ch]">
-            Над три десетилетия проектиране — офиси, болници, търговски обекти и
-            индустриални съоръжения в цяла България.
-          </p>
-        </div>
-
+      <PageHeader
+        label="Портфолио"
+        title={<>Нашите <em className="italic font-light">проекти</em></>}
+        subtitle="Над три десетилетия проектиране — офиси, болници, търговски обекти и индустриални съоръжения в цяла България."
+      />
+      <div className="max-w-7xl mx-auto">
         <Tabs
           value={activeTab}
           onValueChange={(v) => setActiveTab(v as ProjectCategory)}
