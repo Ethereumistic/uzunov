@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router"
-import { useState } from "react"
+import { useState, useEffect, useCallback } from "react"
 import {
   MapPin,
   Ruler,
@@ -11,6 +11,7 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
+  Images,
 } from "lucide-react"
 import { getProjectById, categoryLabels } from "#/data/projects"
 import { cn } from "#/lib/utils"
@@ -22,8 +23,13 @@ export const Route = createFileRoute("/projects/$projectId")({
 function ProjectDetailPage() {
   const { projectId } = Route.useParams()
   const project = getProjectById(projectId)
-  const [activeImage, setActiveImage] = useState(0)
   const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [lightboxIndex, setLightboxIndex] = useState(0)
+
+  const openLightbox = useCallback((i: number) => {
+    setLightboxIndex(i)
+    setLightboxOpen(true)
+  }, [])
 
   if (!project) {
     return (
@@ -47,13 +53,6 @@ function ProjectDetailPage() {
   const images = project.images
   const hasImages = images.length > 0
 
-  function prevImage() {
-    setActiveImage((p) => (p - 1 + images.length) % images.length)
-  }
-  function nextImage() {
-    setActiveImage((p) => (p + 1) % images.length)
-  }
-
   return (
     <main className="min-h-screen px-5 pt-28 pb-24">
       <div className="max-w-6xl mx-auto">
@@ -71,70 +70,23 @@ function ProjectDetailPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 items-start">
 
-          {/* ── Left: Image gallery */}
-          <div className="flex flex-col gap-4">
-            <div
-              className="relative overflow-hidden rounded-3xl bg-stone-100 aspect-16/10 cursor-pointer"
-              onClick={() => hasImages && setLightboxOpen(true)}
-            >
-              {hasImages ? (
-                <img
-                  key={activeImage}
-                  src={images[activeImage]}
-                  alt={`${project.title} — изображение ${activeImage + 1}`}
-                  className="w-full h-full object-cover transition-opacity duration-300"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  <span className="text-[5rem] opacity-10">◻</span>
-                </div>
-              )}
-
-              {images.length > 1 && (
-                <>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); prevImage() }}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 size-10 rounded-full bg-white/70 backdrop-blur-xl border border-white/60 flex items-center justify-center text-[#1a1916] shadow-md hover:bg-white transition-all duration-150"
-                  >
-                    <ChevronLeft size={18} />
-                  </button>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); nextImage() }}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 size-10 rounded-full bg-white/70 backdrop-blur-xl border border-white/60 flex items-center justify-center text-[#1a1916] shadow-md hover:bg-white transition-all duration-150"
-                  >
-                    <ChevronRight size={18} />
-                  </button>
-                </>
-              )}
-
-              {images.length > 1 && (
-                <div className="absolute bottom-4 right-4 text-xs font-medium text-white/80 bg-black/30 backdrop-blur-xl border border-white/10 px-3 py-1 rounded-full">
-                  {activeImage + 1} / {images.length}
-                </div>
-              )}
-            </div>
-
-            {images.length > 1 && (
-              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
-                {images.map((img, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setActiveImage(i)}
-                    className={cn(
-                      "shrink-0 size-16 rounded-xl overflow-hidden border-2 transition-all duration-200",
-                      i === activeImage
-                        ? "border-[#1a1916] opacity-100 shadow-md"
-                        : "border-transparent opacity-50 hover:opacity-80"
-                    )}
-                  >
-                    <img
-                      src={img}
-                      alt={`Миниатюра ${i + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </button>
-                ))}
+          {/* ── Left: Bento gallery */}
+          <div className="flex flex-col gap-3">
+            {hasImages ? (
+              <BentoGallery images={images} onImageClick={openLightbox} />
+            ) : (
+              <div className="relative overflow-hidden rounded-3xl bg-stone-100 aspect-video flex items-center justify-center">
+                <span className="text-[5rem] opacity-10">◻</span>
               </div>
+            )}
+            {images.length > 1 && (
+              <button
+                onClick={() => openLightbox(0)}
+                className="self-end inline-flex items-center gap-1.5 text-xs font-medium text-black/40 hover:text-black/70 transition-colors"
+              >
+                <Images size={13} />
+                Виж всички {images.length} снимки
+              </button>
             )}
           </div>
 
@@ -222,42 +174,211 @@ function ProjectDetailPage() {
       </div>
 
       {lightboxOpen && hasImages && (
-        <div
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={() => setLightboxOpen(false)}
-        >
-          <button
-            className="absolute top-6 right-6 size-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
-            onClick={() => setLightboxOpen(false)}
-          >
-            <X size={18} />
-          </button>
-          <button
-            className="absolute left-6 top-1/2 -translate-y-1/2 size-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
-            onClick={(e) => { e.stopPropagation(); prevImage() }}
-          >
-            <ChevronLeft size={22} />
-          </button>
-          <img
-            src={images[activeImage]}
-            alt={project.title}
-            className="max-w-full max-h-full object-contain rounded-2xl"
-            onClick={(e) => e.stopPropagation()}
-          />
-          <button
-            className="absolute right-6 top-1/2 -translate-y-1/2 size-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
-            onClick={(e) => { e.stopPropagation(); nextImage() }}
-          >
-            <ChevronRight size={22} />
-          </button>
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-sm text-white/60 bg-black/30 rounded-full px-4 py-1.5">
-            {activeImage + 1} / {images.length}
-          </div>
-        </div>
+        <Lightbox
+          images={images}
+          currentIndex={lightboxIndex}
+          onClose={() => setLightboxOpen(false)}
+        />
       )}
     </main>
   )
 }
+
+// ─────────────────────────────────────────────
+// BentoGallery
+// A single unified CSS-grid gallery. No carousel.
+// Layouts are defined per image count bucket so
+// every cell gets a deliberate col/row span.
+// ─────────────────────────────────────────────
+
+type BentoItem = {
+  /** CSS grid-column value, e.g. "span 2" */
+  col: string
+  /** CSS grid-row value, e.g. "span 2" */
+  row: string
+  /** aspect-ratio applied when the cell does NOT span rows */
+  aspect?: string
+}
+
+/** Returns a bento layout spec for each image given the total count. */
+function getBentoLayout(count: number): BentoItem[] {
+  // Single image — full width hero
+  if (count === 1) {
+    return [{ col: "span 3", row: "span 2", aspect: undefined }]
+  }
+
+  // 2 images — side by side
+  if (count === 2) {
+    return [
+      { col: "span 2", row: "span 2" },
+      { col: "span 1", row: "span 2" },
+    ]
+  }
+
+  // 3 images — large hero left, two stacked right
+  if (count === 3) {
+    return [
+      { col: "span 2", row: "span 2" },
+      { col: "span 1", row: "span 1" },
+      { col: "span 1", row: "span 1" },
+    ]
+  }
+
+  // 4 images — large hero top-left, three filling right + bottom
+  if (count === 4) {
+    return [
+      { col: "span 2", row: "span 2" },
+      { col: "span 1", row: "span 1" },
+      { col: "span 1", row: "span 1" },
+      { col: "span 3", row: "span 1" },
+    ]
+  }
+
+  // 5 images — large hero left, 2×2 grid right
+  if (count === 5) {
+    return [
+      { col: "span 2", row: "span 2" },
+      { col: "span 1", row: "span 1" },
+      { col: "span 1", row: "span 1" },
+      { col: "span 1", row: "span 1" },
+      { col: "span 1", row: "span 1" },
+    ]
+  }
+
+  // 6 images — 2 rows of 3
+  if (count === 6) {
+    return Array(6).fill({ col: "span 1", row: "span 1" })
+  }
+
+  // 7 images — hero top-left (2×2), 3 right, 2 bottom spanning
+  if (count === 7) {
+    return [
+      { col: "span 2", row: "span 2" },
+      { col: "span 1", row: "span 1" },
+      { col: "span 1", row: "span 1" },
+      { col: "span 1", row: "span 1" },
+      { col: "span 1", row: "span 1" },
+      { col: "span 1", row: "span 1" },
+      { col: "span 2", row: "span 1" },
+    ]
+  }
+
+  // 8 images — hero top-left (2×2), 2 right column, bottom row of 3 + 1 wide
+  if (count === 8) {
+    return [
+      { col: "span 2", row: "span 2" },
+      { col: "span 1", row: "span 1" },
+      { col: "span 1", row: "span 1" },
+      { col: "span 1", row: "span 1" },
+      { col: "span 1", row: "span 1" },
+      { col: "span 1", row: "span 1" },
+      { col: "span 1", row: "span 1" },
+      { col: "span 1", row: "span 1" },
+    ]
+  }
+
+  // 9 images — 3×3 uniform grid
+  if (count === 9) {
+    return Array(9).fill({ col: "span 1", row: "span 1" })
+  }
+
+  // 10–11 images — hero (2×2) + fill the rest in a 3-col grid
+  if (count === 10 || count === 11) {
+    const layout: BentoItem[] = [{ col: "span 2", row: "span 2" }]
+    for (let i = 1; i < count; i++) {
+      layout.push({ col: "span 1", row: "span 1" })
+    }
+    return layout
+  }
+
+  // 12 images — 4 rows of 3
+  if (count === 12) {
+    return Array(12).fill({ col: "span 1", row: "span 1" })
+  }
+
+  // 13–15 — hero + uniform fill
+  if (count >= 13 && count <= 15) {
+    const layout: BentoItem[] = [{ col: "span 3", row: "span 2" }]
+    for (let i = 1; i < count; i++) {
+      layout.push({ col: "span 1", row: "span 1" })
+    }
+    return layout
+  }
+
+  // Anything bigger — hero (2×2) + uniform 3-col fill, cap visible at 12 (rest in lightbox)
+  const layout: BentoItem[] = [{ col: "span 2", row: "span 2" }]
+  for (let i = 1; i < count; i++) {
+    layout.push({ col: "span 1", row: "span 1" })
+  }
+  return layout
+}
+
+function BentoGallery({
+  images,
+  onImageClick,
+}: {
+  images: string[]
+  onImageClick: (index: number) => void
+}) {
+  const count = images.length
+  const layout = getBentoLayout(count)
+
+  // For very large sets (>15), show only the first 13 cells in the grid
+  // and the last visible cell becomes an overlay showing the remaining count.
+  const MAX_VISIBLE = 15
+  const showOverflow = count > MAX_VISIBLE
+  const visibleImages = showOverflow ? images.slice(0, MAX_VISIBLE) : images
+  const visibleLayout = showOverflow ? layout.slice(0, MAX_VISIBLE) : layout
+  const overflow = count - MAX_VISIBLE
+
+  return (
+    <div
+      className="grid gap-2"
+      style={{ gridTemplateColumns: "repeat(3, 1fr)", gridAutoRows: "160px" }}
+    >
+      {visibleImages.map((img, i) => {
+        const spec = visibleLayout[i] ?? { col: "span 1", row: "span 1" }
+        const isLastAndOverflow = showOverflow && i === MAX_VISIBLE - 1
+
+        return (
+          <button
+            key={i}
+            onClick={() => onImageClick(i)}
+            className={cn(
+              "relative overflow-hidden rounded-2xl bg-stone-100",
+              "border-2 border-transparent hover:border-[#1a1916]/15",
+              "transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a1916]/30"
+            )}
+            style={{
+              gridColumn: spec.col,
+              gridRow: spec.row,
+            }}
+          >
+            <img
+              src={img}
+              alt={`Изображение ${i + 1}`}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            />
+            {/* Subtle dark overlay on hover */}
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/8 transition-colors duration-300" />
+
+            {/* Overflow count badge on last visible cell */}
+            {isLastAndOverflow && (
+              <div className="absolute inset-0 bg-black/55 backdrop-blur-[2px] flex flex-col items-center justify-center gap-1">
+                <span className="text-white text-2xl font-bold leading-none">+{overflow}</span>
+                <span className="text-white/70 text-xs font-medium tracking-wide">снимки</span>
+              </div>
+            )}
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────
+// DetailRow
+// ─────────────────────────────────────────────
 
 function DetailRow({
   icon,
@@ -279,6 +400,126 @@ function DetailRow({
           {value}
         </span>
       </div>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────
+// Lightbox
+// ─────────────────────────────────────────────
+
+function Lightbox({
+  images,
+  currentIndex,
+  onClose,
+}: {
+  images: string[]
+  currentIndex: number
+  onClose: () => void
+}) {
+  const [index, setIndex] = useState(currentIndex)
+
+  const prevImage = useCallback(() => {
+    setIndex((p) => (p - 1 + images.length) % images.length)
+  }, [images.length])
+
+  const nextImage = useCallback(() => {
+    setIndex((p) => (p + 1) % images.length)
+  }, [images.length])
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose()
+      if (e.key === "ArrowLeft") prevImage()
+      if (e.key === "ArrowRight") nextImage()
+    }
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [onClose, prevImage, nextImage])
+
+  // Lock body scroll while open
+  useEffect(() => {
+    document.body.style.overflow = "hidden"
+    return () => { document.body.style.overflow = "" }
+  }, [])
+
+  return (
+    <div
+      className="fixed inset-0 z-50 bg-black/92 backdrop-blur-sm flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      {/* Close */}
+      <button
+        className="absolute top-5 right-5 size-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
+        onClick={onClose}
+        aria-label="Затвори"
+      >
+        <X size={18} />
+      </button>
+
+      {/* Prev */}
+      {images.length > 1 && (
+        <button
+          className="absolute left-5 top-1/2 -translate-y-1/2 size-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
+          onClick={(e) => { e.stopPropagation(); prevImage() }}
+          aria-label="Предишна"
+        >
+          <ChevronLeft size={22} />
+        </button>
+      )}
+
+      {/* Image */}
+      <img
+        key={index}
+        src={images[index]}
+        alt={`Изображение ${index + 1}`}
+        className="max-w-full max-h-[calc(100vh-120px)] object-contain rounded-2xl select-none"
+        onClick={(e) => e.stopPropagation()}
+        style={{ animation: "fadeIn 0.18s ease" }}
+      />
+
+      {/* Next */}
+      {images.length > 1 && (
+        <button
+          className="absolute right-5 top-1/2 -translate-y-1/2 size-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
+          onClick={(e) => { e.stopPropagation(); nextImage() }}
+          aria-label="Следваща"
+        >
+          <ChevronRight size={22} />
+        </button>
+      )}
+
+      {/* Counter */}
+      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 text-sm text-white/60 bg-black/30 rounded-full px-4 py-1.5 select-none">
+        {index + 1} / {images.length}
+      </div>
+
+      {/* Thumbnail strip at the bottom for easy jumping */}
+      {images.length > 1 && (
+        <div className="absolute bottom-14 left-1/2 -translate-x-1/2 flex gap-1.5 max-w-[min(640px,90vw)] overflow-x-auto pb-1 px-2 scrollbar-none">
+          {images.map((img, i) => (
+            <button
+              key={i}
+              onClick={(e) => { e.stopPropagation(); setIndex(i) }}
+              className={cn(
+                "shrink-0 size-12 rounded-lg overflow-hidden border-2 transition-all duration-200",
+                i === index
+                  ? "border-white scale-110 shadow-lg"
+                  : "border-white/20 opacity-50 hover:opacity-80"
+              )}
+            >
+              <img src={img} alt="" className="w-full h-full object-cover" />
+            </button>
+          ))}
+        </div>
+      )}
+
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: scale(0.98); }
+          to   { opacity: 1; transform: scale(1); }
+        }
+      `}</style>
     </div>
   )
 }
