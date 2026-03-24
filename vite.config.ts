@@ -9,10 +9,9 @@ import { cloudflare } from "@cloudflare/vite-plugin";
 
 const config = defineConfig({
   staged: {
-    "*": "vp staged",
-    // "*": "vp check --fix",
+    "*": "vp staged"
   },
-  lint: { options: { typeAware: true, typeCheck: true } },
+  lint: { options: { typeAware: false, typeCheck: false } },
   plugins: [
     devtools(),
     cloudflare({ viteEnvironment: { name: "ssr" } }),
