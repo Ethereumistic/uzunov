@@ -3,6 +3,7 @@ import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import Footer from "../components/Footer";
 import { Navbar } from "#/components/layout/Navbar";
+import { BackgroundPattern } from "#/components/layout/BackgroundPattern";
 
 import ConvexProvider from "../integrations/convex/provider";
 
@@ -51,7 +52,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <HeadContent />
       </head>
-      <body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
+      <body className="font-sans antialiased wrap-anywhere selection:bg-[rgba(79,184,178,0.24)]">
+        <BackgroundPattern />
         <ConvexProvider>
           <TanStackQueryProvider>
             <Navbar />
