@@ -28,7 +28,9 @@
     "completionDate": "2013-01-01",
     "featured": true,
     "status": "done",
-    "awards": ["Номинация в конкурс „Сграда на годината“ (2013 г.)"],
+    "awards": [
+      "Номинация в конкурс „Сграда на годината“ (2013 г.)"
+    ],
     "images": [
       "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/bau/1.webp"
     ]
@@ -39,10 +41,22 @@
     "category": "Office",
     "location": "гр. Габрово",
     "details": [
-      {"name": "Сграда 1", "area": 2500},
-      {"name": "Сграда 2", "area": 2500},
-      {"name": "Сграда 3", "area": 3650},
-      {"name": "Сграда 4", "area": 3650}
+      {
+        "name": "Сграда 1",
+        "area": 2500
+      },
+      {
+        "name": "Сграда 2",
+        "area": 2500
+      },
+      {
+        "name": "Сграда 3",
+        "area": 3650
+      },
+      {
+        "name": "Сграда 4",
+        "area": 3650
+      }
     ],
     "area": 12300,
     "investor": "СИЕНТИА ООД",
@@ -93,7 +107,9 @@
     "completionDate": "2021-01-01",
     "featured": true,
     "status": "done",
-    "awards": ["Носител на наградата „Сграда на годината“ (2021 г.)"],
+    "awards": [
+      "Носител на наградата „Сграда на годината“ (2021 г.)"
+    ],
     "images": [
       "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/1.webp",
       "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/2.webp",
@@ -117,7 +133,9 @@
     "completionDate": "2010-01-01",
     "featured": true,
     "status": "done",
-    "awards": ["Специална награда в конкурс „Сграда на годината“ (2010 г.)"],
+    "awards": [
+      "Специална награда в конкурс „Сграда на годината“ (2010 г.)"
+    ],
     "images": [
       "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall/1.webp"
     ]
@@ -128,8 +146,14 @@
     "category": "Commercial",
     "location": "гр. Габрово",
     "details": [
-      {"name": "Търговска сграда", "area": 5000},
-      {"name": "Складова база", "area": 3600}
+      {
+        "name": "Търговска сграда",
+        "area": 5000
+      },
+      {
+        "name": "Складова база",
+        "area": 3600
+      }
     ],
     "area": 8600,
     "investor": "МАРИНА ООД",
@@ -180,7 +204,9 @@
     "completionDate": null,
     "featured": true,
     "status": "done",
-    "awards": ["Специална награда за зелени инвестиции"],
+    "awards": [
+      "Специална награда за зелени инвестиции"
+    ],
     "description": "Внедряване на фасадна фотоволтаична система SCHÜCO",
     "images": [
       "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/nts/1.webp",

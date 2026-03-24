@@ -1,26 +1,44 @@
 import * as React from "react"
 import { Logo } from "./Logo"
 import { cn } from "../../lib/utils"
-import { Building2, Layout, FileText, Menu, X, ChevronDown } from "lucide-react"
+import { Building2, Palette, Cog, Handshake, Box, ClipboardCheck, Menu, X, ChevronDown } from "lucide-react"
 
 const services = [
     {
-        title: "Архитектурно проектиране",
-        description: "Цялостни решения от концепция до работен проект и реализация.",
+        title: "Архитектура",
+        description: "Цялостни архитектурни решения от концепция до реализация.",
         icon: <Building2 className="size-5 text-black" />,
         href: "#services-arch"
     },
     {
         title: "Интериорен дизайн",
-        description: "Индивидуални интериорни проекти, съчетаващи стил и функционалност.",
-        icon: <Layout className="size-5 text-black" />,
+        description: "Индивидуални проекти за пространства, съчетаващи стил и комфорт.",
+        icon: <Palette className="size-5 text-black" />,
         href: "#services-interior"
     },
     {
-        title: "Консултации и надзор",
-        description: "Експертни консултации, узаконяване и авторски надзор по време на строеж.",
-        icon: <FileText className="size-5 text-black" />,
-        href: "#services-consult"
+        title: "Инженерно проектиране",
+        description: "Прецизни инженерни планове и техническа документация.",
+        icon: <Cog className="size-5 text-black" />,
+        href: "#services-engineering"
+    },
+    {
+        title: "Консултиране",
+        description: "Професионални съвети и експертно мнение за вашия проект.",
+        icon: <Handshake className="size-5 text-black" />,
+        href: "#services-consultant"
+    },
+    {
+        title: "3D Анимация и VR",
+        description: "Фотореалистични визуализации и потапящи VR преживявания.",
+        icon: <Box className="size-5 text-black" />,
+        href: "#services-3d-vr"
+    },
+    {
+        title: "Управление на проекти",
+        description: "Координация и контрол на целия инвестиционен процес.",
+        icon: <ClipboardCheck className="size-5 text-black" />,
+        href: "#services-pm"
     },
 ]
 
@@ -56,14 +74,14 @@ export function Navbar() {
 
     return (
         <header className="sticky top-4 mt-8 mb-[-96px] left-0 right-0 z-50 flex justify-center px-4 pointer-events-none transition-all duration-500 ease-in-out">
-            <div ref={navRef} className="w-full max-w-[27rem] sm:max-w-xl md:max-w-3xl xl:max-w-5xl 2xl:max-w-6xl pointer-events-auto transition-all duration-300 relative h-[64px]">
+            <div ref={navRef} className="w-full max-w-[27rem] sm:max-w-xl md:max-w-3xl xl:max-w-5xl 2xl:max-w-280 pointer-events-auto transition-all duration-300 relative h-[64px]">
                 {/*
                   ROUNDING FIX: Always rounded-3xl — never toggle the border-radius.
                   Animating between rounded-full and a lower radius causes ugly shape
                   distortion during the transition. rounded-3xl (24px) reads as a pill
                   at 64px tall and smoothly becomes a rounded-rect when expanded.
                 */}
-                <div className="absolute top-0 left-0 right-0 px-6 rounded-4xl transition-all duration-300 ease-in-out border border-white/20 bg-gradient-to-b from-white/80 to-white/60 backdrop-blur-[5px] shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] saturate-150">
+                <div className="absolute top-0 left-0 right-0 px-6 rounded-4xl transition-all duration-300 ease-in-out border border-white/20 bg-gradient-to-b from-white/80 to-white/60 backdrop-blur-[15px] shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] saturate-150">
 
                     {/* Main bar */}
                     <div className="flex items-center justify-between h-[64px]">
@@ -160,7 +178,7 @@ export function Navbar() {
                         className={cn(
                             "hidden md:grid grid-cols-3 gap-3 overflow-hidden transition-all duration-300 ease-in-out",
                             servicesOpen
-                                ? "max-h-[220px] opacity-100 pb-5 pt-1"
+                                ? "max-h-[400px] opacity-100 pb-5 pt-1"
                                 : "max-h-0 opacity-0 pb-0 pt-0 pointer-events-none"
                         )}
                     >
@@ -191,7 +209,7 @@ export function Navbar() {
                         className={cn(
                             "md:hidden overflow-hidden transition-all duration-300 ease-in-out",
                             mobileOpen
-                                ? "max-h-[600px] opacity-100 pb-5 pt-1"
+                                ? "max-h-[800px] opacity-100 pb-5 pt-1"
                                 : "max-h-0 opacity-0 pb-0 pt-0 pointer-events-none"
                         )}
                     >

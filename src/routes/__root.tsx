@@ -1,7 +1,7 @@
 import { HeadContent, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { TanStackDevtools } from "@tanstack/react-devtools";
-import Footer from "../components/Footer";
+import Footer from "#/components/layout/Footer";
 import { Navbar } from "#/components/layout/Navbar";
 import { BackgroundPattern } from "#/components/layout/BackgroundPattern";
 

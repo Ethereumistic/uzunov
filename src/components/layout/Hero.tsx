@@ -43,15 +43,6 @@ function HeroContent() {
                 </div>
             </div>
 
-            {/* ── Slide caption — bottom left ─────────────────────── */}
-            <div className="absolute bottom-10 left-10 z-10">
-                <p
-                    key={current}
-                    className="font-sans text-[0.6875rem] font-normal tracking-widest uppercase text-white/45 m-0 animate-[caption-fade_600ms_ease_both]"
-                >
-                    {slides[current].caption}
-                </p>
-            </div>
 
             {/* ── Dots pagination — bottom centre ─────────────────── */}
             <div
@@ -75,7 +66,7 @@ function HeroContent() {
             </div>
 
             {/* ── Slide counter — bottom right ────────────────────── */}
-            <div className="absolute bottom-10 right-10 z-10 flex items-baseline gap-1">
+            {/* <div className="absolute bottom-10 right-10 z-10 flex items-baseline gap-1">
                 <span
                     key={`c-${current}`}
                     className="font-display text-[1.125rem] font-normal text-white/85 animate-[caption-fade_400ms_ease_both] min-w-[1.2ch]"
@@ -85,7 +76,7 @@ function HeroContent() {
                 <span className="font-sans text-[0.625rem] text-white/35 tracking-widest">
                     / {String(slides.length).padStart(2, "0")}
                 </span>
-            </div>
+            </div> */}
         </>
     )
 }
