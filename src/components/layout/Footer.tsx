@@ -15,9 +15,9 @@ export default function Footer() {
     ]
 
     const quickLinks = [
-        { label: "За нас", href: "/#about" },
-        { label: "Проекти", href: "/projects" },
-        { label: "Контакти", href: "/#contact" },
+        { label: "За нас", to: "/" as const, hash: "about" },
+        { label: "Проекти", to: "/projects" as const, hash: undefined },
+        { label: "Контакти", to: "/" as const, hash: "contact" },
     ]
 
     return (
@@ -44,7 +44,8 @@ export default function Footer() {
                             {quickLinks.map((link) => (
                                 <Link
                                     key={link.label}
-                                    to={link.href as any}
+                                    to={link.to}
+                                    hash={link.hash}
                                     className="group text-[12px] font-semibold text-foreground/70 hover:text-primary transition-all flex items-center gap-1 w-fit"
                                 >
                                     <span className="relative">

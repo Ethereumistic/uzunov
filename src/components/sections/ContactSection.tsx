@@ -31,7 +31,7 @@ export function ContactSection() {
     }
 
     return (
-        <section id="contact" className="w-full pt-24 scroll-mt-24 overflow-hidden">
+        <section id="contact" className="w-full pt-24 scroll-mt-8 overflow-hidden">
             <div className="max-w-6xl mx-auto">
                 <div className="relative">
                     {/* <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-stone-200/20 rounded-full blur-[100px] -z-10" /> */}

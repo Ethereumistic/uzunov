@@ -1,5 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { useState } from "react"
+import {
+  LayoutGrid,
+  Building2,
+  Hospital,
+  ShoppingBag,
+  Factory,
+} from "lucide-react"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "#/components/ui/tabs"
 import {
   projects,
@@ -10,6 +17,14 @@ import {
 import { cn } from "#/lib/utils"
 import { PageHeader } from "#/components/layout/PageHeader"
 import { ProjectCard } from "#/components/projects/ProjectCard"
+
+const categoryIcons: Record<ProjectCategory, React.ElementType> = {
+  All: LayoutGrid,
+  Office: Building2,
+  Healthcare: Hospital,
+  Commercial: ShoppingBag,
+  Industrial: Factory,
+}
 
 export const Route = createFileRoute("/projects/")({
   component: ProjectsPage,
@@ -41,16 +56,20 @@ function ProjectsPage() {
           className="mb-10"
         >
           <div className="w-full flex justify-center">
-            <TabsList className="grid w-full grid-cols-3 md:flex md:w-fit mb-8">
-              {allCategories.map((cat) => (
-                <TabsTrigger
-                  key={cat}
-                  value={cat}
-                  className="rounded-lg text-xs sm:text-sm"
-                >
-                  {categoryLabels[cat]}
-                </TabsTrigger>
-              ))}
+            <TabsList className="grid w-full grid-cols-2 xs:grid-cols-3 md:flex md:w-auto h-auto mb-8 gap-1.5 p-1.5 bg-stone-100/50 backdrop-blur-sm rounded-xl">
+              {allCategories.map((cat) => {
+                const Icon = categoryIcons[cat]
+                return (
+                  <TabsTrigger
+                    key={cat}
+                    value={cat}
+                    className="group rounded-lg text-xs sm:text-sm flex items-center justify-center gap-2 px-3 py-2 sm:px-4 sm:py-2.5 transition-all duration-300 data-[state=active]:bg-black data-[state=active]:shadow-sm data-[state=active]:text-white text-black/50 hover:text-black/80"
+                  >
+                    <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-all duration-300 group-data-[state=active]:scale-110 group-data-[state=active]:opacity-100 opacity-60" />
+                    <span className="font-medium tracking-tight whitespace-nowrap">{categoryLabels[cat]}</span>
+                  </TabsTrigger>
+                )
+              })}
             </TabsList>
           </div>
 

@@ -12,6 +12,7 @@ import {
     X,
     ChevronDown
 } from 'lucide-react'
+import { Link } from "@tanstack/react-router"
 
 const services = [
     {
@@ -98,9 +99,9 @@ export function Navbar() {
 
                         {/* Logo */}
                         <div className="flex shrink-0 items-center">
-                            <a href="/" className="transition-opacity">
+                            <Link to="/" className="transition-opacity">
                                 <Logo type="horizontal" size="lg" variant="black" />
-                            </a>
+                            </Link>
                         </div>
 
                         {/* Desktop Navigation */}
@@ -108,7 +109,9 @@ export function Navbar() {
                             className="hidden md:flex items-center gap-1"
                             onMouseLeave={() => setHoveredNav(null)}
                         >
-                            <a
+                            <Link
+                                to="/"
+                                hash="about"
                                 onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
                                 onMouseEnter={() => setHoveredNav("about")}
                                 className={cn(
@@ -121,10 +124,10 @@ export function Navbar() {
                                 )}
                             >
                                 За нас
-                            </a>
+                            </Link>
 
-                            <a
-                                href="/projects"
+                            <Link
+                                to="/projects"
                                 onMouseEnter={() => setHoveredNav("projects")}
                                 className={cn(
                                     "px-4 py-2 rounded-full text-sm font-bold uppercase transition-all duration-150 select-none",
@@ -136,17 +139,19 @@ export function Navbar() {
                                 )}
                             >
                                 Проекти
-                            </a>
+                            </Link>
 
                             {/* Services trigger — hover activates panel */}
                             <div
                                 onMouseEnter={() => { handleServicesMouseEnter(); setHoveredNav("services") }}
                                 onMouseLeave={() => { handleServicesMouseLeave(); setHoveredNav(null) }}
                             >
-                                <button
+                                <Link
+                                    to="/"
+                                    hash="services"
                                     onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
                                     className={cn(
-                                        "inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm font-bold uppercase transition-all duration-150 select-none",
+                                        "inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm font-bold uppercase transition-all duration-150 select-none transition-colors",
                                         servicesOpen
                                             ? "text-black ring-1 ring-black/12 bg-black/4"
                                             : hoveredNav === "services"
@@ -163,18 +168,20 @@ export function Navbar() {
                                             servicesOpen && "rotate-180"
                                         )}
                                     />
-                                </button>
+                                </Link>
                             </div>
                         </nav>
 
                         {/* Right side */}
                         <div className="flex items-center gap-3">
-                            <a
-                                href="#contact"
+                            <Link
+                                to="/"
+                                hash="contact"
+                                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                                 className="hidden md:inline-flex bg-black text-white px-6 py-2.5 rounded-full text-sm font-bold uppercase hover:bg-black/80 transition-all shadow-lg hover:shadow-black/20"
                             >
                                 Контакт
-                            </a>
+                            </Link>
                             <button
                                 className="md:hidden p-2 text-black rounded-full hover:bg-black/5 transition-colors"
                                 onClick={() => {
@@ -200,9 +207,9 @@ export function Navbar() {
                         )}
                     >
                         {services.map((service) => (
-                            <a
+                            <Link
                                 key={service.href}
-                                href={service.href}
+                                to={service.href as any}
                                 onClick={() => setServicesOpen(false)}
                                 className="group flex items-center gap-4 rounded-2xl border border-black/8 p-4 transition-all duration-200 hover:bg-black/4 hover:border-black/20"
                             >
@@ -212,7 +219,7 @@ export function Navbar() {
                                 <span className="font-semibold text-[15px] text-black leading-tight">
                                     {service.title}
                                 </span>
-                            </a>
+                            </Link>
                         ))}
                     </div>
 
@@ -226,20 +233,21 @@ export function Navbar() {
                         )}
                     >
                         <nav className="flex flex-col gap-1 mb-4 border-b border-black/8 pb-4">
-                            <a
-                                href="#about"
-                                onClick={() => setMobileOpen(false)}
+                            <Link
+                                to="/"
+                                hash="about"
+                                onClick={() => { setMobileOpen(false); document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) }}
                                 className="px-3 py-2.5 rounded-xl text-sm font-medium text-black hover:bg-black/5 transition-colors"
                             >
                                 За нас
-                            </a>
-                            <a
-                                href="/projects"
+                            </Link>
+                            <Link
+                                to="/projects"
                                 onClick={() => setMobileOpen(false)}
                                 className="px-3 py-2.5 rounded-xl text-sm font-medium text-black hover:bg-black/5 transition-colors"
                             >
                                 Проекти
-                            </a>
+                            </Link>
                         </nav>
 
                         <p className="text-[11px] font-semibold tracking-widest text-black/35 uppercase mb-3 px-1">
@@ -247,9 +255,9 @@ export function Navbar() {
                         </p>
                         <div className="flex flex-col gap-2">
                             {services.map((service) => (
-                                <a
+                                <Link
                                     key={service.href}
-                                    href={service.href}
+                                    to={service.href as any}
                                     onClick={() => setMobileOpen(false)}
                                     className="flex items-center gap-4 rounded-2xl border border-black/8 p-3.5 transition-all duration-200 hover:bg-black/4"
                                 >
@@ -257,17 +265,18 @@ export function Navbar() {
                                         {service.icon}
                                     </div>
                                     <p className="font-semibold text-[15px] text-black leading-tight">{service.title}</p>
-                                </a>
+                                </Link>
                             ))}
                         </div>
 
-                        <a
-                            href="#contact"
+                        <Link
+                            to="/"
+                            hash="contact"
                             onClick={() => setMobileOpen(false)}
                             className="mt-4 flex items-center justify-center bg-black text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-black/80 transition-all"
                         >
                             Контакти
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
