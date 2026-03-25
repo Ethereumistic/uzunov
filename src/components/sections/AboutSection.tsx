@@ -1,57 +1,6 @@
-import { Card, CardContent } from '#/components/ui/card'
+import { Card } from '#/components/ui/card'
 import { Badge } from '#/components/ui/badge'
-import {
-    Building2,
-    PenTool,
-    Cog,
-    MessageSquare,
-    Box,
-    ClipboardCheck,
-    Quote,
-    Target,
-    Eye,
-    Lightbulb
-} from 'lucide-react'
-
-// Services data
-const services = [
-    {
-        title: 'Архитектура',
-        description: 'Цялостни архитектурни решения от концепция до реализация.',
-        icon: Building2,
-        image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80'
-    },
-    {
-        title: 'Интериорен дизайн',
-        description: 'Индивидуални проекти за пространства, съчетаващи стил и комфорт.',
-        icon: PenTool,
-        image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80'
-    },
-    {
-        title: 'Инженерно проектиране',
-        description: 'Прецизни инженерни планове и техническа документация.',
-        icon: Cog,
-        image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80'
-    },
-    {
-        title: 'Консултиране',
-        description: 'Професионални съвети и експертно мнение за вашия проект.',
-        icon: MessageSquare,
-        image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80'
-    },
-    {
-        title: '3D Анимация и VR',
-        description: 'Фотореалистични визуализации и потапящи VR преживявания.',
-        icon: Box,
-        image: 'https://images.unsplash.com/photo-1478416272538-5f7e51dc5400?w=800&q=80'
-    },
-    {
-        title: 'Управление на проекти',
-        description: 'Координация и контрол на целия инвестиционен процес.',
-        icon: ClipboardCheck,
-        image: 'https://images.unsplash.com/photo-1541888946425-d81bb19480c5?w=800&q=80'
-    }
-]
+import { Target, Eye, Lightbulb } from 'lucide-react'
 
 // Company stats
 const stats = [
@@ -64,19 +13,19 @@ const stats = [
 const coreValues = [
     {
         title: 'Философия',
-        description: 'Вярваме, че архитектурата е изкуство да се създават пространства, които вдъхновяват, функционални решения, които издържат времето, и устойчиви среди, които уважават природата.',
+        description: 'Създаваме вдъхновяващи пространства и функционални решения, които издържат във времето.',
         icon: Lightbulb,
         image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80'
     },
     {
         title: 'Мисия',
-        description: 'Да трансформираме визиите на нашите клиенти в реалност чрез иновативно проектиране, прецизно изпълнение и ненадминато качество на всяка стъпка от процеса.',
+        description: 'Трансформираме вашите визии в реалност чрез иновативно проектиране и прецизно изпълнение.',
         icon: Target,
         image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80'
     },
     {
         title: 'Визия',
-        description: 'Да бъдем водеща архитектурна фирма в България, призната за творчески подход, техническо съвършенство и устойчиви решения, които оформят градската среда на бъдещето.',
+        description: 'Оформяме градската среда чрез творчески подход и устойчиви архитектурни решения.',
         icon: Eye,
         image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80'
     }
@@ -110,87 +59,60 @@ export default function AboutSection() {
                     {coreValues.map((value, index) => (
                         <Card
                             key={index}
-                            className="group relative overflow-hidden border-white/60 bg-white/40 backdrop-blur-xl transition-all duration-700 hover:bg-white/60 hover:shadow-[0_40px_80px_rgba(0,0,0,0.06)] rounded-3xl"
+                            className="group relative overflow-hidden rounded-3xl border-0 bg-transparent h-[440px] flex flex-col justify-end"
                         >
-                            {/* Card background image on hover */}
-                            <div className="absolute inset-0 z-0 overflow-hidden">
+                            {/* Background Image */}
+                            <div className="absolute inset-0 z-0">
                                 <div
-                                    className="h-full w-full bg-cover bg-center grayscale opacity-0 transition-all duration-900 ease-out group-hover:grayscale-0 group-hover:opacity-15 group-hover:scale-110"
+                                    className="h-full w-full bg-cover bg-center transition-transform duration-1000 ease-out group-hover:scale-105"
                                     style={{ backgroundImage: `url(${value.image})` }}
                                 />
+                                <div className="absolute inset-0 bg-linear-to-b from-black/10 via-black/50 to-black/80 transition-opacity duration-700" />
                             </div>
 
-                            <CardContent className="relative z-10 p-8">
-                                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm border border-black/5 transition-transform duration-500 group-hover:-translate-y-1">
-                                    <value.icon className="h-6 w-6 text-zinc-800" />
+                            {/* Content block */}
+                            <div className="relative z-10 p-6 sm:p-8 flex flex-col w-full transition-transform duration-500 group-hover:-translate-y-2">
+                                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-lg transition-transform duration-500 group-hover:scale-110">
+                                    <value.icon className="h-6 w-6 text-white" />
                                 </div>
-                                <h3 className="mb-4 text-xl font-bold text-[#1a1916] tracking-tight">{value.title}</h3>
-                                <p className="text-[0.9375rem] leading-relaxed text-zinc-500 font-light">{value.description}</p>
-                            </CardContent>
+                                <h3 className="mb-2 text-2xl font-bold text-white tracking-tight drop-shadow-md">{value.title}</h3>
+                                <p className="text-[0.9375rem] leading-relaxed text-white/90 font-light drop-shadow-md">{value.description}</p>
+                            </div>
                         </Card>
                     ))}
                 </div>
 
-                {/* Services Section */}
-                <div className="mb-28">
-                    <div className="mb-14 text-center">
-                        <p className="text-[0.6875rem] font-semibold tracking-[0.2em] uppercase text-black/35 mb-3">
-                            Какво правим
-                        </p>
-                        <h2 className="text-4xl font-bold text-[#1a1916] tracking-tight">
-                            Нашите <span className="font-light italic">Услуги</span>
-                        </h2>
-                    </div>
-
-                    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                        {services.map((service, index) => (
-                            <Card
-                                key={index}
-                                className="group relative overflow-hidden border-black/5 bg-stone-50/50 backdrop-blur-sm transition-all duration-700 hover:border-black/10 hover:bg-white hover:shadow-xl rounded-2xl"
-                            >
-                                {/* Service Image Background */}
-                                <div className="absolute inset-0 z-0 overflow-hidden">
-                                    <div
-                                        className="h-full w-full bg-cover bg-center grayscale opacity-0 transition-all duration-900 ease-out group-hover:grayscale-0 group-hover:opacity-10 group-hover:scale-110"
-                                        style={{ backgroundImage: `url(${service.image})` }}
-                                    />
-                                </div>
-
-                                <CardContent className="relative z-10 p-8">
-                                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-sm border border-black/5 transition-all duration-500 group-hover:bg-zinc-900 group-hover:text-white group-hover:-translate-y-1">
-                                        <service.icon className="h-5 w-5" />
-                                    </div>
-                                    <h3 className="mb-2.5 text-lg font-bold text-[#1a1916] tracking-tight">{service.title}</h3>
-                                    <p className="text-sm leading-relaxed text-zinc-500 font-light">{service.description}</p>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
-                </div>
+                {/* Removed Services Section - Now a standalone component */}
 
                 {/* Stats Section */}
                 <div className="mb-24">
-                    <div className="relative overflow-hidden rounded-[2.5rem] border border-white/60 bg-white/30 p-10 backdrop-blur-2xl sm:p-16">
-                        {/* Decorative quote icon */}
-                        <Quote className="absolute right-12 top-12 h-24 w-24 text-black/5 opacity-40" />
+                    <div className="group relative overflow-hidden rounded-3xl border-0 bg-transparent p-10 sm:p-16">
+                        {/* Background Image */}
+                        <div className="absolute inset-0 z-0">
+                            <div
+                                className="h-full w-full bg-cover bg-center transition-transform duration-2000 ease-out scale-125 group-hover:scale-130"
+                                style={{ backgroundImage: `url('https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/scientia-slide4.webp')` }}
+                            />
+                            <div className="absolute inset-0 bg-linear-to-b from-black/20 via-black/50 to-black/80 transition-opacity duration-700" />
+                        </div>
 
                         <div className="relative z-10">
                             <div className="mb-14 text-center">
-                                <h2 className="mb-4 text-3xl font-bold text-[#1a1916] tracking-tight">
+                                <h2 className="mb-4 text-4xl font-bold text-white tracking-tight drop-shadow-md">
                                     Студиото в <span className="font-light italic">цифри</span>
                                 </h2>
-                                <p className="mx-auto max-w-xl text-zinc-500 font-light">
+                                <p className="mx-auto max-w-xl text-white/90 font-light drop-shadow-md">
                                     Дългогодишният опит и стотиците проектирани пространства са гаранция за нашето качество и прецизност.
                                 </p>
                             </div>
 
                             <div className="grid grid-cols-1 gap-y-12 gap-x-8 sm:grid-cols-3">
                                 {stats.map((stat, index) => (
-                                    <div key={index} className="text-center group">
-                                        <div className="mb-2 text-6xl font-bold text-[#1a1916] tracking-tighter transition-transform duration-700 group-hover:scale-105">
-                                            {stat.value}
+                                    <div key={index} className="flex flex-col items-center text-center group/stat">
+                                        <div className="mb-6 inline-flex h-24 min-w-40 px-8 items-center justify-center rounded-4xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-lg transition-transform duration-500 group-hover/stat:scale-110">
+                                            <span className="text-5xl font-bold text-white tracking-tighter drop-shadow-sm">{stat.value}</span>
                                         </div>
-                                        <div className="text-[0.8125rem] font-bold uppercase tracking-[0.2em] text-black/30">
+                                        <div className="text-[0.875rem] font-bold uppercase tracking-[0.2em] text-white/90 drop-shadow-md">
                                             {stat.label}
                                         </div>
                                     </div>

@@ -31,7 +31,6 @@ function ProjectsPage() {
     <main className="min-h-screen p-5 bg-transparent">
 
       <PageHeader
-        label="Портфолио"
         title={<>Нашите <em className="italic font-light">проекти</em></>}
         subtitle="Над три десетилетия проектиране — офиси, болници, търговски обекти и индустриални съоръжения в цяла България."
       />

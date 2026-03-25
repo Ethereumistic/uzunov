@@ -2,6 +2,7 @@ import { Hero } from "#/components/layout/Hero";
 import { FeaturedProjects } from "#/components/sections/FeaturedProjects";
 import { createFileRoute } from "@tanstack/react-router";
 import AboutSection from "#/components/sections/AboutSection";
+import { ServicesSection } from "#/components/sections/ServicesSection";
 
 export const Route = createFileRoute("/")({ component: App });
 
@@ -11,6 +12,7 @@ function App() {
       <Hero />
       <FeaturedProjects />
       <AboutSection />
+      <ServicesSection />
     </main>
   );
 }

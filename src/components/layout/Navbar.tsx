@@ -8,37 +8,37 @@ const services = [
         title: "Архитектура",
         description: "Цялостни архитектурни решения от концепция до реализация.",
         icon: <Building2 className="size-5 text-black" />,
-        href: "#services-arch"
+        href: "/services/architecture"
     },
     {
         title: "Интериорен дизайн",
         description: "Индивидуални проекти за пространства, съчетаващи стил и комфорт.",
         icon: <Palette className="size-5 text-black" />,
-        href: "#services-interior"
+        href: "/services/interior"
     },
     {
         title: "Инженерно проектиране",
         description: "Прецизни инженерни планове и техническа документация.",
         icon: <Cog className="size-5 text-black" />,
-        href: "#services-engineering"
+        href: "/services/engineering"
     },
     {
         title: "Консултиране",
         description: "Професионални съвети и експертно мнение за вашия проект.",
         icon: <Handshake className="size-5 text-black" />,
-        href: "#services-consultant"
+        href: "/services/consulting"
     },
     {
         title: "3D Анимация и VR",
         description: "Фотореалистични визуализации и потапящи VR преживявания.",
         icon: <Box className="size-5 text-black" />,
-        href: "#services-3d-vr"
+        href: "/services/3d"
     },
     {
         title: "Управление на проекти",
         description: "Координация и контрол на целия инвестиционен процес.",
         icon: <ClipboardCheck className="size-5 text-black" />,
-        href: "#services-pm"
+        href: "/services/projects"
     },
 ]
 
@@ -130,6 +130,7 @@ export function Navbar() {
                                 onMouseLeave={() => { handleServicesMouseLeave(); setHoveredNav(null) }}
                             >
                                 <button
+                                    onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
                                     className={cn(
                                         "inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm font-medium transition-all duration-150 select-none",
                                         servicesOpen

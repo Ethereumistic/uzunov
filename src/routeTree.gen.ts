@@ -13,6 +13,12 @@ import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
+import { Route as ServicesProjectsRouteImport } from './routes/services/projects'
+import { Route as ServicesInteriorRouteImport } from './routes/services/interior'
+import { Route as ServicesEngineeringRouteImport } from './routes/services/engineering'
+import { Route as ServicesConsultingRouteImport } from './routes/services/consulting'
+import { Route as ServicesArchitectureRouteImport } from './routes/services/architecture'
+import { Route as Services3dRouteImport } from './routes/services/3d'
 import { Route as ProjectsProjectIdRouteImport } from './routes/projects/$projectId'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
 import { Route as DemoTableRouteImport } from './routes/demo/table'
@@ -41,6 +47,36 @@ const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => ProjectsRoute,
+} as any)
+const ServicesProjectsRoute = ServicesProjectsRouteImport.update({
+  id: '/services/projects',
+  path: '/services/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesInteriorRoute = ServicesInteriorRouteImport.update({
+  id: '/services/interior',
+  path: '/services/interior',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesEngineeringRoute = ServicesEngineeringRouteImport.update({
+  id: '/services/engineering',
+  path: '/services/engineering',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesConsultingRoute = ServicesConsultingRouteImport.update({
+  id: '/services/consulting',
+  path: '/services/consulting',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesArchitectureRoute = ServicesArchitectureRouteImport.update({
+  id: '/services/architecture',
+  path: '/services/architecture',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Services3dRoute = Services3dRouteImport.update({
+  id: '/services/3d',
+  path: '/services/3d',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ProjectsProjectIdRoute = ProjectsProjectIdRouteImport.update({
   id: '/$projectId',
@@ -92,6 +128,12 @@ export interface FileRoutesByFullPath {
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
+  '/services/3d': typeof Services3dRoute
+  '/services/architecture': typeof ServicesArchitectureRoute
+  '/services/consulting': typeof ServicesConsultingRoute
+  '/services/engineering': typeof ServicesEngineeringRoute
+  '/services/interior': typeof ServicesInteriorRoute
+  '/services/projects': typeof ServicesProjectsRoute
   '/projects/': typeof ProjectsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/demo/form/address': typeof DemoFormAddressRoute
@@ -105,6 +147,12 @@ export interface FileRoutesByTo {
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
+  '/services/3d': typeof Services3dRoute
+  '/services/architecture': typeof ServicesArchitectureRoute
+  '/services/consulting': typeof ServicesConsultingRoute
+  '/services/engineering': typeof ServicesEngineeringRoute
+  '/services/interior': typeof ServicesInteriorRoute
+  '/services/projects': typeof ServicesProjectsRoute
   '/projects': typeof ProjectsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/demo/form/address': typeof DemoFormAddressRoute
@@ -120,6 +168,12 @@ export interface FileRoutesById {
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
+  '/services/3d': typeof Services3dRoute
+  '/services/architecture': typeof ServicesArchitectureRoute
+  '/services/consulting': typeof ServicesConsultingRoute
+  '/services/engineering': typeof ServicesEngineeringRoute
+  '/services/interior': typeof ServicesInteriorRoute
+  '/services/projects': typeof ServicesProjectsRoute
   '/projects/': typeof ProjectsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/demo/form/address': typeof DemoFormAddressRoute
@@ -136,6 +190,12 @@ export interface FileRouteTypes {
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/projects/$projectId'
+    | '/services/3d'
+    | '/services/architecture'
+    | '/services/consulting'
+    | '/services/engineering'
+    | '/services/interior'
+    | '/services/projects'
     | '/projects/'
     | '/api/auth/$'
     | '/demo/form/address'
@@ -149,6 +209,12 @@ export interface FileRouteTypes {
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/projects/$projectId'
+    | '/services/3d'
+    | '/services/architecture'
+    | '/services/consulting'
+    | '/services/engineering'
+    | '/services/interior'
+    | '/services/projects'
     | '/projects'
     | '/api/auth/$'
     | '/demo/form/address'
@@ -163,6 +229,12 @@ export interface FileRouteTypes {
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/projects/$projectId'
+    | '/services/3d'
+    | '/services/architecture'
+    | '/services/consulting'
+    | '/services/engineering'
+    | '/services/interior'
+    | '/services/projects'
     | '/projects/'
     | '/api/auth/$'
     | '/demo/form/address'
@@ -177,6 +249,12 @@ export interface RootRouteChildren {
   DemoConvexRoute: typeof DemoConvexRoute
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
+  Services3dRoute: typeof Services3dRoute
+  ServicesArchitectureRoute: typeof ServicesArchitectureRoute
+  ServicesConsultingRoute: typeof ServicesConsultingRoute
+  ServicesEngineeringRoute: typeof ServicesEngineeringRoute
+  ServicesInteriorRoute: typeof ServicesInteriorRoute
+  ServicesProjectsRoute: typeof ServicesProjectsRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   DemoFormAddressRoute: typeof DemoFormAddressRoute
   DemoFormSimpleRoute: typeof DemoFormSimpleRoute
@@ -211,6 +289,48 @@ declare module '@tanstack/react-router' {
       fullPath: '/projects/'
       preLoaderRoute: typeof ProjectsIndexRouteImport
       parentRoute: typeof ProjectsRoute
+    }
+    '/services/projects': {
+      id: '/services/projects'
+      path: '/services/projects'
+      fullPath: '/services/projects'
+      preLoaderRoute: typeof ServicesProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/interior': {
+      id: '/services/interior'
+      path: '/services/interior'
+      fullPath: '/services/interior'
+      preLoaderRoute: typeof ServicesInteriorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/engineering': {
+      id: '/services/engineering'
+      path: '/services/engineering'
+      fullPath: '/services/engineering'
+      preLoaderRoute: typeof ServicesEngineeringRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/consulting': {
+      id: '/services/consulting'
+      path: '/services/consulting'
+      fullPath: '/services/consulting'
+      preLoaderRoute: typeof ServicesConsultingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/architecture': {
+      id: '/services/architecture'
+      path: '/services/architecture'
+      fullPath: '/services/architecture'
+      preLoaderRoute: typeof ServicesArchitectureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services/3d': {
+      id: '/services/3d'
+      path: '/services/3d'
+      fullPath: '/services/3d'
+      preLoaderRoute: typeof Services3dRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/projects/$projectId': {
       id: '/projects/$projectId'
@@ -293,6 +413,12 @@ const rootRouteChildren: RootRouteChildren = {
   DemoConvexRoute: DemoConvexRoute,
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
+  Services3dRoute: Services3dRoute,
+  ServicesArchitectureRoute: ServicesArchitectureRoute,
+  ServicesConsultingRoute: ServicesConsultingRoute,
+  ServicesEngineeringRoute: ServicesEngineeringRoute,
+  ServicesInteriorRoute: ServicesInteriorRoute,
+  ServicesProjectsRoute: ServicesProjectsRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   DemoFormAddressRoute: DemoFormAddressRoute,
   DemoFormSimpleRoute: DemoFormSimpleRoute,
