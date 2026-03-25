@@ -14,15 +14,15 @@ interface PageHeaderProps {
 export function PageHeader({ title, subtitle, slides }: PageHeaderProps) {
     return (
         <HeroSlider slides={slides} className="h-[45vh] min-h-[380px] rounded-3xl mb-12">
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center text-white">
+            <div className="absolute inset-0 flex flex-col items-center justify-center pt-14 p-6 text-center text-white">
                 {/* title */}
-                <h1 className="rise-in font-display text-[clamp(2.25rem,5vw,4rem)] font-bold leading-[1.1] tracking-tight m-0 mb-6 max-w-[20ch] [animation-delay:400ms]">
+                <h1 className="rise-in z-50 font-display text-[clamp(2.25rem,5vw,4rem)] font-bold leading-[1.1] tracking-tight m-0 mb-6 max-w-[20ch] [animation-delay:400ms]">
                     {title}
                 </h1>
-                
+
                 {/* subtitle */}
                 {subtitle && (
-                    <p className="rise-in text-white/65 text-[clamp(0.9375rem,1.2vw,1.0625rem)] font-light leading-relaxed max-w-[55ch] mx-auto [animation-delay:600ms]">
+                    <p className="rise-in  text-white text-[clamp(0.9375rem,1.2vw,1.0625rem)] font-light leading-relaxed max-w-[55ch] mx-auto [animation-delay:600ms]">
                         {subtitle}
                     </p>
                 )}

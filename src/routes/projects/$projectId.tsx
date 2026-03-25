@@ -12,8 +12,10 @@ import {
   ChevronRight,
   X,
 } from "lucide-react"
+import { OtherProjectsSection } from "#/components/sections/OtherProjectsSection"
 import { getProjectById, categoryLabels } from "#/data/projects"
 import { cn } from "#/lib/utils"
+import { Button } from "#/components/ui/button"
 
 export const Route = createFileRoute("/projects/$projectId")({
   component: ProjectDetailPage,
@@ -60,11 +62,16 @@ function ProjectDetailPage() {
           to="/projects"
           className="inline-flex items-center gap-2 text-sm font-medium text-black/40 hover:text-black transition-colors mb-8 group"
         >
-          <ArrowLeft
-            size={15}
-            className="transition-transform duration-200 group-hover:-translate-x-0.5"
-          />
-          Всички проекти
+          <Button
+            variant="outline"
+            size="icon"
+            className={cn(
+              "rounded-full border-black/10 size-12 bg-white hover:bg-black/5 transition-all duration-300 shadow-sm",
+            )}
+
+          >
+            <ChevronLeft className="h-5 w-5 text-black/70" />
+          </Button>
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 items-start">
@@ -171,6 +178,10 @@ function ProjectDetailPage() {
             )}
           </div>
         </div>
+
+        <div className="mt-24 border-t border-stone-200 pt-20">
+          <OtherProjectsSection currentProjectId={projectId} />
+        </div>
       </div>
 
       {lightboxOpen && hasImages && (
@@ -212,7 +223,7 @@ function BentoGallery({
       {/* Main carousel */}
       <button
         onClick={() => onImageClick(carouselIndex)}
-        className="relative overflow-hidden rounded-2xl bg-stone-100 aspect-[16/10] group"
+        className="relative overflow-hidden rounded-2xl bg-stone-100 aspect-16/10 group"
       >
         <img
           key={carouselIndex}

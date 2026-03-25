@@ -40,9 +40,9 @@ interface HeroSliderProps {
     externalGo?: (idx: number) => void;
 }
 
-export function HeroSlider({ 
-    className, 
-    children, 
+export function HeroSlider({
+    className,
+    children,
     slides,
     onSlideChange,
     externalCurrent,
@@ -66,7 +66,7 @@ export function HeroSlider({
     const go = useCallback(
         (idx: number) => {
             if (animating || idx === current) return
-            
+
             setPrev(current)
             if (externalGo) {
                 externalGo(idx)
@@ -74,7 +74,7 @@ export function HeroSlider({
                 setCurrent(idx)
             }
             setAnimating(true)
-            
+
             setTimeout(() => {
                 setPrev(null)
                 setAnimating(false)
@@ -115,9 +115,9 @@ export function HeroSlider({
                     const imgClasses = cn(
                         "w-full h-full object-cover object-center will-change-[opacity,transform]",
                         isSingle ? "animate-breathe opacity-100"
-                        : isCurrent ? "opacity-100 scale-[1.02]" 
-                        : isPrev ? "opacity-100 scale-100" 
-                        : "opacity-0 scale-[1.06]"
+                            : isCurrent ? "opacity-100 scale-[1.02]"
+                                : isPrev ? "opacity-100 scale-100"
+                                    : "opacity-0 scale-[1.06]"
                     );
                     const imgStyle = {
                         transition: isSingle ? "none" : isCurrent
@@ -157,7 +157,7 @@ export function HeroSlider({
                             )}
 
                             {/* gradient scrim */}
-                            <div className="absolute inset-0 bg-linear-to-b from-[#0f0e0d]/25 via-[#0f0e0d]/45 to-[#0f0e0d]/40" />
+                            <div className="absolute inset-0 bg-linear-to-b from-[#0f0e0d]/25 via-[#0f0e0d]/50 to-[#0f0e0d]/90" />
                         </div>
                     )
                 })}
