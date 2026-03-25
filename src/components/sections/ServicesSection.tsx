@@ -16,7 +16,7 @@ const services = [
         title: 'Архитектура',
         description: 'Цялостни архитектурни решения от концепция до реализация.',
         icon: Building2,
-        image: `${baseUrl}/architecture/1_S.webp`,
+        image: `${baseUrl}/architecture/6_S.webp`,
         href: '/services/architecture'
     },
     {
@@ -30,43 +30,42 @@ const services = [
         title: 'Инженерно проектиране',
         description: 'Прецизни инженерни планове и техническа документация.',
         icon: Cog,
-        image: `${baseUrl}/engineering/1_S.webp`,
+        image: `${baseUrl}/engineering/2_S.webp`,
         href: '/services/engineering'
     },
     {
         title: 'Консултиране',
         description: 'Професионални съвети и експертно мнение за вашия проект.',
         icon: MessageSquare,
-        image: `${baseUrl}/consulting/1_S.webp`,
+        image: `${baseUrl}/consulting/5_S.webp`,
         href: '/services/consulting'
     },
     {
         title: '3D Анимация и VR',
         description: 'Фотореалистични визуализации и потапящи VR преживявания.',
         icon: Box,
-        image: `${baseUrl}/3D/1_S.webp`,
+        image: `${baseUrl}/3D/6_S.webp`,
         href: '/services/3d'
     },
     {
         title: 'Управление на проекти',
         description: 'Координация и контрол на целия инвестиционен процес.',
         icon: ClipboardCheck,
-        image: `${baseUrl}/projects/1_S.webp`,
+        image: `${baseUrl}/projects/5_S.webp`,
         href: '/services/projects'
     }
 ]
 
 export function ServicesSection() {
     return (
-        <section id="services" className="relative w-full overflow-hidden py-24 px-5">
+        <section id="services" className="relative w-full overflow-hidden py-12 px-5">
             <div className="relative z-10 mx-auto max-w-6xl">
-                <div className="mb-14 text-center">
-                    <p className="text-[0.6875rem] font-semibold tracking-[0.2em] uppercase text-black/35 mb-3">
-                        Какво правим
-                    </p>
-                    <h2 className="text-4xl font-bold text-[#1a1916] tracking-tight">
-                        Нашите <span className="font-light italic">Услуги</span>
+                {/* Header Section */}
+                <div className="mb-10 text-center">
+                    <h2 className="mb-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-[#1a1916]">
+                        <span className="font-light italic text-black/40">Нашите</span> Услуги
                     </h2>
+
                 </div>
 
                 <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
