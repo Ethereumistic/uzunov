@@ -14,6 +14,7 @@ import {
 } from "lucide-react"
 import { OtherProjectsSection } from "#/components/sections/OtherProjectsSection"
 import { getProjectById, categoryLabels } from "#/data/projects"
+import type { ProjectImage } from "#/data/projects"
 import { cn } from "#/lib/utils"
 import { Button } from "#/components/ui/button"
 import { PageHeader } from "#/components/layout/PageHeader"
@@ -22,6 +23,9 @@ import type { SlideData } from "#/components/layout/HeroSlider"
 export const Route = createFileRoute("/projects/$projectId")({
   component: ProjectDetailPage,
 })
+
+/** Max images shown in bento grid (after the main carousel image). */
+const BENTO_MAX = 9
 
 function ProjectDetailPage() {
   const { projectId } = Route.useParams()
@@ -56,21 +60,16 @@ function ProjectDetailPage() {
   const images = project.images
   const hasImages = images.length > 0
 
-  // Build hero slide from the first image (for PageHeader)
   const heroSlide: SlideData | undefined = hasImages
-    ? {
-        id: `${project.id}-hero`,
-        src: images[0],
-        alt: project.title,
-      }
+    ? { id: `${project.id}-hero`, src: images[0].url, alt: project.title }
     : undefined
 
-  // CTA image: last image, or first if only one
-  const ctaImage = hasImages ? images[images.length - 1] : null
+  const ctaImageUrl = hasImages ? images[images.length - 1].url : null
+  const allUrls = images.map((img) => img.url)
 
   return (
     <div className="min-h-screen bg-transparent">
-      {/* ── PageHeader (same as service pages) ── */}
+      {/* PageHeader */}
       <div className="p-5 pb-0">
         <PageHeader
           title={
@@ -86,7 +85,7 @@ function ProjectDetailPage() {
         />
       </div>
 
-      {/* ── Back link ── */}
+      {/* Back link */}
       <div className="px-5 pt-4">
         <div className="max-w-7xl mx-auto">
           <Link
@@ -107,28 +106,16 @@ function ProjectDetailPage() {
         </div>
       </div>
 
-      {/* ── Main 3-column layout ── */}
+      {/* Main layout */}
       <div className="px-5 pt-8 pb-12">
         <div className="max-w-7xl mx-auto">
-
-          {/*
-            Desktop: 3 columns
-              col 1–2 (2fr): Carousel + Bento Grid
-              col 3 (1fr): Sticky details panel
-            Mobile: stacked
-          */}
           <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 lg:gap-10 items-start">
 
-            {/* ── LEFT: Carousel + Bento Grid (2 cols on desktop) ── */}
+            {/* LEFT: Carousel + Bento */}
             <div className="flex flex-col gap-4">
               {hasImages ? (
                 <>
-                  <MainCarousel
-                    images={images}
-                    onImageClick={openLightbox}
-                  />
-
-                  {/* Bento grid for images[1..] */}
+                  <MainCarousel images={images} onImageClick={openLightbox} />
                   {images.length > 1 && (
                     <ProjectBentoGrid
                       images={images.slice(1)}
@@ -143,13 +130,12 @@ function ProjectDetailPage() {
               )}
             </div>
 
-            {/* ── RIGHT: Sticky details panel (1 col on desktop) ── */}
+            {/* RIGHT: Sticky details + CTA */}
             <div className="lg:sticky lg:top-28 flex flex-col gap-6">
 
               {/* Glass details card */}
               <div className="rounded-3xl border border-white/60 bg-linear-to-b from-white/80 to-white/50 backdrop-blur-[22px] shadow-[0_8px_32px_rgba(31,38,135,0.08)] saturate-150 p-7 flex flex-col gap-6">
 
-                {/* Category + Awards */}
                 <div className="flex flex-wrap gap-2">
                   <span className="inline-flex items-center text-[0.625rem] font-semibold tracking-widest uppercase px-3 py-1 rounded-full border border-black/12 bg-black/5 text-black/60">
                     {categoryLabels[project.category]}
@@ -165,7 +151,6 @@ function ProjectDetailPage() {
                   ))}
                 </div>
 
-                {/* Project Title */}
                 <h1 className="font-display text-[1.375rem] font-bold leading-snug text-[#1a1916] m-0">
                   {project.title}
                 </h1>
@@ -178,7 +163,6 @@ function ProjectDetailPage() {
 
                 <div className="border-t border-black/6" />
 
-                {/* Detail rows */}
                 <div className="flex flex-col gap-4">
                   <DetailRow icon={<MapPin size={15} />} label="Местоположение" value={project.location} />
                   {project.area && (
@@ -191,7 +175,6 @@ function ProjectDetailPage() {
                   )}
                 </div>
 
-                {/* Building details */}
                 {project.details && project.details.length > 0 && (
                   <>
                     <div className="border-t border-black/6" />
@@ -211,7 +194,6 @@ function ProjectDetailPage() {
                   </>
                 )}
 
-                {/* Awards */}
                 {project.awards.length > 0 && (
                   <>
                     <div className="border-t border-black/6" />
@@ -231,7 +213,6 @@ function ProjectDetailPage() {
                   </>
                 )}
 
-                {/* Image count hint */}
                 {images.length > 1 && (
                   <>
                     <div className="border-t border-black/6" />
@@ -239,23 +220,22 @@ function ProjectDetailPage() {
                       onClick={() => openLightbox(0)}
                       className="inline-flex items-center gap-2 text-xs font-medium text-black/40 hover:text-black/70 transition-colors self-start"
                     >
-                      Виж всички {images.length} снимки →
+                      Виж всички {images.length} снимки &rarr;
                     </button>
                   </>
                 )}
               </div>
 
-              {/* ── CTA Card (mirrors ServiceLayout) ── */}
-              {ctaImage && (
+              {/* CTA Card */}
+              {ctaImageUrl && (
                 <div className="relative h-auto min-h-[280px] w-full flex flex-col items-center justify-center overflow-hidden rounded-3xl border border-white/40 bg-stone-100 transition-all duration-300 hover:shadow-[0_20px_60px_rgba(31,38,135,0.15)] hover:border-white/60 group">
                   <img
-                    src={ctaImage}
+                    src={ctaImageUrl}
                     alt="Contact CTA"
                     className="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-1000 ease-out group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/40 to-black/20 z-0" />
                   <div className="absolute inset-0 bg-white/5 backdrop-blur-[2px] z-0" />
-
                   <div className="relative z-10 flex flex-col items-center justify-center p-6 text-center w-full">
                     <div className="relative bg-white/10 backdrop-blur-md rounded-full w-14 h-14 flex items-center justify-center mb-4 border border-white/20 shadow-lg">
                       <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -278,17 +258,17 @@ function ProjectDetailPage() {
             </div>
           </div>
 
-          {/* ── Other projects ── */}
+          {/* Other projects */}
           <div className="mt-24 border-t border-stone-200 pt-20">
             <OtherProjectsSection currentProjectId={projectId} />
           </div>
         </div>
       </div>
 
-      {/* ── Lightbox ── */}
+      {/* Lightbox */}
       {lightboxOpen && hasImages && (
         <Lightbox
-          images={images}
+          images={allUrls}
           currentIndex={lightboxIndex}
           onClose={() => setLightboxOpen(false)}
         />
@@ -299,83 +279,69 @@ function ProjectDetailPage() {
 
 // ─────────────────────────────────────────────
 // MainCarousel
-// Full-width carousel for the primary (hero) image slot
 // ─────────────────────────────────────────────
 
 function MainCarousel({
   images,
   onImageClick,
 }: {
-  images: string[]
+  images: ProjectImage[]
   onImageClick: (index: number) => void
 }) {
   const count = images.length
-  const [carouselIndex, setCarouselIndex] = useState(0)
+  const [idx, setIdx] = useState(0)
 
-  const prevImage = useCallback(() => {
-    setCarouselIndex((p) => (p - 1 + count) % count)
-  }, [count])
-
-  const nextImage = useCallback(() => {
-    setCarouselIndex((p) => (p + 1) % count)
-  }, [count])
+  const prev = useCallback(() => setIdx((p) => (p - 1 + count) % count), [count])
+  const next = useCallback(() => setIdx((p) => (p + 1) % count), [count])
 
   return (
     <button
-      onClick={() => onImageClick(carouselIndex)}
-      className="relative overflow-hidden rounded-3xl bg-stone-100 aspect-[16/10] group w-full border border-black/5 shadow-lg"
+      onClick={() => onImageClick(idx)}
+      className="relative overflow-hidden rounded-3xl bg-stone-100 aspect-16/10 group w-full border border-black/5 shadow-lg"
     >
       <img
-        key={carouselIndex}
-        src={images[carouselIndex]}
-        alt={`Изображение ${carouselIndex + 1}`}
+        key={idx}
+        src={images[idx].url}
+        alt={`Изображение ${idx + 1}`}
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
       />
-      {/* Subtle scrim on hover */}
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/8 transition-colors duration-300" />
 
-      {/* Bottom gradient for counter */}
       {count > 1 && (
         <div className="absolute bottom-0 left-0 right-0 h-20 bg-linear-to-t from-black/40 to-transparent pointer-events-none" />
       )}
 
       {count > 1 && (
         <>
-          {/* Prev */}
           <button
-            onClick={(e) => { e.stopPropagation(); prevImage() }}
+            onClick={(e) => { e.stopPropagation(); prev() }}
             className="absolute left-4 top-1/2 -translate-y-1/2 size-11 rounded-full bg-white/80 backdrop-blur-sm border border-black/10 flex items-center justify-center text-black/70 hover:bg-white hover:text-black transition-all shadow-lg opacity-0 group-hover:opacity-100 duration-200"
             aria-label="Предишна"
           >
             <ChevronLeft size={18} />
           </button>
-          {/* Next */}
           <button
-            onClick={(e) => { e.stopPropagation(); nextImage() }}
+            onClick={(e) => { e.stopPropagation(); next() }}
             className="absolute right-4 top-1/2 -translate-y-1/2 size-11 rounded-full bg-white/80 backdrop-blur-sm border border-black/10 flex items-center justify-center text-black/70 hover:bg-white hover:text-black transition-all shadow-lg opacity-0 group-hover:opacity-100 duration-200"
             aria-label="Следваща"
           >
             <ChevronRight size={18} />
           </button>
 
-          {/* Dot indicators */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 pointer-events-none">
             {images.map((_, i) => (
               <span
                 key={i}
                 className={cn(
                   "rounded-full transition-all duration-300",
-                  i === carouselIndex
-                    ? "w-5 h-1.5 bg-white"
-                    : "w-1.5 h-1.5 bg-white/50"
+                  i === idx ? "w-5 h-1.5 bg-white" : "w-1.5 h-1.5 bg-white/50"
                 )}
               />
             ))}
           </div>
 
-          {/* Counter */}
           <div className="absolute top-4 right-4 text-xs text-white/90 bg-black/40 backdrop-blur-sm rounded-full px-2.5 py-1 font-medium pointer-events-none">
-            {carouselIndex + 1} / {count}
+            {idx + 1} / {count}
           </div>
         </>
       )}
@@ -384,109 +350,77 @@ function MainCarousel({
 }
 
 // ─────────────────────────────────────────────
-// ProjectBentoGrid
-// Renders images[1..] in a beautiful bento layout
-// that adapts to 1–15+ images robustly.
+// AR-aware Bento Grid
 // ─────────────────────────────────────────────
 
-type BentoSpec = {
-  colSpan: number // out of 3
-  rowSpan: number
-}
+type CellSpec = { cols: 1 | 2 | 3; rows: 1 | 2 }
 
 /**
- * Returns a bento layout for `n` auxiliary images (images[1..]).
- * Grid is 3-column with fixed row heights.
+ * Builds bento cell specs for N images using their aspect ratio hints.
+ *
+ * Layout rules (3-column grid):
+ *   V (vertical/portrait) → 1 col x 2 rows — tall cell
+ *   S (square)            → 1 col x 1 row  — compact square
+ *   L (landscape)         → alternates per completed row:
+ *       even rows → 2+1  (wide piece on the LEFT)
+ *       odd  rows → 1+2  (wide piece on the RIGHT)
+ *
+ * This alternation creates visual rhythm and balance for all-landscape sets.
+ * CSS grid-auto-flow:dense fills in gaps from tall V cells automatically.
  */
-function getBentoSpecs(n: number): BentoSpec[] {
-  // n = count of images AFTER the main carousel image
+function buildBentoSpecs(images: ProjectImage[]): CellSpec[] {
+  if (images.length === 0) return []
 
-  if (n === 1) {
-    // One wide image below
-    return [{ colSpan: 3, rowSpan: 1 }]
+  const specs: CellSpec[] = []
+  let cursor = 0   // current column (0-2) within the current row
+  let rowIdx = 0   // how many rows have been fully completed
+
+  const place = (cols: 1 | 2 | 3, rows: 1 | 2) => {
+    // Advance to next row if item does not fit
+    while (cursor + cols > 3) {
+      cursor = 0
+      rowIdx++
+    }
+    specs.push({ cols, rows })
+    const newCursor = cursor + cols
+    if (newCursor >= 3) {
+      // Row just completed
+      rowIdx++
+      cursor = 0
+    } else {
+      cursor = newCursor
+    }
   }
 
-  if (n === 2) {
-    // Two equal side by side
-    return [
-      { colSpan: 2, rowSpan: 1 },
-      { colSpan: 1, rowSpan: 1 },
-    ]
+  for (let i = 0; i < images.length; i++) {
+    const ar = images[i].ar
+    const remaining = 3 - cursor // How many cols are left in this row
+
+    if (ar === "V") {
+      // Portrait: always a tall single column
+      place(1, 2)
+    } else if (ar === "S") {
+      // Square: compact 1x1
+      place(1, 1)
+    } else {
+      // Landscape: alternate row direction for visual balance
+      // Even rows: start with the 2-wide piece (left-heavy)
+      // Odd  rows: start with the 1-wide piece (right-heavy — 2-wide fills next)
+      const isEvenRow = rowIdx % 2 === 0
+
+      if (remaining === 3) {
+        // Fresh row — lead with the correct piece for this row's direction
+        place(isEvenRow ? 2 : 1, 1)
+      } else if (remaining === 2) {
+        // 2 cols left — always fill with wide piece
+        place(2, 1)
+      } else {
+        // 1 col left — squeeze in as square
+        place(1, 1)
+      }
+    }
   }
 
-  if (n === 3) {
-    // 1 wide top + 2 equal below
-    return [
-      { colSpan: 3, rowSpan: 1 },
-      { colSpan: 1, rowSpan: 1 },
-      { colSpan: 2, rowSpan: 1 },
-    ]
-  }
-
-  if (n === 4) {
-    // 2x2 grid — 1 big left + 2 stacked right + 1 wide
-    return [
-      { colSpan: 2, rowSpan: 2 },
-      { colSpan: 1, rowSpan: 1 },
-      { colSpan: 1, rowSpan: 1 },
-      { colSpan: 3, rowSpan: 1 },
-    ]
-  }
-
-  if (n === 5) {
-    // 1 big + 2 right column + 2 below
-    return [
-      { colSpan: 2, rowSpan: 2 },
-      { colSpan: 1, rowSpan: 1 },
-      { colSpan: 1, rowSpan: 1 },
-      { colSpan: 1, rowSpan: 1 },
-      { colSpan: 2, rowSpan: 1 },
-    ]
-  }
-
-  if (n === 6) {
-    // 3x2 uniform
-    return Array(6).fill({ colSpan: 1, rowSpan: 1 })
-  }
-
-  if (n === 7) {
-    // Big top-left + 4 small + 1 wide bottom
-    return [
-      { colSpan: 2, rowSpan: 2 },
-      { colSpan: 1, rowSpan: 1 },
-      { colSpan: 1, rowSpan: 1 },
-      { colSpan: 1, rowSpan: 1 },
-      { colSpan: 1, rowSpan: 1 },
-      { colSpan: 1, rowSpan: 1 },
-      { colSpan: 2, rowSpan: 1 },
-    ]
-  }
-
-  if (n === 8) {
-    // Big top-left + 6 uniform small
-    return [
-      { colSpan: 2, rowSpan: 2 },
-      { colSpan: 1, rowSpan: 1 },
-      { colSpan: 1, rowSpan: 1 },
-      { colSpan: 1, rowSpan: 1 },
-      { colSpan: 1, rowSpan: 1 },
-      { colSpan: 1, rowSpan: 1 },
-      { colSpan: 1, rowSpan: 1 },
-      { colSpan: 1, rowSpan: 1 },
-    ]
-  }
-
-  if (n === 9) {
-    // 3x3 uniform
-    return Array(9).fill({ colSpan: 1, rowSpan: 1 })
-  }
-
-  // 10+ → big feature + rest uniform
-  const specs: BentoSpec[] = [{ colSpan: 2, rowSpan: 2 }]
-  const remaining = Math.min(n - 1, 14) // cap visible at 15 total
-  for (let i = 0; i < remaining; i++) {
-    specs.push({ colSpan: 1, rowSpan: 1 })
-  }
   return specs
 }
 
@@ -494,19 +428,13 @@ function ProjectBentoGrid({
   images,
   onImageClick,
 }: {
-  images: string[]      // images AFTER the main carousel
+  images: ProjectImage[]
   onImageClick: (index: number) => void
 }) {
-  const MAX_VISIBLE = 14 // bento can hold 14 + 1 overflow tile = 15 cells
-  const showOverflow = images.length > MAX_VISIBLE
-  const visibleImages = showOverflow ? images.slice(0, MAX_VISIBLE) : images
-  const overflow = images.length - MAX_VISIBLE
-
-  const specs = getBentoSpecs(visibleImages.length + (showOverflow ? 1 : 0))
-  // If showOverflow, replace last spec with span-1 for "+N" tile
-  const effectiveSpecs = showOverflow
-    ? [...specs.slice(0, MAX_VISIBLE), { colSpan: 1, rowSpan: 1 }]
-    : specs
+  const showOverflow = images.length > BENTO_MAX
+  const visible = showOverflow ? images.slice(0, BENTO_MAX) : images
+  const overflow = images.length - BENTO_MAX
+  const specs = buildBentoSpecs(visible)
 
   return (
     <div
@@ -514,10 +442,11 @@ function ProjectBentoGrid({
       style={{
         gridTemplateColumns: "repeat(3, 1fr)",
         gridAutoRows: "160px",
+        gridAutoFlow: "dense",
       }}
     >
-      {visibleImages.map((img, i) => {
-        const spec = effectiveSpecs[i] ?? { colSpan: 1, rowSpan: 1 }
+      {visible.map((img, i) => {
+        const spec = specs[i] ?? { cols: 1, rows: 1 }
         return (
           <button
             key={i}
@@ -529,12 +458,12 @@ function ProjectBentoGrid({
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a1916]/30"
             )}
             style={{
-              gridColumn: `span ${spec.colSpan}`,
-              gridRow: `span ${spec.rowSpan}`,
+              gridColumn: `span ${spec.cols}`,
+              gridRow: `span ${spec.rows}`,
             }}
           >
             <img
-              src={img}
+              src={img.url}
               alt={`Изображение ${i + 2}`}
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
             />
@@ -546,13 +475,13 @@ function ProjectBentoGrid({
       {/* Overflow tile */}
       {showOverflow && (
         <button
-          onClick={() => onImageClick(MAX_VISIBLE)}
+          onClick={() => onImageClick(BENTO_MAX)}
           className="relative overflow-hidden rounded-2xl bg-stone-100 group border border-black/5"
           style={{ gridColumn: "span 1", gridRow: "span 1" }}
         >
-          {images[MAX_VISIBLE] && (
+          {images[BENTO_MAX] && (
             <img
-              src={images[MAX_VISIBLE]}
+              src={images[BENTO_MAX].url}
               alt=""
               className="absolute inset-0 w-full h-full object-cover"
             />
@@ -638,7 +567,6 @@ function Lightbox({
       className="fixed inset-0 z-50 bg-black/92 backdrop-blur-sm flex items-center justify-center p-4"
       onClick={onClose}
     >
-      {/* Close */}
       <button
         className="absolute top-5 right-5 size-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
         onClick={onClose}
@@ -647,7 +575,6 @@ function Lightbox({
         <X size={18} />
       </button>
 
-      {/* Prev */}
       {images.length > 1 && (
         <button
           className="absolute left-5 top-1/2 -translate-y-1/2 size-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
@@ -658,7 +585,6 @@ function Lightbox({
         </button>
       )}
 
-      {/* Image */}
       <img
         key={index}
         src={images[index]}
@@ -668,7 +594,6 @@ function Lightbox({
         style={{ animation: "fadeIn 0.18s ease" }}
       />
 
-      {/* Next */}
       {images.length > 1 && (
         <button
           className="absolute right-5 top-1/2 -translate-y-1/2 size-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
@@ -679,12 +604,10 @@ function Lightbox({
         </button>
       )}
 
-      {/* Counter */}
       <div className="absolute bottom-5 left-1/2 -translate-x-1/2 text-sm text-white/60 bg-black/30 rounded-full px-4 py-1.5 select-none">
         {index + 1} / {images.length}
       </div>
 
-      {/* Thumbnail strip */}
       {images.length > 1 && (
         <div className="absolute bottom-14 left-1/2 -translate-x-1/2 flex gap-1.5 max-w-[min(640px,90vw)] overflow-x-auto pb-1 px-2 scrollbar-none">
           {images.map((img, i) => (

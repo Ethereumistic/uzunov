@@ -3,6 +3,14 @@ export interface ProjectDetail {
   area: number
 }
 
+/** Aspect ratio of an image. L = landscape, S = square, V = vertical/portrait. */
+export type ImageAR = "L" | "S" | "V"
+
+export interface ProjectImage {
+  url: string
+  ar: ImageAR
+}
+
 export interface Project {
   id: string
   title: string
@@ -14,7 +22,7 @@ export interface Project {
   featured: boolean
   status: "done" | "in-progress"
   awards: string[]
-  images: string[]
+  images: ProjectImage[]
   description?: string
   details?: ProjectDetail[]
 }

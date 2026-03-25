@@ -11,11 +11,22 @@
     "status": "done",
     "awards": [],
     "images": [
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall-office/1.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall-office/2.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall-office/3.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall-office/4.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall-office/5.webp"
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall-office/1.webp",
+        "ar": "V"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall-office/2.webp",
+        "ar": "V"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall-office/3.webp",
+        "ar": "V"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall-office/4.webp",
+        "ar": "V"
+      }
     ]
   },
   {
@@ -29,15 +40,18 @@
     "featured": true,
     "status": "done",
     "awards": [
-      "Номинация в конкурс „Сграда на годината“ (2013 г.)"
+      "Номинация в конкурс 'Сграда на годината' (2013 г.)"
     ],
     "images": [
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/bau/1.webp"
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/bau/1.webp",
+        "ar": "L"
+      }
     ]
   },
   {
     "id": "scentia-complex",
-    "title": "Търговско-административен комплекс \"СИЕНТИА\"",
+    "title": "Търговско-административен комплекс СИЕНТИА",
     "category": "Office",
     "location": "гр. Габрово",
     "details": [
@@ -65,18 +79,39 @@
     "status": "done",
     "awards": [],
     "images": [
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/1.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/2.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/scientia-slide1.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/scientia-slide2.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/scientia-slide3.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/scientia-slide4.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/slide4.webp"
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/1.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/2.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/scientia-slide1.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/scientia-slide2.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/scientia-slide3.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/scientia-slide4.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/slide4.webp",
+        "ar": "L"
+      }
     ]
   },
   {
     "id": "ivan-rilski-hospital",
-    "title": "МБАЛ „СВ. ИВАН РИЛСКИ“",
+    "title": "МБАЛ СВ. ИВАН РИЛСКИ",
     "category": "Healthcare",
     "location": "гр. Габрово",
     "area": 3600,
@@ -86,20 +121,47 @@
     "status": "done",
     "awards": [],
     "images": [
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/1.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/2.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/3.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/4.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/5.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/6.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/7.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/8.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/9.webp"
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/1.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/2.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/3.webp",
+        "ar": "V"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/4.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/5.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/6.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/7.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/8.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/ivan-rilski/9.webp",
+        "ar": "L"
+      }
     ]
   },
   {
     "id": "vasilii-veliki-social-home",
-    "title": "Дом за възрастни хора „СВ. ВАСИЛИЙ ВЕЛИКИ“",
+    "title": "Дом за възрастни хора СВ. ВАСИЛИЙ ВЕЛИКИ",
     "category": "Healthcare",
     "location": "гр. Габрово",
     "area": 4247,
@@ -108,19 +170,49 @@
     "featured": true,
     "status": "done",
     "awards": [
-      "Носител на наградата „Сграда на годината“ (2021 г.)"
+      "Носител на наградата 'Сграда на годината' (2021 г.)"
     ],
     "images": [
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/1.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/2.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/3.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/4.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/5.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/6.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/7.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/8.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/9.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/10.webp"
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/1.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/2.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/3.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/4.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/5.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/6.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/7.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/8.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/9.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/vasilii-veliki/10.webp",
+        "ar": "L"
+      }
     ]
   },
   {
@@ -134,15 +226,18 @@
     "featured": true,
     "status": "done",
     "awards": [
-      "Специална награда в конкурс „Сграда на годината“ (2010 г.)"
+      "Специална награда в конкурс 'Сграда на годината' (2010 г.)"
     ],
     "images": [
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall/1.webp"
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall/1.webp",
+        "ar": "L"
+      }
     ]
   },
   {
     "id": "marina-retail-complex",
-    "title": "Търговски комплекс „МАРИНА“",
+    "title": "Търговски комплекс МАРИНА",
     "category": "Commercial",
     "location": "гр. Габрово",
     "details": [
@@ -178,20 +273,32 @@
   },
   {
     "id": "sevlievo-plaza-restaurant",
-    "title": "Ресторант и лоби бар (Хотел \"СЕВЛИЕВО ПЛАЗА\")",
+    "title": "Ресторант и лоби бар - Хотел СЕВЛИЕВО ПЛАЗА",
     "category": "Commercial",
     "location": "гр. Севлиево",
     "area": null,
-    "investor": "Хотел \"СЕВЛИЕВО ПЛАЗА\"",
+    "investor": "Хотел СЕВЛИЕВО ПЛАЗА",
     "completionDate": null,
     "featured": false,
     "status": "done",
     "awards": [],
     "images": [
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/sevlievo-plaza/1.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/sevlievo-plaza/2.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/sevlievo-plaza/3.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/sevlievo-plaza/4.webp"
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/sevlievo-plaza/1.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/sevlievo-plaza/2.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/sevlievo-plaza/3.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/sevlievo-plaza/4.webp",
+        "ar": "L"
+      }
     ]
   },
   {
@@ -207,30 +314,51 @@
     "awards": [
       "Специална награда за зелени инвестиции"
     ],
-    "description": "Внедряване на фасадна фотоволтаична система SCHÜCO",
+    "description": "Внедряване на фасадна фотоволтаична система SCHUECO",
     "images": [
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/nts/1.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/nts/2.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/nts/3.webp"
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/nts/1.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/nts/2.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/nts/3.webp",
+        "ar": "L"
+      }
     ]
   },
   {
     "id": "koltek-factory",
-    "title": "Фабрика \"КОЛТЕК\"",
+    "title": "Фабрика КОЛТЕК",
     "category": "Industrial",
     "location": "гр. Габрово",
     "area": 9000,
-    "investor": "Българо-швейцарско дружество \"КОЛТЕК\"",
+    "investor": "Българо-швейцарско дружество КОЛТЕК",
     "completionDate": null,
     "featured": false,
     "status": "done",
     "awards": [],
     "description": "Фабрика за производство на пластмасови и метални изделия",
     "images": [
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/plastmasa/1.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/plastmasa/2.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/plastmasa/3.webp",
-      "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/plastmasa/4.webp"
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/plastmasa/1.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/plastmasa/2.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/plastmasa/3.webp",
+        "ar": "L"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/plastmasa/4.webp",
+        "ar": "L"
+      }
     ]
   },
   {
@@ -239,7 +367,7 @@
     "category": "Industrial",
     "location": "гр. Габрово",
     "area": 4606,
-    "investor": "\"ПЛАНЗЕЕ\" ООД",
+    "investor": "ПЛАНЗЕЕ ООД",
     "completionDate": null,
     "featured": false,
     "status": "done",
@@ -252,7 +380,7 @@
     "category": "Industrial",
     "location": "гр. Габрово",
     "area": 2700,
-    "investor": "\"ТИЛЛ ИНДУСТРИАЛ ГАБРОВО\" ЕООД",
+    "investor": "ТИЛЛ ИНДУСТРИАЛ ГАБРОВО ЕООД",
     "completionDate": null,
     "featured": false,
     "status": "done",
@@ -265,7 +393,7 @@
     "category": "Industrial",
     "location": "гр. Дряново",
     "area": 2900,
-    "investor": "\"ТИСИКОН\" ЕООД",
+    "investor": "ТИСИКОН ЕООД",
     "completionDate": null,
     "featured": false,
     "status": "done",
@@ -278,7 +406,7 @@
     "category": "Industrial",
     "location": "гр. Габрово",
     "area": null,
-    "investor": "\"ВИВЕТ\" ЕООД",
+    "investor": "ВИВЕТ ЕООД",
     "completionDate": null,
     "featured": false,
     "status": "done",
@@ -291,7 +419,7 @@
     "category": "Industrial",
     "location": "гр. Габрово",
     "area": null,
-    "investor": "\"ВИВЕТ\" ЕООД",
+    "investor": "ВИВЕТ ЕООД",
     "completionDate": null,
     "featured": false,
     "status": "done",

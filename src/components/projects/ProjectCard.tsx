@@ -56,7 +56,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <div className="h-full w-full overflow-hidden">
           {hasImage ? (
             <img
-              src={project.images[0]}
+              src={project.images[0].url}
               alt={project.title}
               className="w-full h-full object-cover transition-transform duration-2000 ease-out group-hover:scale-105"
             />
