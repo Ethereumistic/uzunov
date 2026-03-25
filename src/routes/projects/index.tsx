@@ -40,27 +40,19 @@ function ProjectsPage() {
           onValueChange={(v) => setActiveTab(v as ProjectCategory)}
           className="mb-10"
         >
-          <TabsList className="h-auto px-1.5 py-1.5 bg-white/60 backdrop-blur-[18px] border border-white/60 shadow-[0_4px_16px_rgba(31,38,135,0.06)] rounded-2xl gap-1">
-            {allCategories.map((cat) => (
-              <TabsTrigger
-                key={cat}
-                value={cat}
-                className={cn(
-                  "rounded-xl text-sm font-medium px-4 py-2 transition-all duration-200",
-                  "data-[state=active]:bg-[#1a1916] data-[state=active]:text-white data-[state=active]:shadow-md",
-                  "data-[state=inactive]:text-black/50 data-[state=inactive]:hover:text-black",
-                  "dark:data-[state=active]:bg-[#1a1916] dark:data-[state=active]:text-white"
-                )}
-              >
-                {categoryLabels[cat]}
-                <span className="ml-1.5 text-[0.625rem] tabular-nums opacity-50">
-                  {cat === "All"
-                    ? projects.length
-                    : projects.filter((p) => p.category === cat).length}
-                </span>
-              </TabsTrigger>
-            ))}
-          </TabsList>
+          <div className="w-full flex justify-center">
+            <TabsList className="grid w-full grid-cols-3 md:flex md:w-fit mb-8">
+              {allCategories.map((cat) => (
+                <TabsTrigger
+                  key={cat}
+                  value={cat}
+                  className="rounded-lg text-xs sm:text-sm"
+                >
+                  {categoryLabels[cat]}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
 
           {allCategories.map((cat) => (
             <TabsContent key={cat} value={cat} className="mt-8">

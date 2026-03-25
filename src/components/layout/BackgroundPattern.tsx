@@ -6,7 +6,7 @@ import React from 'react';
  */
 export const BackgroundPattern: React.FC = () => {
     return (
-        <div 
+        <div
             className="fixed inset-0 pointer-events-none z-[-1] select-none transition-opacity duration-1000 translate-z-0"
             aria-hidden="true"
         >
@@ -14,8 +14,8 @@ export const BackgroundPattern: React.FC = () => {
               LAYER 1: Subtle Point Grid (24px)
               Provides a sense of scale and precision.
             */}
-            <div 
-                className="absolute inset-0 opacity-[0.35]"
+            <div
+                className="absolute inset-0"
                 style={{
                     backgroundImage: `radial-gradient(var(--stone-200) 0.75px, transparent 0.75px)`,
                     backgroundSize: '24px 24px',
@@ -26,8 +26,8 @@ export const BackgroundPattern: React.FC = () => {
               LAYER 2: Larger Technical Grid (96px)
               Subtle lines every 4 dots, typical of drafting paper.
             */}
-            <div 
-                className="absolute inset-0 opacity-[0.1]"
+            <div
+                className="absolute inset-0 opacity-[0.2]"
                 style={{
                     backgroundImage: `
                         linear-gradient(to right, var(--stone-400) 1px, transparent 1px),
@@ -41,7 +41,7 @@ export const BackgroundPattern: React.FC = () => {
               LAYER 3: Accent Crosshairs (192px)
               Small architectural '+' markers in the brand accent color.
             */}
-            <div 
+            <div
                 className="absolute inset-0 opacity-[0.2]"
                 style={{
                     backgroundImage: `

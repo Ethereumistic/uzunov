@@ -1,6 +1,8 @@
 import React from 'react'
 import { PageHeader } from '#/components/layout/PageHeader'
 import type { SlideData } from '#/components/layout/HeroSlider'
+import { useLocation } from '@tanstack/react-router'
+import { OtherServicesSection } from '#/components/sections/OtherServicesSection'
 
 interface ServiceLayoutProps {
     title: React.ReactNode;
@@ -12,6 +14,7 @@ interface ServiceLayoutProps {
 }
 
 export function ServiceLayout({ title, subtitle, heroImage, bentoImages, ctaImage, children }: ServiceLayoutProps) {
+    const { pathname } = useLocation()
     return (
         <div className="min-h-screen p-5 bg-transparent">
             {/* The single hero slide */}
@@ -21,7 +24,7 @@ export function ServiceLayout({ title, subtitle, heroImage, bentoImages, ctaImag
                 slides={[heroImage]}
             />
 
-            <div className="max-w-7xl mx-auto py-12 md:py-24">
+            <div className="max-w-7xl mx-auto pt-12 md:pt-24">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-x-20 lg:gap-y-12 items-stretch">
 
                     {/* 1. Text Content (Left Top on Desktop, 1st on Mobile) */}
@@ -82,6 +85,11 @@ export function ServiceLayout({ title, subtitle, heroImage, bentoImages, ctaImag
                     </div>
 
 
+                </div>
+
+                {/* Other Services Section */}
+                <div className="mt-24">
+                    <OtherServicesSection currentServiceHref={pathname} />
                 </div>
             </div>
         </div>

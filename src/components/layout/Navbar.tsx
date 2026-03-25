@@ -1,43 +1,53 @@
 import * as React from "react"
 import { Logo } from "./Logo"
 import { cn } from "../../lib/utils"
-import { Building2, Palette, Cog, Handshake, Box, ClipboardCheck, Menu, X, ChevronDown } from "lucide-react"
+import {
+    Building2,
+    PenTool,
+    Cog,
+    MessageSquare,
+    Box,
+    ClipboardCheck,
+    Menu,
+    X,
+    ChevronDown
+} from 'lucide-react'
 
 const services = [
     {
         title: "Архитектура",
         description: "Цялостни архитектурни решения от концепция до реализация.",
-        icon: <Building2 className="size-5 text-black" />,
+        icon: <Building2 className="size-6 text-black" />,
         href: "/services/architecture"
     },
     {
         title: "Интериорен дизайн",
         description: "Индивидуални проекти за пространства, съчетаващи стил и комфорт.",
-        icon: <Palette className="size-5 text-black" />,
+        icon: <PenTool className="size-6 text-black" />,
         href: "/services/interior"
     },
     {
         title: "Инженерно проектиране",
         description: "Прецизни инженерни планове и техническа документация.",
-        icon: <Cog className="size-5 text-black" />,
+        icon: <Cog className="size-6 text-black" />,
         href: "/services/engineering"
     },
     {
         title: "Консултиране",
         description: "Професионални съвети и експертно мнение за вашия проект.",
-        icon: <Handshake className="size-5 text-black" />,
+        icon: <MessageSquare className="size-6 text-black" />,
         href: "/services/consulting"
     },
     {
         title: "3D Анимация и VR",
         description: "Фотореалистични визуализации и потапящи VR преживявания.",
-        icon: <Box className="size-5 text-black" />,
+        icon: <Box className="size-6 text-black" />,
         href: "/services/3d"
     },
     {
         title: "Управление на проекти",
         description: "Координация и контрол на целия инвестиционен процес.",
-        icon: <ClipboardCheck className="size-5 text-black" />,
+        icon: <ClipboardCheck className="size-6 text-black" />,
         href: "/services/projects"
     },
 ]
@@ -99,13 +109,15 @@ export function Navbar() {
                             onMouseLeave={() => setHoveredNav(null)}
                         >
                             <a
-                                href="#about"
+                                onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
                                 onMouseEnter={() => setHoveredNav("about")}
                                 className={cn(
-                                    "px-4 py-2 rounded-full text-sm font-medium transition-all duration-150 select-none",
-                                    hoveredNav === null || hoveredNav === "about"
+                                    "px-4 py-2 rounded-full text-sm font-bold uppercase transition-all duration-150 select-none",
+                                    hoveredNav === "about"
                                         ? "text-black"
-                                        : "text-black/30"
+                                        : hoveredNav === null
+                                            ? "text-black/70"
+                                            : "text-black/40"
                                 )}
                             >
                                 За нас
@@ -115,10 +127,12 @@ export function Navbar() {
                                 href="/projects"
                                 onMouseEnter={() => setHoveredNav("projects")}
                                 className={cn(
-                                    "px-4 py-2 rounded-full text-sm font-medium transition-all duration-150 select-none",
-                                    hoveredNav === null || hoveredNav === "projects"
+                                    "px-4 py-2 rounded-full text-sm font-bold uppercase transition-all duration-150 select-none",
+                                    hoveredNav === "projects"
                                         ? "text-black"
-                                        : "text-black/30"
+                                        : hoveredNav === null
+                                            ? "text-black/70"
+                                            : "text-black/40"
                                 )}
                             >
                                 Проекти
@@ -132,12 +146,14 @@ export function Navbar() {
                                 <button
                                     onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
                                     className={cn(
-                                        "inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm font-medium transition-all duration-150 select-none",
+                                        "inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm font-bold uppercase transition-all duration-150 select-none",
                                         servicesOpen
                                             ? "text-black ring-1 ring-black/12 bg-black/4"
-                                            : hoveredNav === null || hoveredNav === "services"
+                                            : hoveredNav === "services"
                                                 ? "text-black"
-                                                : "text-black/30"
+                                                : hoveredNav === null
+                                                    ? "text-black/70"
+                                                    : "text-black/40"
                                     )}
                                 >
                                     Услуги
@@ -155,9 +171,9 @@ export function Navbar() {
                         <div className="flex items-center gap-3">
                             <a
                                 href="#contact"
-                                className="hidden md:inline-flex bg-black text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-black/80 transition-all shadow-lg hover:shadow-black/20"
+                                className="hidden md:inline-flex bg-black text-white px-6 py-2.5 rounded-full text-sm font-bold uppercase hover:bg-black/80 transition-all shadow-lg hover:shadow-black/20"
                             >
-                                Контакти
+                                Контакт
                             </a>
                             <button
                                 className="md:hidden p-2 text-black rounded-full hover:bg-black/5 transition-colors"
@@ -188,19 +204,14 @@ export function Navbar() {
                                 key={service.href}
                                 href={service.href}
                                 onClick={() => setServicesOpen(false)}
-                                className="group flex flex-col gap-3 rounded-2xl border border-black/10 p-4 transition-all duration-200 hover:bg-black/4 hover:border-black/20"
+                                className="group flex items-center gap-4 rounded-2xl border border-black/8 p-4 transition-all duration-200 hover:bg-black/4 hover:border-black/20"
                             >
-                                <div className="flex items-center gap-3">
-                                    <div className="flex items-center justify-center size-9 rounded-xl bg-black/6 shrink-0">
-                                        {service.icon}
-                                    </div>
-                                    <span className="font-semibold text-sm text-black leading-tight">
-                                        {service.title}
-                                    </span>
+                                <div className="flex items-center justify-center size-11 rounded-xl bg-black/6 shrink-0 transition-transform group-hover:scale-105">
+                                    {service.icon}
                                 </div>
-                                <p className="text-xs text-black/50 leading-relaxed">
-                                    {service.description}
-                                </p>
+                                <span className="font-semibold text-[15px] text-black leading-tight">
+                                    {service.title}
+                                </span>
                             </a>
                         ))}
                     </div>
@@ -240,15 +251,12 @@ export function Navbar() {
                                     key={service.href}
                                     href={service.href}
                                     onClick={() => setMobileOpen(false)}
-                                    className="flex items-center gap-3 rounded-2xl border border-black/10 p-3.5 transition-all duration-200 hover:bg-black/4"
+                                    className="flex items-center gap-4 rounded-2xl border border-black/8 p-3.5 transition-all duration-200 hover:bg-black/4"
                                 >
-                                    <div className="flex items-center justify-center size-9 rounded-xl bg-black/6 shrink-0">
+                                    <div className="flex items-center justify-center size-11 rounded-xl bg-black/6 shrink-0">
                                         {service.icon}
                                     </div>
-                                    <div className="min-w-0">
-                                        <p className="font-semibold text-sm text-black leading-tight">{service.title}</p>
-                                        <p className="text-xs text-black/50 mt-0.5 leading-snug">{service.description}</p>
-                                    </div>
+                                    <p className="font-semibold text-[15px] text-black leading-tight">{service.title}</p>
                                 </a>
                             ))}
                         </div>

@@ -3,7 +3,7 @@ import { HeroSlider, type SlideData } from "./HeroSlider"
 
 interface PageHeaderProps {
     title: React.ReactNode;
-    subtitle: string;
+    subtitle?: string;
     slides?: SlideData[];
 }
 
@@ -21,9 +21,11 @@ export function PageHeader({ title, subtitle, slides }: PageHeaderProps) {
                 </h1>
                 
                 {/* subtitle */}
-                <p className="rise-in text-white/65 text-[clamp(0.9375rem,1.2vw,1.0625rem)] font-light leading-relaxed max-w-[55ch] mx-auto [animation-delay:600ms]">
-                    {subtitle}
-                </p>
+                {subtitle && (
+                    <p className="rise-in text-white/65 text-[clamp(0.9375rem,1.2vw,1.0625rem)] font-light leading-relaxed max-w-[55ch] mx-auto [animation-delay:600ms]">
+                        {subtitle}
+                    </p>
+                )}
             </div>
         </HeroSlider>
     )

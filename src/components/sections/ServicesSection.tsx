@@ -11,7 +11,7 @@ import {
 
 // Services data using our CDN S variants
 const baseUrl = 'https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/services'
-const services = [
+export const services = [
     {
         title: 'Архитектура',
         description: 'Цялостни архитектурни решения от концепция до реализация.',
@@ -21,7 +21,7 @@ const services = [
     },
     {
         title: 'Интериорен дизайн',
-        description: 'Индивидуални проекти за пространства, съчетаващи стил и комфорт.',
+        description: 'Проектиране на пространства, съчетаващи стил и комфорт.',
         icon: PenTool,
         image: `${baseUrl}/interior/1_S.webp`,
         href: '/services/interior'
@@ -58,7 +58,7 @@ const services = [
 
 export function ServicesSection() {
     return (
-        <section id="services" className="relative w-full overflow-hidden py-12 px-5">
+        <section id="services" className="relative w-full overflow-hidden py-12 px-5 scroll-mt-12">
             <div className="relative z-10 mx-auto max-w-6xl">
                 {/* Header Section */}
                 <div className="mb-10 text-center">
@@ -68,28 +68,32 @@ export function ServicesSection() {
 
                 </div>
 
-                <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {services.map((service, index) => (
                         <Link key={index} to={service.href} className="block group">
                             <Card
-                                className="relative overflow-hidden rounded-2xl border-0 bg-transparent h-[380px] flex flex-col justify-end"
+                                className="relative overflow-hidden rounded-3xl border-0 bg-transparent h-[440px] flex flex-col justify-end"
                             >
                                 {/* Background Image */}
                                 <div className="absolute inset-0 z-0">
                                     <div
-                                        className="h-full w-full bg-cover bg-center transition-transform duration-1000 ease-out group-hover:scale-105"
+                                        className="h-full w-full bg-cover bg-center transition-transform duration-2000 ease-out group-hover:scale-105"
                                         style={{ backgroundImage: `url(${service.image})` }}
                                     />
-                                    <div className="absolute inset-0 bg-linear-to-b from-black/10 via-black/50 to-black/80 transition-opacity duration-700" />
+                                    <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/30 to-black/95 transition-opacity duration-700" />
                                 </div>
 
                                 {/* Content block */}
-                                <div className="relative z-10 p-5 sm:p-6 flex flex-col w-full transition-transform duration-500 group-hover:-translate-y-2">
-                                    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-lg transition-transform duration-500 group-hover:scale-110">
-                                        <service.icon className="h-5 w-5 text-white" />
+                                <div className="relative z-10 p-6 sm:p-8 flex flex-col w-full h-full justify-end overflow-hidden">
+                                    <div className="flex items-center gap-4 mb-4 transition-transform duration-800 ease-out md:-mb-5 md:group-hover:-translate-y-15">
+                                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-lg transition-transform duration-500 group-hover:scale-110 md:h-14 md:w-14">
+                                            <service.icon className="h-6 w-6 text-white" />
+                                        </div>
+                                        <h3 className="text-3xl font-bold text-white tracking-tight drop-shadow-md md:text-2xl">{service.title}</h3>
                                     </div>
-                                    <h3 className="mb-1.5 text-xl font-bold text-white tracking-tight drop-shadow-md">{service.title}</h3>
-                                    <p className="text-[0.9375rem] leading-relaxed text-white/90 font-light drop-shadow-md">{service.description}</p>
+                                    <p className="text-base leading-relaxed text-white/90 font-light drop-shadow-md transition-all duration-500 delay-200 ease-out md:opacity-0 md:group-hover:opacity-100 md:absolute md:bottom-2 md:left-8 md:right-8">
+                                        {service.description}
+                                    </p>
                                 </div>
                             </Card>
                         </Link>
