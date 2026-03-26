@@ -16,7 +16,7 @@ interface ServiceLayoutProps {
 export function ServiceLayout({ title, subtitle, heroImage, bentoImages, ctaImage, children }: ServiceLayoutProps) {
     const { pathname } = useLocation()
     return (
-        <div className="min-h-screen p-5 bg-transparent">
+        <div className="min-h-screen p-2 md:p-5 bg-transparent">
             {/* The single hero slide */}
             <PageHeader
                 title={title}
@@ -28,12 +28,12 @@ export function ServiceLayout({ title, subtitle, heroImage, bentoImages, ctaImag
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-x-20 lg:gap-y-12 items-stretch">
 
                     {/* 1. Text Content (Left Top on Desktop, 1st on Mobile) */}
-                    <div className="order-1 lg:col-start-1 lg:row-start-1">
+                    <div className="order-1 lg:col-start-1 lg:row-start-1 px-5">
                         {children}
                     </div>
 
                     {/* 2. Bento Grid (Right spanning full height on Desktop, 2nd on Mobile) */}
-                    <div className="relative order-2 lg:col-start-2 lg:row-start-1 lg:row-span-2 grid grid-cols-2 grid-rows-4 gap-4 h-full min-h-[600px] lg:min-h-[700px] w-full">
+                    <div className="relative order-2 lg:col-start-2 lg:row-start-1 lg:row-span-2 grid grid-cols-2 grid-rows-4 gap-2 md:gap-5 h-full min-h-[600px] lg:min-h-[700px] w-full">
                         {bentoImages[0] && (
                             <div className="col-span-2 row-span-2 relative min-h-0 rounded-3xl overflow-hidden bg-stone-100 shadow-lg border border-black/5 group">
                                 <img src={bentoImages[0]} alt="Service details top" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105" />
@@ -57,7 +57,7 @@ export function ServiceLayout({ title, subtitle, heroImage, bentoImages, ctaImag
                     </div>
 
                     {/* 3. CTA Card (Left Bottom on Desktop, 3rd on Mobile) */}
-                    <div className="order-3 lg:col-start-1 lg:row-start-2 self-end w-full lg:mt-auto">
+                    <div className="order-3 lg:col-start-1 lg:row-start-2 self-end w-full lg:mt-auto -mt-10">
                         <div className="relative h-auto min-h-[320px] w-full flex flex-col items-center justify-center overflow-hidden rounded-3xl border border-white/40 bg-stone-100 transition-all duration-300 hover:shadow-[0_20px_60px_rgba(31,38,135,0.15)] hover:border-white/60 group">
                             <img
                                 src={ctaImage}

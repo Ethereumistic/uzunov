@@ -42,7 +42,7 @@ export function OtherProjectsSection({ currentProjectId }: OtherProjectsSectionP
 
     return (
         <section className="w-full">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between px-1 mb-10 gap-6">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between px-1 mb-10 gap-2 md:gap-5">
                 <div>
                     <h2 className="text-3xl font-display font-semibold text-[#1a1916]">
                         Други <span className="font-light italic text-black/40">проекти</span>
@@ -59,7 +59,7 @@ export function OtherProjectsSection({ currentProjectId }: OtherProjectsSectionP
             </div>
 
             {/* Mobile Version: Stacking cards (showing 3 as requested) */}
-            <div className="flex flex-col gap-6 sm:hidden">
+            <div className="flex flex-col gap-2 md:gap-5 sm:hidden">
                 {mobileProjects.map((project) => (
                     <ProjectCard key={project.id} project={project} />
                 ))}
@@ -80,7 +80,7 @@ export function OtherProjectsSection({ currentProjectId }: OtherProjectsSectionP
                 >
                     <CarouselContent className="-ml-6">
                         {otherProjects.map((project) => (
-                            <CarouselItem key={project.id} className="pl-6 basis-1/2 lg:basis-[30.5%]">
+                            <CarouselItem key={project.id} className="pl-5 basis-1/2 lg:basis-[30.5%]">
                                 <ProjectCard project={project} />
                             </CarouselItem>
                         ))}

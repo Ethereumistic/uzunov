@@ -11,15 +11,15 @@ function HeroContent() {
             <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center text-white">
                 {/* Main headline */}
                 <h1 className="rise-in font-display text-[clamp(2.5rem,7.5vw,7rem)] font-bold leading-none tracking-tight my-0 mb-6 max-w-[14ch] [animation-delay:450ms]">
-                    Пространства,<br />
+                    <span className="text-nowrap">Пространства,</span><br />
                     <em className="italic font-light">
                         изградени с намерение
                     </em>
                 </h1>
 
                 {/* sub */}
-                <p className="rise-in font-sans text-[clamp(0.875rem,1.5vw,1.0625rem)] font-light leading-[1.65] text-white/65 max-w-[38ch] my-0 mb-12 [animation-delay:600ms]">
-                    Проектираме архитектура, която свързва хората с пространството —
+                <p className="rise-in font-sans text-[clamp(0.875rem,1.5vw,1.0625rem)] font-light leading-[1.65] text-white/95 max-w-[38ch] my-0 mb-12 [animation-delay:600ms]">
+                    Проектираме архитектура, която свързва хората с пространството -
                     минималистична, трайна, с душа.
                 </p>
 
@@ -27,7 +27,7 @@ function HeroContent() {
                 <div className="rise-in flex gap-3 flex-wrap justify-center [animation-delay:750ms]">
                     <a
                         href="#projects"
-                        className="inline-flex items-center gap-2 font-sans text-[0.75rem] font-medium tracking-[0.08em] uppercase no-underline px-7 py-[13px] rounded-full text-[#1a1916] bg-white/90 backdrop-blur-xl saturate-150 border border-white/60 shadow-[0_4px_16px_rgba(15,14,13,0.2),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_8px_28px_rgba(15,14,13,0.24),inset_0_1px_0_white]"
+                        className="inline-flex items-center gap-2 font-sans text-sm font-bold tracking-[0.08em] uppercase no-underline px-7 py-[13px] rounded-2xl text-[#1a1916] bg-white/90 backdrop-blur-xl saturate-150 border border-white/60 shadow-[0_4px_16px_rgba(15,14,13,0.2),inset_0_1px_0_rgba(255,255,255,0.9)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_8px_28px_rgba(15,14,13,0.24),inset_0_1px_0_white]"
                     >
                         Нашите проекти
                         <ArrowRight strokeWidth={1.5} size={14} />
@@ -35,7 +35,7 @@ function HeroContent() {
 
                     <a
                         href="#contact"
-                        className="inline-flex items-center gap-2 font-sans text-[0.75rem] font-medium tracking-[0.08em] uppercase no-underline px-7 py-[13px] rounded-full text-white bg-white/10 backdrop-blur-xl saturate-150 border border-white/30 shadow-[0_4px_16px_rgba(15,14,13,0.12),inset_0_1px_0_rgba(255,255,255,0.14)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/20 hover:border-white/50"
+                        className="inline-flex items-center gap-2 font-sans text-sm font-bold tracking-[0.08em] uppercase no-underline px-7 py-[13px] rounded-2xl text-white bg-white/10 backdrop-blur-xl saturate-150 border border-white/30 shadow-[0_4px_16px_rgba(15,14,13,0.12),inset_0_1px_0_rgba(255,255,255,0.14)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/20 hover:border-white/50"
                     >
                         Свържете се
                         <MoveRight strokeWidth={1.5} size={14} />

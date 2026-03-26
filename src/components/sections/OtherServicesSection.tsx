@@ -43,7 +43,7 @@ export function OtherServicesSection({ currentServiceHref }: OtherServicesSectio
             </div>
 
             {/* Mobile Version: Stacking cards */}
-            <div className="flex flex-col gap-3 sm:hidden">
+            <div className="flex flex-col gap-2 sm:hidden">
                 {otherServices.map((service, index) => (
                     <Link key={index} to={service.href} className="group block">
                         <div className="relative aspect-video overflow-hidden rounded-3xl bg-stone-100 shadow-lg  ">
@@ -85,7 +85,7 @@ export function OtherServicesSection({ currentServiceHref }: OtherServicesSectio
                 >
                     <CarouselContent className="-ml-4 sm:-ml-6">
                         {otherServices.map((service, index) => (
-                            <CarouselItem key={index} className="pl-4 sm:pl-6 basis-[85%] sm:basis-1/2 lg:basis-[29.5%]">
+                            <CarouselItem key={index} className="pl-4 sm:pl-5 basis-[85%] sm:basis-1/2 lg:basis-[29.5%]">
                                 <Link to={service.href} className="group block">
                                     <div className="relative aspect-4/5 overflow-hidden rounded-3xl bg-stone-100 shadow-lg border border-black/5">
                                         {/* Image background */}

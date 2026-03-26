@@ -72,7 +72,7 @@ function AnimatedNumber({ value }: { value: string }) {
 
 export function NumbersSection() {
     return (
-        <section className="w-full pb-24 px-5">
+        <section className="w-full pb-24 px-0 md:px-5">
             <div className="mx-auto max-w-6xl">
                 <div className="group relative overflow-hidden rounded-[2.5rem] border-0 bg-transparent p-10 sm:p-20">
                     {/* Background Image Container */}

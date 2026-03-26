@@ -42,14 +42,14 @@ export function ContactSection() {
                         {/* ── Left: text content ──────────────────────────── */}
                         <div className="lg:col-span-5 flex flex-col justify-center space-y-10 py-8">
                             <div className="space-y-6">
-                                <h2 className="font-display text-[clamp(2.5rem,5.5vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-ink max-w-[12ch]">
+                                <h2 className="pl-4 md:pl-0 font-display text-[clamp(2.5rem,5.5vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-ink max-w-[12ch]">
                                     Да{" "}
                                     <em className="italic font-light text-black/30">
                                         създадем
                                     </em>{" "}
                                     нещо значимо
                                 </h2>
-                                <p className="text-ink-soft text-lg leading-relaxed max-w-md font-light">
+                                <p className="pl-4 md:pl-0 text-ink-soft text-lg leading-relaxed max-w-md font-light">
                                     От концепция до детайлна реализация, ние сме тук, за да
                                     превърнем вашите идеи в устойчива архитектура.
                                 </p>

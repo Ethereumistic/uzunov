@@ -84,21 +84,21 @@ export function Navbar() {
     }
 
     return (
-        <header className="sticky top-4 mt-8 mb-[-96px] left-0 right-0 z-50 flex justify-center px-4 pointer-events-none transition-all duration-500 ease-in-out">
-            <div ref={navRef} className="w-full max-w-[27rem] sm:max-w-xl md:max-w-3xl xl:max-w-5xl 2xl:max-w-280 pointer-events-auto transition-all duration-300 relative h-[64px]">
+        <header className="sticky top-5 -translate-y-3 md:translate-y-0 md:top-4 mt-8 mb-[-96px] left-0 right-0 z-50 flex justify-center px-4 pointer-events-none transition-all duration-500 ease-in-out">
+            <div ref={navRef} className="w-full max-w-[22rem] sm:max-w-xl md:max-w-3xl xl:max-w-5xl 2xl:max-w-280 pointer-events-auto transition-all duration-300 relative h-[64px]">
                 {/*
                   ROUNDING FIX: Always rounded-3xl — never toggle the border-radius.
                   Animating between rounded-full and a lower radius causes ugly shape
                   distortion during the transition. rounded-3xl (24px) reads as a pill
                   at 64px tall and smoothly becomes a rounded-rect when expanded.
                 */}
-                <div className="absolute top-0 left-0 right-0 px-6 rounded-4xl transition-all duration-300 ease-in-out border border-white/20 bg-gradient-to-b from-white/80 to-white/60 backdrop-blur-[15px] shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] saturate-150">
+                <div className="absolute top-0 left-0 right-0 px-6 rounded-3xl transition-all duration-300 ease-in-out border border-white/20 bg-gradient-to-b from-white/80 to-white/60 backdrop-blur-[15px] shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] saturate-150">
 
                     {/* Main bar */}
                     <div className="flex items-center justify-between h-[64px]">
 
                         {/* Logo */}
-                        <div className="flex shrink-0 items-center">
+                        <div className="flex shrink-0 items-center -translate-x-2.5">
                             <Link to="/" className="transition-opacity">
                                 <Logo type="horizontal" size="lg" variant="black" />
                             </Link>
@@ -173,17 +173,17 @@ export function Navbar() {
                         </nav>
 
                         {/* Right side */}
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center  -mr-3">
                             <Link
                                 to="/"
                                 hash="contact"
                                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                                className="hidden md:inline-flex bg-black text-white px-6 py-2.5 rounded-full text-sm font-bold uppercase hover:bg-black/80 transition-all shadow-lg hover:shadow-black/20"
+                                className="hidden md:inline-flex bg-black text-white px-6 py-2.5 rounded-2xl text-sm font-bold uppercase hover:bg-black/80 transition-all shadow-lg hover:shadow-black/20"
                             >
                                 Контакт
                             </Link>
                             <button
-                                className="md:hidden p-2 text-black rounded-full hover:bg-black/5 transition-colors"
+                                className="md:hidden text-black rounded-full hover:bg-black/5 transition-colors p-2"
                                 onClick={() => {
                                     setMobileOpen(prev => !prev)
                                     setServicesOpen(false)
@@ -228,55 +228,46 @@ export function Navbar() {
                         className={cn(
                             "md:hidden overflow-hidden transition-all duration-300 ease-in-out",
                             mobileOpen
-                                ? "max-h-[800px] opacity-100 pb-5 pt-1"
+                                ? "max-h-[600px] opacity-100 pb-5 pt-3"
                                 : "max-h-0 opacity-0 pb-0 pt-0 pointer-events-none"
                         )}
                     >
-                        <nav className="flex flex-col gap-1 mb-4 border-b border-black/8 pb-4">
+                        <nav className="flex flex-col gap-2.5 group/nav">
                             <Link
                                 to="/"
                                 hash="about"
                                 onClick={() => { setMobileOpen(false); document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) }}
-                                className="px-3 py-2.5 rounded-xl text-sm font-medium text-black hover:bg-black/5 transition-colors"
+                                className="px-5 py-3.5 rounded-2xl text-[13px] font-bold uppercase tracking-wider text-black bg-white/40 border border-white/50 shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] active:scale-[0.98] transition-transform flex items-center justify-center"
                             >
-                                За нас
+                                <span>За нас</span>
                             </Link>
+
                             <Link
                                 to="/projects"
                                 onClick={() => setMobileOpen(false)}
-                                className="px-3 py-2.5 rounded-xl text-sm font-medium text-black hover:bg-black/5 transition-colors"
+                                className="px-5 py-3.5 rounded-2xl text-[13px] font-bold uppercase tracking-wider text-black bg-white/40 border border-white/50 shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] active:scale-[0.98] transition-transform flex items-center justify-center"
                             >
-                                Проекти
+                                <span>Проекти</span>
+                            </Link>
+
+                            <Link
+                                to="/"
+                                hash="services"
+                                onClick={() => { setMobileOpen(false); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }) }}
+                                className="px-5 py-3.5 rounded-2xl text-[13px] font-bold uppercase tracking-wider text-black bg-white/40 border border-white/50 shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] active:scale-[0.98] transition-transform flex items-center justify-center"
+                            >
+                                <span>Услуги</span>
+                            </Link>
+
+                            <Link
+                                to="/"
+                                hash="contact"
+                                onClick={() => { setMobileOpen(false); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) }}
+                                className="mt-2 px-5 py-4 rounded-2xl text-[13px] font-black uppercase tracking-widest text-white bg-black shadow-[0_10px_20px_-5px_rgba(0,0,0,0.2)] active:scale-[0.98] transition-transform flex items-center justify-center gap-2"
+                            >
+                                <span>Контакт</span>
                             </Link>
                         </nav>
-
-                        <p className="text-[11px] font-semibold tracking-widest text-black/35 uppercase mb-3 px-1">
-                            Услуги
-                        </p>
-                        <div className="flex flex-col gap-2">
-                            {services.map((service) => (
-                                <Link
-                                    key={service.href}
-                                    to={service.href as any}
-                                    onClick={() => setMobileOpen(false)}
-                                    className="flex items-center gap-4 rounded-2xl border border-black/8 p-3.5 transition-all duration-200 hover:bg-black/4"
-                                >
-                                    <div className="flex items-center justify-center size-11 rounded-xl bg-black/6 shrink-0">
-                                        {service.icon}
-                                    </div>
-                                    <p className="font-semibold text-[15px] text-black leading-tight">{service.title}</p>
-                                </Link>
-                            ))}
-                        </div>
-
-                        <Link
-                            to="/"
-                            hash="contact"
-                            onClick={() => setMobileOpen(false)}
-                            className="mt-4 flex items-center justify-center bg-black text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-black/80 transition-all"
-                        >
-                            Контакти
-                        </Link>
                     </div>
                 </div>
             </div>

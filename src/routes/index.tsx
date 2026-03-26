@@ -10,7 +10,7 @@ export const Route = createFileRoute("/")({ component: App });
 
 function App() {
   return (
-    <main className="flex flex-col items-center justify-center p-5">
+    <main className="flex flex-col items-center justify-center p-2 md:p-5">
       <Hero />
       <FeaturedProjects />
       <AboutSection />

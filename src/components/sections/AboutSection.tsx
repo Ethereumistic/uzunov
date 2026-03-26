@@ -27,7 +27,7 @@ const coreValues = [
 
 export default function AboutSection() {
     return (
-        <section id="about" className="relative w-full overflow-hidden pt-24 pb-6 px-5">
+        <section id="about" className="relative w-full overflow-hidden pt-24 pb-2 md:pb-5 px-0 md:px-5">
             <div className="relative z-10 mx-auto max-w-6xl">
                 {/* Header Section */}
                 <div className="mb-10 text-center">
@@ -40,7 +40,7 @@ export default function AboutSection() {
                 </div>
 
                 {/* Philosophy, Mission, Vision Cards */}
-                <div className=" grid gap-6 md:grid-cols-3">
+                <div className=" grid gap-2 md:gap-5 md:grid-cols-3">
                     {coreValues.map((value, index) => (
                         <Card
                             key={index}

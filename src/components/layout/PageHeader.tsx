@@ -13,7 +13,7 @@ interface PageHeaderProps {
  */
 export function PageHeader({ title, subtitle, slides }: PageHeaderProps) {
     return (
-        <HeroSlider slides={slides} className="h-[45vh] min-h-[380px] rounded-3xl mb-12">
+        <HeroSlider slides={slides} className="h-[45vh] min-h-[368px] rounded-3xl mb-12">
             <div className="absolute inset-0 flex flex-col items-center justify-center pt-14 p-6 text-center text-white">
                 {/* title */}
                 <h1 className="rise-in z-50 font-display text-[clamp(2.25rem,5vw,4rem)] font-bold leading-[1.1] tracking-tight m-0 mb-6 max-w-[20ch] [animation-delay:400ms]">

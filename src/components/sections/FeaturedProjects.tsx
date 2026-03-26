@@ -5,7 +5,7 @@ import { ProjectCard } from "../projects/ProjectCard"
 
 export function FeaturedProjects() {
   return (
-    <section id="projects" className="w-full py-24 px-5">
+    <section id="projects" className="w-full py-24 px-0 md:px-5">
       {/* ── Section header */}
       <div className="mb-10 text-center">
         <h2 className="mb-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-[#1a1916]">
@@ -17,7 +17,7 @@ export function FeaturedProjects() {
       </div>
 
       {/* ── Cards grid */}
-      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-5">
         {featuredProjects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}

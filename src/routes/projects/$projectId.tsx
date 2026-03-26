@@ -40,7 +40,7 @@ function ProjectDetailPage() {
 
   if (!project) {
     return (
-      <main className="min-h-screen flex items-center justify-center px-5 pt-32">
+      <main className="min-h-screen flex items-center justify-center px-0 md:px-5 pt-32">
         <div className="text-center">
           <p className="text-6xl mb-4 opacity-20">◻</p>
           <h1 className="font-display text-2xl font-bold text-[#1a1916] mb-3">
@@ -70,7 +70,7 @@ function ProjectDetailPage() {
   return (
     <div className="min-h-screen bg-transparent">
       {/* PageHeader */}
-      <div className="p-5 pb-0">
+      <div className="p-2 md:p-5 pb-0">
         <PageHeader
           title={
             <>
@@ -86,7 +86,7 @@ function ProjectDetailPage() {
       </div>
 
       {/* Back link */}
-      <div className="px-5 pt-4">
+      <div className="px-2 md:px-5 pt-4">
         <div className="max-w-7xl mx-auto">
           <Link
             to="/projects"
@@ -107,12 +107,12 @@ function ProjectDetailPage() {
       </div>
 
       {/* Main layout */}
-      <div className="px-5 pt-8 pb-12">
+      <div className="px-2 md:px-5 pt-8 pb-12">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 lg:gap-10 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-2 lg:gap-5 items-start">
 
             {/* LEFT: Carousel + Bento */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2 md:gap-5">
               {hasImages ? (
                 <>
                   <MainCarousel images={images} onImageClick={openLightbox} />
@@ -131,10 +131,10 @@ function ProjectDetailPage() {
             </div>
 
             {/* RIGHT: Sticky details + CTA */}
-            <div className="lg:sticky lg:top-28 flex flex-col gap-6">
+            <div className="lg:sticky lg:top-28 flex flex-col gap-2 md:gap-5">
 
               {/* Glass details card */}
-              <div className="rounded-3xl border border-white/60 bg-linear-to-b from-white/80 to-white/50 backdrop-blur-[22px] shadow-[0_8px_32px_rgba(31,38,135,0.08)] saturate-150 p-7 flex flex-col gap-6">
+              <div className="rounded-3xl border border-white/60 bg-linear-to-b from-white/80 to-white/50 backdrop-blur-[22px] shadow-[0_8px_32px_rgba(31,38,135,0.08)] saturate-150 p-7 flex flex-col gap-5">
 
                 <div className="flex flex-wrap gap-2">
                   <span className="inline-flex items-center text-[0.625rem] font-semibold tracking-widest uppercase px-3 py-1 rounded-full border border-black/12 bg-black/5 text-black/60">
@@ -438,7 +438,7 @@ function ProjectBentoGrid({
 
   return (
     <div
-      className="grid gap-3"
+      className="grid gap-2 md:gap-5"
       style={{
         gridTemplateColumns: "repeat(3, 1fr)",
         gridAutoRows: "160px",

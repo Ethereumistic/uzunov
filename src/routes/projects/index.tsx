@@ -3,9 +3,10 @@ import { useState } from "react"
 import {
   LayoutGrid,
   Building2,
-  Hospital,
+  BriefcaseMedical,
   ShoppingBag,
   Factory,
+  Building,
 } from "lucide-react"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "#/components/ui/tabs"
 import {
@@ -21,9 +22,10 @@ import { ProjectCard } from "#/components/projects/ProjectCard"
 const categoryIcons: Record<ProjectCategory, React.ElementType> = {
   All: LayoutGrid,
   Office: Building2,
-  Healthcare: Hospital,
+  Healthcare: BriefcaseMedical,
   Commercial: ShoppingBag,
   Industrial: Factory,
+  Other: Building,
 }
 
 export const Route = createFileRoute("/projects/")({
@@ -43,7 +45,7 @@ function ProjectsPage() {
   }
 
   return (
-    <main className="min-h-screen p-5 bg-transparent">
+    <main className="min-h-screen p-2 md:p-5 bg-transparent">
 
       <PageHeader
         title={<>Нашите <em className="italic font-light">проекти</em></>}
@@ -56,14 +58,14 @@ function ProjectsPage() {
           className="mb-10"
         >
           <div className="w-full flex justify-center">
-            <TabsList className="grid w-full grid-cols-2 xs:grid-cols-3 md:flex md:w-auto h-auto mb-8 gap-1.5 p-1.5 bg-stone-100/50 backdrop-blur-sm rounded-xl">
+            <TabsList className="grid border-black/10 border w-full grid-cols-2 xs:grid-cols-3 md:flex md:w-auto h-auto mb-8 gap-1.5 p-1.5 bg-stone-100/50 backdrop-blur-sm rounded-2xl">
               {allCategories.map((cat) => {
                 const Icon = categoryIcons[cat]
                 return (
                   <TabsTrigger
                     key={cat}
                     value={cat}
-                    className="group rounded-lg text-xs sm:text-sm flex items-center justify-center gap-2 px-3 py-2 sm:px-4 sm:py-2.5 transition-all duration-300 data-[state=active]:bg-black data-[state=active]:shadow-sm data-[state=active]:text-white text-black/50 hover:text-black/80"
+                    className="group rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 px-3 py-2 sm:px-4 sm:py-2.5 transition-all duration-300 data-[state=active]:bg-black data-[state=active]:shadow-sm data-[state=active]:text-white text-black/50 hover:text-black/80"
                   >
                     <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-all duration-300 group-data-[state=active]:scale-110 group-data-[state=active]:opacity-100 opacity-60" />
                     <span className="font-medium tracking-tight whitespace-nowrap">{categoryLabels[cat]}</span>
@@ -78,7 +80,7 @@ function ProjectsPage() {
               {filtered.length === 0 ? (
                 <p className="text-black/40 text-sm">Няма намерени проекти.</p>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5 items-stretch">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 md:gap-5 items-stretch">
                   {filtered.map((project) => (
                     <ProjectCard key={project.id} project={project} />
                   ))}
