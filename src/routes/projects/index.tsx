@@ -50,15 +50,16 @@ function ProjectsPage() {
       <PageHeader
         title={<>Нашите <em className="italic font-light">проекти</em></>}
         subtitle="Над две десетилетия проектиране — офиси, медицински, търговски и индустриални обекти в цяла България."
+        className="md:mb-5 mb-2"
       />
       <div className="max-w-7xl mx-auto">
         <Tabs
           value={activeTab}
           onValueChange={(v) => setActiveTab(v as ProjectCategory)}
-          className="mb-10"
+          className=""
         >
           <div className="w-full flex justify-center">
-            <TabsList className="grid border-black/10 border w-full grid-cols-2 xs:grid-cols-3 md:flex md:w-auto h-auto mb-8 gap-1.5 p-1.5 bg-stone-100/50 backdrop-blur-sm rounded-2xl">
+            <TabsList className="grid border-black/10 border w-full grid-cols-2 xs:grid-cols-3 md:flex md:w-auto h-auto gap-2 p-1.5 bg-stone-100/50 backdrop-blur-sm rounded-2xl">
               {allCategories.map((cat) => {
                 const Icon = categoryIcons[cat]
                 return (
@@ -76,11 +77,11 @@ function ProjectsPage() {
           </div>
 
           {allCategories.map((cat) => (
-            <TabsContent key={cat} value={cat} className="mt-8">
+            <TabsContent key={cat} value={cat} className="">
               {filtered.length === 0 ? (
                 <p className="text-black/40 text-sm">Няма намерени проекти.</p>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 md:gap-5 items-stretch">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 md:gap-5 items-stretch md:mt-3 mt-0">
                   {filtered.map((project) => (
                     <ProjectCard key={project.id} project={project} />
                   ))}

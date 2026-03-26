@@ -1,19 +1,21 @@
 import React from "react"
 import { HeroSlider, type SlideData } from "./HeroSlider"
+import { cn } from "#/lib/utils";
 
 interface PageHeaderProps {
     title: React.ReactNode;
     subtitle?: string;
     slides?: SlideData[];
+    className?: string;
 }
 
 /**
  * Reusable Page Header with a hero-like image slider background.
  * Uses 45vh height by default as a "mini-hero" for subpages.
  */
-export function PageHeader({ title, subtitle, slides }: PageHeaderProps) {
+export function PageHeader({ title, subtitle, slides, className }: PageHeaderProps) {
     return (
-        <HeroSlider slides={slides} className="h-[45vh] min-h-[368px] rounded-3xl mb-12">
+        <HeroSlider slides={slides} className={cn("h-[45vh] min-h-[368px] rounded-3xl mb-12", className)}>
             <div className="absolute inset-0 flex flex-col items-center justify-center pt-14 p-6 text-center text-white">
                 {/* title */}
                 <h1 className="rise-in z-50 font-display text-[clamp(2.25rem,5vw,4rem)] font-bold leading-[1.1] tracking-tight m-0 mb-6 max-w-[20ch] [animation-delay:400ms]">
