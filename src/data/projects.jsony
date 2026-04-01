@@ -16,16 +16,16 @@
         "ar": "V"
       },
       {
-        "url": "/ai2.webp",
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall-office/2.webp",
         "ar": "V"
       },
       {
-        "url": "/ai3.webp",
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall-office/3.webp",
         "ar": "V"
       },
       {
-	"url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall-office/4.webp",
-	"ar":"V"
+        "url": "https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/mall-office/4.webp",
+        "ar": "V"
       }
     ]
   },
