@@ -19,8 +19,7 @@ function HeroContent() {
 
                 {/* sub */}
                 <p className="rise-in font-sans text-[clamp(0.875rem,1.5vw,1.0625rem)] font-light leading-[1.65] text-white/95 max-w-[38ch] my-0 mb-12 [animation-delay:600ms]">
-                    Проектираме архитектура, която свързва хората с пространството -
-                    минималистична, трайна, с душа.
+                    &quot;Архитектура, ориентиране към хората.&quot;  Проектираме, създаваме, творим с внимание към детайла.
                 </p>
 
                 {/* CTA buttons — glass + solid */}
