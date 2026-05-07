@@ -76,12 +76,12 @@ export default function Footer() {
                                 </div>
                                 +359 887 261 838
                             </a>
-                            <div className="flex items-center gap-3 text-[12px] font-semibold text-foreground/70 group">
-                                <div className="flex items-center justify-center size-7 rounded-lg bg-black/5 shrink-0">
+                            <a href="https://maps.app.goo.gl/fPSUKryNPoDN6WLd9" target="_blank" className="flex items-center gap-3 text-[12px] font-semibold text-foreground/70 hover:text-primary transition-colors group">
+                                <div className="flex items-center justify-center size-7 rounded-lg bg-black/5 group-hover:bg-primary/10 group-hover:text-primary transition-colors shrink-0">
                                     <MapPin className="size-3.5" />
                                 </div>
                                 Габрово, България
-                            </div>
+                            </a>
                         </div>
                     </div>
 

@@ -76,7 +76,7 @@ export function ContactSection() {
                                 </div>
 
                                 {/* Location */}
-                                <a href="https://maps.app.goo.gl/1Ah9dCT6cMTaKKBL7" target="_blank" className="flex items-center gap-5 group cursor-pointer border-t border-stone-200 pt-6 transition-all">
+                                <a href="https://maps.app.goo.gl/1Ah9dCT6cMTaKKBL7" target="blank" rel="noopener noreferrer" className="flex items-center gap-5 group cursor-pointer border-t border-stone-200 pt-6 transition-all">
                                     <div className="flex items-center justify-center size-14 rounded-2xl bg-[#1a1916]/5 backdrop-blur-xl saturate-150 border border-[#1a1916]/10 shadow-[0_4px_16px_rgba(15,14,13,0.08),inset_0_1px_0_rgba(255,255,255,0.6)] group-hover:scale-105 group-hover:border-[#1a1916]/20 transition-all duration-300">
                                         <MapPin className="size-5 text-ink" />
                                     </div>
@@ -84,8 +84,8 @@ export function ContactSection() {
                                         <p className="text-label text-[10px] mb-1 opacity-50 tracking-widest uppercase font-bold">
                                             Посетете ни
                                         </p>
-                                        <p className="text-xl font-bold ">
-                                            гр. Габрово, България
+                                        <p className="text-xl font-bold max-w-xs">
+                                            гр. Габрово, бул. &quot;Васил Априлов&quot; 46, етаж 7, офис 18
                                         </p>
                                     </div>
                                 </a>
@@ -207,6 +207,27 @@ export function ContactSection() {
                         </div>
                     </div>
                 </div>
+
+                {/* Embedded Map — full width below form + content */}
+                <a href="https://maps.app.goo.gl/1Ah9dCT6cMTaKKBL7" target="_blank" rel="noopener noreferrer" className="block mt-16">
+                    <div className="relative overflow-hidden rounded-3xl border border-black/8 shadow-[0_8px_32px_rgba(15,14,13,0.08)] transition-all duration-300 hover:shadow-[0_12px_40px_rgba(15,14,13,0.14)] hover:border-black/15 group">
+                        <iframe
+                            src="https://www.openstreetmap.org/export/embed.html?bbox=25.29%2C42.84%2C25.35%2C42.89&amp;layer=mapnik&amp;marker=42.866739089969705%2C25.317478291437165"
+                            className="w-full aspect-[4/3] sm:aspect-[15/4] block"
+                            style={{ border: 0 }}
+                            loading="lazy"
+                            title="Габрово, България"
+                            allowFullScreen
+                        />
+                        {/* Subtle gradient overlay for blending */}
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/10 via-transparent to-white/5" />
+                        {/* Click-to-navigate hint */}
+                        <div className="absolute bottom-3 left-3 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-black/10 shadow-md text-[11px] font-bold uppercase tracking-wider text-[#1a1916] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <MapPin className="size-3" />
+                            Отвори картата
+                        </div>
+                    </div>
+                </a>
             </div>
         </section>
     )
