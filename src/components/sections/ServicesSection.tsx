@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import {
     Building2,
-    PenTool,
+    Map,
     Cog,
     MessageSquare,
     Box,
@@ -19,11 +19,11 @@ export const services = [
         href: '/services/architecture'
     },
     {
-        title: 'Интериорен дизайн',
-        description: 'Проектиране на пространства, съчетаващи стил и комфорт.',
-        icon: PenTool,
+        title: 'Градоустройство',
+        description: 'Цялостно градоустройствено планиране и развитие на урбанизираните територии.',
+        icon: Map,
         image: `${baseUrl}/interior/1_S.webp`,
-        href: '/services/interior'
+        href: '/services/urban'
     },
     {
         title: 'Инженерно проектиране',

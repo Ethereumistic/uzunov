@@ -3,7 +3,7 @@ import { Logo } from "./Logo"
 import { cn } from "../../lib/utils"
 import {
     Building2,
-    PenTool,
+    Map,
     Cog,
     MessageSquare,
     Box,
@@ -22,10 +22,10 @@ const services = [
         href: "/services/architecture"
     },
     {
-        title: "Интериорен дизайн",
-        description: "Индивидуални проекти за пространства, съчетаващи стил и комфорт.",
-        icon: <PenTool className="size-6 text-black" />,
-        href: "/services/interior"
+        title: "Градоустройство",
+        description: "Планиране и развитие на градска среда и урбанизирани територии.",
+        icon: <Map className="size-6 text-black" />,
+        href: "/services/urban"
     },
     {
         title: "Инженерно проектиране",

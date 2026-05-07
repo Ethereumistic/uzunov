@@ -14,7 +14,7 @@ export interface ProjectImage {
 export interface Project {
   id: string
   title: string
-  category: "Office" | "Healthcare" | "Commercial" | "Industrial" | "Other"
+  category: "Office" | "Healthcare" | "Commercial" | "Industrial" | "Residential" | "Other"
   location: string
   area: number | null
   investor: string
@@ -41,6 +41,7 @@ export const allCategories: ProjectCategory[] = [
   "Healthcare",
   "Commercial",
   "Industrial",
+  "Residential",
   "Other",
 ]
 
@@ -59,5 +60,6 @@ export const categoryLabels: Record<ProjectCategory, string> = {
   Healthcare: "Здравеопазване",
   Commercial: "Търговски",
   Industrial: "Индустриални",
+  Residential: "Жилищни",
   Other: "Други",
 }

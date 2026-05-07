@@ -6,6 +6,7 @@ import {
   BriefcaseMedical,
   ShoppingBag,
   Factory,
+  Home,
   Building,
 } from "lucide-react"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "#/components/ui/tabs"
@@ -25,6 +26,7 @@ const categoryIcons: Record<ProjectCategory, React.ElementType> = {
   Healthcare: BriefcaseMedical,
   Commercial: ShoppingBag,
   Industrial: Factory,
+  Residential: Home,
   Other: Building,
 }
 
@@ -60,13 +62,17 @@ function ProjectsPage() {
         >
           <div className="w-full flex justify-center">
             <TabsList className="grid border-black/10 border w-full grid-cols-2 xs:grid-cols-3 md:flex md:w-auto h-auto gap-2 p-1.5 bg-stone-100/50 backdrop-blur-sm rounded-2xl">
-              {allCategories.map((cat) => {
+              {allCategories.map((cat, index) => {
                 const Icon = categoryIcons[cat]
+                const isLast = index === allCategories.length - 1
                 return (
                   <TabsTrigger
                     key={cat}
                     value={cat}
-                    className="group rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 px-3 py-2 sm:px-4 sm:py-2.5 transition-all duration-300 data-[state=active]:bg-black data-[state=active]:shadow-sm data-[state=active]:text-white text-black/50 hover:text-black/80"
+                    className={cn(
+                      "group rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 px-3 py-2 sm:px-4 sm:py-2.5 transition-all duration-300 data-[state=active]:bg-black data-[state=active]:shadow-sm data-[state=active]:text-white text-black/50 hover:text-black/80",
+                      isLast && "col-span-2 xs:col-span-3 md:col-span-1"
+                    )}
                   >
                     <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-all duration-300 group-data-[state=active]:scale-110 group-data-[state=active]:opacity-100 opacity-60" />
                     <span className="font-medium tracking-tight whitespace-nowrap">{categoryLabels[cat]}</span>

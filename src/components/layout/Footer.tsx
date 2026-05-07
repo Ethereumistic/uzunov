@@ -1,13 +1,13 @@
 import { Link } from "@tanstack/react-router"
 import { Logo } from "./Logo"
-import { Wifi, ArrowUpRight, MapPin, Mail, Phone, Building2, Palette, Cog, Handshake, Box, ClipboardCheck } from "lucide-react"
+import { Wifi, ArrowUpRight, MapPin, Mail, Phone, Building2, Map, Cog, Handshake, Box, ClipboardCheck } from "lucide-react"
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
 
     const services = [
         { label: "Архитектура", href: "/services/architecture", icon: Building2 },
-        { label: "Интериорен дизайн", href: "/services/interior", icon: Palette },
+        { label: "Градоустройство", href: "/services/urban", icon: Map },
         { label: "Инженерно проектиране", href: "/services/engineering", icon: Cog },
         { label: "Консултиране", href: "/services/consulting", icon: Handshake },
         { label: "3D Анимация и VR", href: "/services/3d", icon: Box },

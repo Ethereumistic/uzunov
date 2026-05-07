@@ -14,8 +14,8 @@ import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
+import { Route as ServicesUrbanRouteImport } from './routes/services/urban'
 import { Route as ServicesProjectsRouteImport } from './routes/services/projects'
-import { Route as ServicesInteriorRouteImport } from './routes/services/interior'
 import { Route as ServicesEngineeringRouteImport } from './routes/services/engineering'
 import { Route as ServicesConsultingRouteImport } from './routes/services/consulting'
 import { Route as ServicesArchitectureRouteImport } from './routes/services/architecture'
@@ -54,14 +54,14 @@ const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ProjectsRoute,
 } as any)
+const ServicesUrbanRoute = ServicesUrbanRouteImport.update({
+  id: '/services/urban',
+  path: '/services/urban',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesProjectsRoute = ServicesProjectsRouteImport.update({
   id: '/services/projects',
   path: '/services/projects',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServicesInteriorRoute = ServicesInteriorRouteImport.update({
-  id: '/services/interior',
-  path: '/services/interior',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesEngineeringRoute = ServicesEngineeringRouteImport.update({
@@ -139,8 +139,8 @@ export interface FileRoutesByFullPath {
   '/services/architecture': typeof ServicesArchitectureRoute
   '/services/consulting': typeof ServicesConsultingRoute
   '/services/engineering': typeof ServicesEngineeringRoute
-  '/services/interior': typeof ServicesInteriorRoute
   '/services/projects': typeof ServicesProjectsRoute
+  '/services/urban': typeof ServicesUrbanRoute
   '/projects/': typeof ProjectsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/demo/form/address': typeof DemoFormAddressRoute
@@ -159,8 +159,8 @@ export interface FileRoutesByTo {
   '/services/architecture': typeof ServicesArchitectureRoute
   '/services/consulting': typeof ServicesConsultingRoute
   '/services/engineering': typeof ServicesEngineeringRoute
-  '/services/interior': typeof ServicesInteriorRoute
   '/services/projects': typeof ServicesProjectsRoute
+  '/services/urban': typeof ServicesUrbanRoute
   '/projects': typeof ProjectsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/demo/form/address': typeof DemoFormAddressRoute
@@ -181,8 +181,8 @@ export interface FileRoutesById {
   '/services/architecture': typeof ServicesArchitectureRoute
   '/services/consulting': typeof ServicesConsultingRoute
   '/services/engineering': typeof ServicesEngineeringRoute
-  '/services/interior': typeof ServicesInteriorRoute
   '/services/projects': typeof ServicesProjectsRoute
+  '/services/urban': typeof ServicesUrbanRoute
   '/projects/': typeof ProjectsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/demo/form/address': typeof DemoFormAddressRoute
@@ -204,8 +204,8 @@ export interface FileRouteTypes {
     | '/services/architecture'
     | '/services/consulting'
     | '/services/engineering'
-    | '/services/interior'
     | '/services/projects'
+    | '/services/urban'
     | '/projects/'
     | '/api/auth/$'
     | '/demo/form/address'
@@ -224,8 +224,8 @@ export interface FileRouteTypes {
     | '/services/architecture'
     | '/services/consulting'
     | '/services/engineering'
-    | '/services/interior'
     | '/services/projects'
+    | '/services/urban'
     | '/projects'
     | '/api/auth/$'
     | '/demo/form/address'
@@ -245,8 +245,8 @@ export interface FileRouteTypes {
     | '/services/architecture'
     | '/services/consulting'
     | '/services/engineering'
-    | '/services/interior'
     | '/services/projects'
+    | '/services/urban'
     | '/projects/'
     | '/api/auth/$'
     | '/demo/form/address'
@@ -266,8 +266,8 @@ export interface RootRouteChildren {
   ServicesArchitectureRoute: typeof ServicesArchitectureRoute
   ServicesConsultingRoute: typeof ServicesConsultingRoute
   ServicesEngineeringRoute: typeof ServicesEngineeringRoute
-  ServicesInteriorRoute: typeof ServicesInteriorRoute
   ServicesProjectsRoute: typeof ServicesProjectsRoute
+  ServicesUrbanRoute: typeof ServicesUrbanRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   DemoFormAddressRoute: typeof DemoFormAddressRoute
   DemoFormSimpleRoute: typeof DemoFormSimpleRoute
@@ -310,18 +310,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsIndexRouteImport
       parentRoute: typeof ProjectsRoute
     }
+    '/services/urban': {
+      id: '/services/urban'
+      path: '/services/urban'
+      fullPath: '/services/urban'
+      preLoaderRoute: typeof ServicesUrbanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services/projects': {
       id: '/services/projects'
       path: '/services/projects'
       fullPath: '/services/projects'
       preLoaderRoute: typeof ServicesProjectsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/services/interior': {
-      id: '/services/interior'
-      path: '/services/interior'
-      fullPath: '/services/interior'
-      preLoaderRoute: typeof ServicesInteriorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services/engineering': {
@@ -438,8 +438,8 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesArchitectureRoute: ServicesArchitectureRoute,
   ServicesConsultingRoute: ServicesConsultingRoute,
   ServicesEngineeringRoute: ServicesEngineeringRoute,
-  ServicesInteriorRoute: ServicesInteriorRoute,
   ServicesProjectsRoute: ServicesProjectsRoute,
+  ServicesUrbanRoute: ServicesUrbanRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   DemoFormAddressRoute: DemoFormAddressRoute,
   DemoFormSimpleRoute: DemoFormSimpleRoute,

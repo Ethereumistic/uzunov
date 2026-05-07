@@ -22,8 +22,8 @@ function Service3dPage() {
             }}
             bentoImages={[
                 `${baseUrl}/1_S.webp`,
-                `${baseUrl}/5_S.webp`,
                 `${baseUrl}/3_S.webp`,
+                `${baseUrl}/4_S.webp`,
                 `${baseUrl}/6_S.webp`
             ]}
             ctaImage={`${baseUrl}/4_S.webp`}
