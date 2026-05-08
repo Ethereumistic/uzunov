@@ -38,7 +38,7 @@ export function Logo({
 
     const Logomark = (
         <img
-            src="/uzunov-logo.webp"
+            src="/mono-logo.png"
             alt="Узунов Проект Лого"
             width={512}
             height={512}
@@ -52,9 +52,9 @@ export function Logo({
 
     const Logotype = (
         <div className={cn(
-            "flex justify-center mt-2 select-none font-bold uppercase leading-[1.1] tracking-tight",
+            "flex justify-center mt-2 select-none font-light uppercase leading-[1.1] tracking-tight",
             top,
-            isBlack ? "text-black font-black" : (isInverse ? "text-white" : "text-black")
+            isBlack ? "text-black" : (isInverse ? "text-white" : "text-black")
         )}>
             Узунов Проект
         </div>
