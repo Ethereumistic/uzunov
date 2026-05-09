@@ -9,7 +9,7 @@ import { v } from "convex/values";
 export const list = query({
   args: {},
   handler: async (ctx) => {
-    return await ctx.db.query("projects").withIndex("by_featured").order("asc").collect();
+    return await ctx.db.query("projects").withIndex("by_order").order("asc").collect();
   },
 });
 
@@ -28,7 +28,7 @@ export const listByCategory = query({
   handler: async (ctx, { category }) => {
     return await ctx.db
       .query("projects")
-      .withIndex("by_category", (q) => q.eq("category", category))
+      .withIndex("by_category_order", (q) => q.eq("category", category))
       .order("asc")
       .collect();
   },

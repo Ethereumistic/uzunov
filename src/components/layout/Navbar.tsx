@@ -176,6 +176,10 @@ export function Navbar() {
                         {/* Right side: theme toggle + CTA / hamburger */}
                         <div className="flex items-center -mr-3">
 
+                            <div className="flex md:hidden">
+                                <ThemeToggle />
+                            </div>
+
                             <Link
                                 to="/"
                                 hash="contact"
@@ -194,6 +198,9 @@ export function Navbar() {
                             >
                                 {mobileOpen ? <X size={20} /> : <Menu size={20} />}
                             </button>
+                            <div className="md:flex hidden">
+                                <ThemeToggle />
+                            </div>
                         </div>
                     </div>
 

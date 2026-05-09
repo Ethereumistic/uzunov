@@ -62,7 +62,9 @@ export default defineSchema({
   })
     .index("by_slug", ["slug"])
     .index("by_category", ["category"])
-    .index("by_featured", ["featured"]),
+    .index("by_featured", ["featured"])
+    .index("by_order", ["order"])
+    .index("by_category_order", ["category", "order"]),
 
   // ── Content-hash → storageId mapping for image deduplication ──
   imageHashes: defineTable({

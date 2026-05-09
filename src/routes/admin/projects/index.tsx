@@ -1,19 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
-import { useState } from "react";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { useState, useCallback } from "react";
+import { Plus, Pencil, Trash2, GripVertical } from "lucide-react";
 import { ProjectImage } from "#/components/projects/ProjectImage";
 import { Button } from "#/components/ui/button";
 import { Badge } from "#/components/ui/badge";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "#/components/ui/table";
 import {
   Dialog,
   DialogContent,
@@ -39,11 +31,63 @@ const categoryLabels: Record<string, string> = {
 
 function AdminProjectsPage() {
   const projects = useQuery(api.projects.list);
+  const reorderProjects = useMutation(api.projects.reorder);
   const removeProject = useMutation(api.projects.remove);
   const [deleteTarget, setDeleteTarget] = useState<{
     id: Id<"projects">;
     title: string;
   } | null>(null);
+
+  // Local drag state
+  const [dragIndex, setDragIndex] = useState<number | null>(null);
+  const [overIndex, setOverIndex] = useState<number | null>(null);
+
+  const handleDragStart = useCallback((e: React.DragEvent, index: number) => {
+    setDragIndex(index);
+    e.dataTransfer.effectAllowed = "move";
+    // Set a transparent drag image so the native ghost is minimal
+    const el = e.currentTarget as HTMLElement;
+    e.dataTransfer.setDragImage(el, 0, 0);
+  }, []);
+
+  const handleDragOver = useCallback(
+    (e: React.DragEvent, index: number) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "move";
+      if (dragIndex !== null && index !== overIndex) {
+        setOverIndex(index);
+      }
+    },
+    [dragIndex, overIndex],
+  );
+
+  const handleDrop = useCallback(async () => {
+    if (dragIndex === null || overIndex === null || dragIndex === overIndex) {
+      setDragIndex(null);
+      setOverIndex(null);
+      return;
+    }
+
+    if (!projects) return;
+
+    // Build new order locally
+    const reordered = [...projects];
+    const [moved] = reordered.splice(dragIndex, 1);
+    reordered.splice(overIndex, 0, moved);
+
+    // Persist with new sequential order values
+    const orders = reordered.map((p, i) => ({ id: p._id, order: i }));
+    await reorderProjects({ orders });
+
+    setDragIndex(null);
+    setOverIndex(null);
+  }, [dragIndex, overIndex, projects, reorderProjects]);
+
+  const handleDragEnd = useCallback(() => {
+    // Only reset if we didn't complete a drop (e.g. cancelled)
+    setDragIndex(null);
+    setOverIndex(null);
+  }, []);
 
   const handleDelete = async () => {
     if (!deleteTarget) return;
@@ -59,6 +103,13 @@ function AdminProjectsPage() {
     );
   }
 
+  // Compute visual order: apply drag preview
+  const displayItems = [...projects];
+  if (dragIndex !== null && overIndex !== null && dragIndex !== overIndex) {
+    const [moved] = displayItems.splice(dragIndex, 1);
+    displayItems.splice(overIndex, 0, moved);
+  }
+
   return (
     <div>
       {/* Header */}
@@ -72,70 +123,89 @@ function AdminProjectsPage() {
         </Link>
       </div>
 
-      {/* Table */}
-      <div className="rounded-xl border border-border bg-card">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-16">Img</TableHead>
-              <TableHead>Title (BG)</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {projects.map((project) => (
-              <TableRow key={project._id}>
-                <TableCell>
-                  {project.images.length > 0 ? (
-                    <ProjectImage
-                      image={project.images[0]}
-                      alt={project.title_bg}
-                      className="h-10 w-16 object-cover rounded"
-                    />
-                  ) : (
-                    <div className="h-10 w-16 bg-muted rounded flex items-center justify-center text-muted-foreground">
-                      ◻
-                    </div>
-                  )}
-                </TableCell>
-                <TableCell className="font-medium">
-                  {project.title_bg}
-                </TableCell>
-                <TableCell>
-                  <Badge variant="secondary">
-                    {categoryLabels[project.category] ?? project.category}
-                  </Badge>
-                </TableCell>
-                <TableCell>
-                  <Badge variant={project.status === "done" ? "default" : "outline"}>
-                    {project.status === "done" ? "Завършен" : "В процес"}
-                  </Badge>
-                </TableCell>
-                <TableCell className="text-right">
-                  <div className="flex items-center justify-end gap-1">
-                    <Link to="/admin/projects/$projectId/edit" params={{ projectId: project._id }}>
-                      <Button variant="ghost" size="icon">
-                        <Pencil className="h-4 w-4" />
-                      </Button>
-                    </Link>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="text-red-500 hover:text-red-700"
-                      onClick={() =>
-                        setDeleteTarget({ id: project._id, title: project.title_bg })
-                      }
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+      {/* Draggable project list */}
+      <div className="flex flex-col gap-3">
+        {displayItems.map((project, index) => {
+          // Map display index back to the original data index for drag state
+          const isDragging = dragIndex === projects.findIndex((p) => p._id === project._id);
+          const isOver = overIndex === index && dragIndex !== null && dragIndex !== overIndex;
+
+          return (
+            <div
+              key={project._id}
+              draggable
+              onDragStart={(e) => {
+                const realIndex = projects.findIndex((p) => p._id === project._id);
+                handleDragStart(e, realIndex);
+              }}
+              onDragOver={(e) => handleDragOver(e, index)}
+              onDrop={handleDrop}
+              onDragEnd={handleDragEnd}
+              className={`
+                group relative flex rounded-xl border bg-card text-card-foreground shadow-sm
+                transition-all duration-150 cursor-grab active:cursor-grabbing
+                ${isDragging ? "opacity-40 scale-[0.98]" : "opacity-100"}
+                ${isOver && !isDragging ? "border-primary ring-2 ring-primary/20" : "border-border"}
+                hover:border-primary/50
+              `}
+            >
+              {/* Drag handle */}
+              <div className="flex items-center px-2 text-muted-foreground/50 group-hover:text-muted-foreground transition-colors">
+                <GripVertical className="h-5 w-5" />
+              </div>
+
+              {/* Thumbnail */}
+              <div className="w-40 md:w-56 shrink-0 bg-muted rounded-l-xl overflow-hidden">
+                {project.images.length > 0 ? (
+                  <ProjectImage
+                    image={project.images[0]}
+                    alt={project.title_bg}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full min-h-[100px] items-center justify-center text-muted-foreground">
+                    ◻
                   </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+                )}
+              </div>
+
+              {/* Content */}
+              <div className="flex flex-1 items-center gap-4 px-4 py-3">
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold truncate">{project.title_bg}</h3>
+                  <div className="flex items-center gap-2 mt-1.5">
+                    <Badge variant="secondary">
+                      {categoryLabels[project.category] ?? project.category}
+                    </Badge>
+                    <Badge variant={project.status === "done" ? "default" : "outline"}>
+                      {project.status === "done" ? "Завършен" : "В процес"}
+                    </Badge>
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="flex items-center gap-1 shrink-0">
+                  <Link to="/admin/projects/$projectId/edit" params={{ projectId: project._id }}>
+                    <Button variant="ghost" size="icon" className="h-8 w-8">
+                      <Pencil className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 text-red-500 hover:text-red-700"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setDeleteTarget({ id: project._id, title: project.title_bg });
+                    }}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       {/* Delete Confirmation Dialog */}
