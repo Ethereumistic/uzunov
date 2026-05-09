@@ -30,7 +30,7 @@ export function ProjectImage({ image, alt, className, onClick }: ProjectImagePro
 
   if (!src) {
     return (
-      <div className={`${className ?? ""} bg-stone-100 flex items-center justify-center`}>
+      <div className={`${className ?? ""} bg-muted flex items-center justify-center`}>
         <span className="text-5xl opacity-10">◻</span>
       </div>
     )

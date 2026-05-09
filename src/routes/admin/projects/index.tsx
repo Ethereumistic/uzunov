@@ -3,6 +3,7 @@ import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { useState } from "react";
 import { Plus, Pencil, Trash2 } from "lucide-react";
+import { ProjectImage } from "#/components/projects/ProjectImage";
 import { Button } from "#/components/ui/button";
 import { Badge } from "#/components/ui/badge";
 import {
@@ -53,7 +54,7 @@ function AdminProjectsPage() {
   if (projects === undefined) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-stone-300 border-t-stone-900" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-muted border-t-foreground" />
       </div>
     );
   }
@@ -72,7 +73,7 @@ function AdminProjectsPage() {
       </div>
 
       {/* Table */}
-      <div className="rounded-xl border border-stone-200 bg-white">
+      <div className="rounded-xl border border-border bg-card">
         <Table>
           <TableHeader>
             <TableRow>
@@ -87,15 +88,14 @@ function AdminProjectsPage() {
             {projects.map((project) => (
               <TableRow key={project._id}>
                 <TableCell>
-                  {/* Thumbnail: use url_legacy or Convex storage URL */}
                   {project.images.length > 0 ? (
-                    <img
-                      src={project.images[0].url_legacy ?? ""}
+                    <ProjectImage
+                      image={project.images[0]}
                       alt={project.title_bg}
                       className="h-10 w-16 object-cover rounded"
                     />
                   ) : (
-                    <div className="h-10 w-16 bg-stone-100 rounded flex items-center justify-center text-stone-300">
+                    <div className="h-10 w-16 bg-muted rounded flex items-center justify-center text-muted-foreground">
                       ◻
                     </div>
                   )}

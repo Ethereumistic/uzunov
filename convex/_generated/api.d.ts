@@ -13,6 +13,7 @@ import type * as http from "../http.js";
 import type * as images from "../images.js";
 import type * as migrations from "../migrations.js";
 import type * as projects from "../projects.js";
+import type * as users from "../users.js";
 
 import type {
   ApiFromModules,
@@ -26,6 +27,7 @@ declare const fullApi: ApiFromModules<{
   images: typeof images;
   migrations: typeof migrations;
   projects: typeof projects;
+  users: typeof users;
 }>;
 
 /**

@@ -175,7 +175,6 @@ export function Navbar() {
 
                         {/* Right side: theme toggle + CTA / hamburger */}
                         <div className="flex items-center -mr-3">
-                            <ThemeToggle className="mr-1" />
 
                             <Link
                                 to="/"
