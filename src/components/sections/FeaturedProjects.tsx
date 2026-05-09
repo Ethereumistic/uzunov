@@ -1,9 +1,17 @@
 import { Link } from "@tanstack/react-router"
 import { ChevronRight } from "lucide-react"
-import { featuredProjects } from "../../data/projects"
+import { useQuery } from "convex/react"
+import { api } from "../../../convex/_generated/api"
 import { ProjectCard } from "../projects/ProjectCard"
+import { useProjectImageUrls } from "#/hooks/useProjectImages"
+import type { Doc } from "../../../convex/_generated/dataModel"
+
+type ProjectDoc = Doc<"projects">
 
 export function FeaturedProjects() {
+  const allProjects = useQuery(api.projects.list)
+  const featuredProjects = (allProjects ?? []).filter((p) => p.featured && p.images.length > 0)
+
   return (
     <section id="projects" className="w-full py-24 px-0 md:px-5">
       {/* ── Section header */}
@@ -19,7 +27,7 @@ export function FeaturedProjects() {
       {/* ── Cards grid */}
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-5">
         {featuredProjects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
+          <ProjectCardWithImage key={project._id} project={project} />
         ))}
       </div>
 
@@ -35,4 +43,11 @@ export function FeaturedProjects() {
       </div>
     </section>
   )
+}
+
+/** Wrapper component that resolves the first image URL for a project card */
+function ProjectCardWithImage({ project }: { project: ProjectDoc }) {
+  const resolvedUrls = useProjectImageUrls(project.images)
+  const firstImageUrl = project.images.length > 0 ? resolvedUrls[0] : null
+  return <ProjectCard project={project} imageUrl={firstImageUrl} />
 }

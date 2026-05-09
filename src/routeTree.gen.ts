@@ -12,22 +12,24 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as AdminLoginRouteImport } from './routes/admin-login'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as ServicesUrbanRouteImport } from './routes/services/urban'
 import { Route as ServicesProjectsRouteImport } from './routes/services/projects'
 import { Route as ServicesEngineeringRouteImport } from './routes/services/engineering'
 import { Route as ServicesConsultingRouteImport } from './routes/services/consulting'
 import { Route as ServicesArchitectureRouteImport } from './routes/services/architecture'
 import { Route as Services3dRouteImport } from './routes/services/3d'
-import { Route as ProjectsProjectIdRouteImport } from './routes/projects/$projectId'
+import { Route as ProjectsSlugRouteImport } from './routes/projects/$slug'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
-import { Route as DemoTableRouteImport } from './routes/demo/table'
-import { Route as DemoConvexRouteImport } from './routes/demo/convex'
-import { Route as DemoBetterAuthRouteImport } from './routes/demo/better-auth'
+import { Route as AdminProjectsIndexRouteImport } from './routes/admin/projects/index'
 import { Route as DemoFormSimpleRouteImport } from './routes/demo/form.simple'
 import { Route as DemoFormAddressRouteImport } from './routes/demo/form.address'
-import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as AdminProjectsNewRouteImport } from './routes/admin/projects/new'
+import { Route as AdminProjectsProjectIdEditRouteImport } from './routes/admin/projects/$projectId/edit'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -44,6 +46,16 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin-login',
+  path: '/admin-login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -53,6 +65,11 @@ const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => ProjectsRoute,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
 } as any)
 const ServicesUrbanRoute = ServicesUrbanRouteImport.update({
   id: '/services/urban',
@@ -84,9 +101,9 @@ const Services3dRoute = Services3dRouteImport.update({
   path: '/services/3d',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProjectsProjectIdRoute = ProjectsProjectIdRouteImport.update({
-  id: '/$projectId',
-  path: '/$projectId',
+const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
   getParentRoute: () => ProjectsRoute,
 } as any)
 const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
@@ -94,20 +111,10 @@ const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
   path: '/demo/tanstack-query',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DemoTableRoute = DemoTableRouteImport.update({
-  id: '/demo/table',
-  path: '/demo/table',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoConvexRoute = DemoConvexRouteImport.update({
-  id: '/demo/convex',
-  path: '/demo/convex',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoBetterAuthRoute = DemoBetterAuthRouteImport.update({
-  id: '/demo/better-auth',
-  path: '/demo/better-auth',
-  getParentRoute: () => rootRouteImport,
+const AdminProjectsIndexRoute = AdminProjectsIndexRouteImport.update({
+  id: '/projects/',
+  path: '/projects/',
+  getParentRoute: () => AdminRoute,
 } as any)
 const DemoFormSimpleRoute = DemoFormSimpleRouteImport.update({
   id: '/demo/form/simple',
@@ -119,148 +126,163 @@ const DemoFormAddressRoute = DemoFormAddressRouteImport.update({
   path: '/demo/form/address',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
-  id: '/api/auth/$',
-  path: '/api/auth/$',
-  getParentRoute: () => rootRouteImport,
+const AdminProjectsNewRoute = AdminProjectsNewRouteImport.update({
+  id: '/projects/new',
+  path: '/projects/new',
+  getParentRoute: () => AdminRoute,
 } as any)
+const AdminProjectsProjectIdEditRoute =
+  AdminProjectsProjectIdEditRouteImport.update({
+    id: '/projects/$projectId/edit',
+    path: '/projects/$projectId/edit',
+    getParentRoute: () => AdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/admin-login': typeof AdminLoginRoute
   '/privacy': typeof PrivacyRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/terms': typeof TermsRoute
-  '/demo/better-auth': typeof DemoBetterAuthRoute
-  '/demo/convex': typeof DemoConvexRoute
-  '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/projects/$projectId': typeof ProjectsProjectIdRoute
+  '/projects/$slug': typeof ProjectsSlugRoute
   '/services/3d': typeof Services3dRoute
   '/services/architecture': typeof ServicesArchitectureRoute
   '/services/consulting': typeof ServicesConsultingRoute
   '/services/engineering': typeof ServicesEngineeringRoute
   '/services/projects': typeof ServicesProjectsRoute
   '/services/urban': typeof ServicesUrbanRoute
+  '/admin/': typeof AdminIndexRoute
   '/projects/': typeof ProjectsIndexRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/admin/projects/new': typeof AdminProjectsNewRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
+  '/admin/projects/': typeof AdminProjectsIndexRoute
+  '/admin/projects/$projectId/edit': typeof AdminProjectsProjectIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin-login': typeof AdminLoginRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
-  '/demo/better-auth': typeof DemoBetterAuthRoute
-  '/demo/convex': typeof DemoConvexRoute
-  '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/projects/$projectId': typeof ProjectsProjectIdRoute
+  '/projects/$slug': typeof ProjectsSlugRoute
   '/services/3d': typeof Services3dRoute
   '/services/architecture': typeof ServicesArchitectureRoute
   '/services/consulting': typeof ServicesConsultingRoute
   '/services/engineering': typeof ServicesEngineeringRoute
   '/services/projects': typeof ServicesProjectsRoute
   '/services/urban': typeof ServicesUrbanRoute
+  '/admin': typeof AdminIndexRoute
   '/projects': typeof ProjectsIndexRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/admin/projects/new': typeof AdminProjectsNewRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
+  '/admin/projects': typeof AdminProjectsIndexRoute
+  '/admin/projects/$projectId/edit': typeof AdminProjectsProjectIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/admin-login': typeof AdminLoginRoute
   '/privacy': typeof PrivacyRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/terms': typeof TermsRoute
-  '/demo/better-auth': typeof DemoBetterAuthRoute
-  '/demo/convex': typeof DemoConvexRoute
-  '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/projects/$projectId': typeof ProjectsProjectIdRoute
+  '/projects/$slug': typeof ProjectsSlugRoute
   '/services/3d': typeof Services3dRoute
   '/services/architecture': typeof ServicesArchitectureRoute
   '/services/consulting': typeof ServicesConsultingRoute
   '/services/engineering': typeof ServicesEngineeringRoute
   '/services/projects': typeof ServicesProjectsRoute
   '/services/urban': typeof ServicesUrbanRoute
+  '/admin/': typeof AdminIndexRoute
   '/projects/': typeof ProjectsIndexRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/admin/projects/new': typeof AdminProjectsNewRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
+  '/admin/projects/': typeof AdminProjectsIndexRoute
+  '/admin/projects/$projectId/edit': typeof AdminProjectsProjectIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
+    | '/admin-login'
     | '/privacy'
     | '/projects'
     | '/terms'
-    | '/demo/better-auth'
-    | '/demo/convex'
-    | '/demo/table'
     | '/demo/tanstack-query'
-    | '/projects/$projectId'
+    | '/projects/$slug'
     | '/services/3d'
     | '/services/architecture'
     | '/services/consulting'
     | '/services/engineering'
     | '/services/projects'
     | '/services/urban'
+    | '/admin/'
     | '/projects/'
-    | '/api/auth/$'
+    | '/admin/projects/new'
     | '/demo/form/address'
     | '/demo/form/simple'
+    | '/admin/projects/'
+    | '/admin/projects/$projectId/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin-login'
     | '/privacy'
     | '/terms'
-    | '/demo/better-auth'
-    | '/demo/convex'
-    | '/demo/table'
     | '/demo/tanstack-query'
-    | '/projects/$projectId'
+    | '/projects/$slug'
     | '/services/3d'
     | '/services/architecture'
     | '/services/consulting'
     | '/services/engineering'
     | '/services/projects'
     | '/services/urban'
+    | '/admin'
     | '/projects'
-    | '/api/auth/$'
+    | '/admin/projects/new'
     | '/demo/form/address'
     | '/demo/form/simple'
+    | '/admin/projects'
+    | '/admin/projects/$projectId/edit'
   id:
     | '__root__'
     | '/'
+    | '/admin'
+    | '/admin-login'
     | '/privacy'
     | '/projects'
     | '/terms'
-    | '/demo/better-auth'
-    | '/demo/convex'
-    | '/demo/table'
     | '/demo/tanstack-query'
-    | '/projects/$projectId'
+    | '/projects/$slug'
     | '/services/3d'
     | '/services/architecture'
     | '/services/consulting'
     | '/services/engineering'
     | '/services/projects'
     | '/services/urban'
+    | '/admin/'
     | '/projects/'
-    | '/api/auth/$'
+    | '/admin/projects/new'
     | '/demo/form/address'
     | '/demo/form/simple'
+    | '/admin/projects/'
+    | '/admin/projects/$projectId/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  AdminLoginRoute: typeof AdminLoginRoute
   PrivacyRoute: typeof PrivacyRoute
   ProjectsRoute: typeof ProjectsRouteWithChildren
   TermsRoute: typeof TermsRoute
-  DemoBetterAuthRoute: typeof DemoBetterAuthRoute
-  DemoConvexRoute: typeof DemoConvexRoute
-  DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   Services3dRoute: typeof Services3dRoute
   ServicesArchitectureRoute: typeof ServicesArchitectureRoute
@@ -268,7 +290,6 @@ export interface RootRouteChildren {
   ServicesEngineeringRoute: typeof ServicesEngineeringRoute
   ServicesProjectsRoute: typeof ServicesProjectsRoute
   ServicesUrbanRoute: typeof ServicesUrbanRoute
-  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   DemoFormAddressRoute: typeof DemoFormAddressRoute
   DemoFormSimpleRoute: typeof DemoFormSimpleRoute
 }
@@ -296,6 +317,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin-login': {
+      id: '/admin-login'
+      path: '/admin-login'
+      fullPath: '/admin-login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -309,6 +344,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/projects/'
       preLoaderRoute: typeof ProjectsIndexRouteImport
       parentRoute: typeof ProjectsRoute
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/services/urban': {
       id: '/services/urban'
@@ -352,11 +394,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Services3dRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/projects/$projectId': {
-      id: '/projects/$projectId'
-      path: '/$projectId'
-      fullPath: '/projects/$projectId'
-      preLoaderRoute: typeof ProjectsProjectIdRouteImport
+    '/projects/$slug': {
+      id: '/projects/$slug'
+      path: '/$slug'
+      fullPath: '/projects/$slug'
+      preLoaderRoute: typeof ProjectsSlugRouteImport
       parentRoute: typeof ProjectsRoute
     }
     '/demo/tanstack-query': {
@@ -366,26 +408,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoTanstackQueryRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/demo/table': {
-      id: '/demo/table'
-      path: '/demo/table'
-      fullPath: '/demo/table'
-      preLoaderRoute: typeof DemoTableRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/convex': {
-      id: '/demo/convex'
-      path: '/demo/convex'
-      fullPath: '/demo/convex'
-      preLoaderRoute: typeof DemoConvexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/better-auth': {
-      id: '/demo/better-auth'
-      path: '/demo/better-auth'
-      fullPath: '/demo/better-auth'
-      preLoaderRoute: typeof DemoBetterAuthRouteImport
-      parentRoute: typeof rootRouteImport
+    '/admin/projects/': {
+      id: '/admin/projects/'
+      path: '/projects'
+      fullPath: '/admin/projects/'
+      preLoaderRoute: typeof AdminProjectsIndexRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/demo/form/simple': {
       id: '/demo/form/simple'
@@ -401,23 +429,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoFormAddressRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/auth/$': {
-      id: '/api/auth/$'
-      path: '/api/auth/$'
-      fullPath: '/api/auth/$'
-      preLoaderRoute: typeof ApiAuthSplatRouteImport
-      parentRoute: typeof rootRouteImport
+    '/admin/projects/new': {
+      id: '/admin/projects/new'
+      path: '/projects/new'
+      fullPath: '/admin/projects/new'
+      preLoaderRoute: typeof AdminProjectsNewRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/projects/$projectId/edit': {
+      id: '/admin/projects/$projectId/edit'
+      path: '/projects/$projectId/edit'
+      fullPath: '/admin/projects/$projectId/edit'
+      preLoaderRoute: typeof AdminProjectsProjectIdEditRouteImport
+      parentRoute: typeof AdminRoute
     }
   }
 }
 
+interface AdminRouteChildren {
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminProjectsNewRoute: typeof AdminProjectsNewRoute
+  AdminProjectsIndexRoute: typeof AdminProjectsIndexRoute
+  AdminProjectsProjectIdEditRoute: typeof AdminProjectsProjectIdEditRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminIndexRoute: AdminIndexRoute,
+  AdminProjectsNewRoute: AdminProjectsNewRoute,
+  AdminProjectsIndexRoute: AdminProjectsIndexRoute,
+  AdminProjectsProjectIdEditRoute: AdminProjectsProjectIdEditRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 interface ProjectsRouteChildren {
-  ProjectsProjectIdRoute: typeof ProjectsProjectIdRoute
+  ProjectsSlugRoute: typeof ProjectsSlugRoute
   ProjectsIndexRoute: typeof ProjectsIndexRoute
 }
 
 const ProjectsRouteChildren: ProjectsRouteChildren = {
-  ProjectsProjectIdRoute: ProjectsProjectIdRoute,
+  ProjectsSlugRoute: ProjectsSlugRoute,
   ProjectsIndexRoute: ProjectsIndexRoute,
 }
 
@@ -427,12 +478,11 @@ const ProjectsRouteWithChildren = ProjectsRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
+  AdminLoginRoute: AdminLoginRoute,
   PrivacyRoute: PrivacyRoute,
   ProjectsRoute: ProjectsRouteWithChildren,
   TermsRoute: TermsRoute,
-  DemoBetterAuthRoute: DemoBetterAuthRoute,
-  DemoConvexRoute: DemoConvexRoute,
-  DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   Services3dRoute: Services3dRoute,
   ServicesArchitectureRoute: ServicesArchitectureRoute,
@@ -440,7 +490,6 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesEngineeringRoute: ServicesEngineeringRoute,
   ServicesProjectsRoute: ServicesProjectsRoute,
   ServicesUrbanRoute: ServicesUrbanRoute,
-  ApiAuthSplatRoute: ApiAuthSplatRoute,
   DemoFormAddressRoute: DemoFormAddressRoute,
   DemoFormSimpleRoute: DemoFormSimpleRoute,
 }

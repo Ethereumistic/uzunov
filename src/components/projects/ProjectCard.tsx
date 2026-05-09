@@ -7,9 +7,7 @@ import {
   type LucideIcon,
 } from "lucide-react"
 import { cn } from "#/lib/utils"
-import {
-  type Project,
-} from "#/data/projects"
+import type { ProjectDoc } from "#/types/project"
 
 const categoryIcons: Record<string, LucideIcon> = {
   Office: Building2,
@@ -38,17 +36,18 @@ function NoImagePlaceholder({ category }: { category: string }) {
 }
 
 interface ProjectCardProps {
-  project: Project
+  project: ProjectDoc
+  imageUrl?: string | null // Resolved URL (from Convex storage or legacy)
 }
 
-export function ProjectCard({ project }: ProjectCardProps) {
-  const hasImage = project.images.length > 0
+export function ProjectCard({ project, imageUrl }: ProjectCardProps) {
+  const hasImage = project.images.length > 0 && imageUrl
   const CategoryIcon = categoryIcons[project.category] || Building2
 
   return (
     <Link
-      to="/projects/$projectId"
-      params={{ projectId: project.id }}
+      to="/projects/$slug"
+      params={{ slug: project.slug }}
       className="group relative h-[440px] w-full overflow-hidden rounded-3xl border-0 bg-transparent flex flex-col justify-end transition-all duration-300 hover:shadow-[0_20px_60px_rgba(31,38,135,0.15)]"
     >
       {/* Background Image / Placeholder */}
@@ -56,8 +55,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <div className="h-full w-full overflow-hidden">
           {hasImage ? (
             <img
-              src={project.images[0].url}
-              alt={project.title}
+              src={imageUrl!}
+              alt={project.title_bg}
               className="w-full h-full object-cover transition-transform duration-2000 ease-out group-hover:scale-105"
             />
           ) : (
@@ -77,7 +76,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <CategoryIcon className="h-6 w-6 text-white" />
           </div>
           <h3 className="text-lg font-bold text-white tracking-tight drop-shadow-md leading-tight">
-            {project.title}
+            {project.title_bg}
           </h3>
         </div>
       </div>

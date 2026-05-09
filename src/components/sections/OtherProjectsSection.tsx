@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { Link } from '@tanstack/react-router'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { projects } from '#/data/projects'
+import { useQuery } from 'convex/react'
+import { api } from '../../../convex/_generated/api'
 import {
     Carousel,
     CarouselContent,
@@ -11,34 +12,39 @@ import {
 import { Button } from '#/components/ui/button'
 import { cn } from '#/lib/utils'
 import { ProjectCard } from '#/components/projects/ProjectCard'
+import { useProjectImageUrls } from '#/hooks/useProjectImages'
+import type { Doc } from '../../../convex/_generated/dataModel'
+
+type ProjectDoc = Doc<"projects">
 
 interface OtherProjectsSectionProps {
-    currentProjectId: string
+    currentProjectSlug: string
 }
 
-export function OtherProjectsSection({ currentProjectId }: OtherProjectsSectionProps) {
-    const [api, setApi] = React.useState<CarouselApi>()
+export function OtherProjectsSection({ currentProjectSlug }: OtherProjectsSectionProps) {
+    const [carouselApi, setCarouselApi] = React.useState<CarouselApi>()
     const [canScrollPrev, setCanScrollPrev] = React.useState(false)
     const [canScrollNext, setCanScrollNext] = React.useState(true)
 
-    // Filter out current project and shuffle or just take next ones? 
-    // Usually "next" ones or just filter out current.
-    const otherProjects = projects.filter(p => p.id !== currentProjectId)
+    const allProjects = useQuery(api.projects.list) ?? []
+
+    // Filter out current project
+    const otherProjects = allProjects.filter((p: ProjectDoc) => p.slug !== currentProjectSlug)
 
     // For mobile we only show 3
     const mobileProjects = otherProjects.slice(0, 3)
 
     React.useEffect(() => {
-        if (!api) return
+        if (!carouselApi) return
 
-        setCanScrollPrev(api.canScrollPrev())
-        setCanScrollNext(api.canScrollNext())
+        setCanScrollPrev(carouselApi.canScrollPrev())
+        setCanScrollNext(carouselApi.canScrollNext())
 
-        api.on('select', () => {
-            setCanScrollPrev(api.canScrollPrev())
-            setCanScrollNext(api.canScrollNext())
+        carouselApi.on('select', () => {
+            setCanScrollPrev(carouselApi.canScrollPrev())
+            setCanScrollNext(carouselApi.canScrollNext())
         })
-    }, [api])
+    }, [carouselApi])
 
     return (
         <section className="w-full">
@@ -60,15 +66,15 @@ export function OtherProjectsSection({ currentProjectId }: OtherProjectsSectionP
 
             {/* Mobile Version: Stacking cards (showing 3 as requested) */}
             <div className="flex flex-col gap-2 md:gap-5 sm:hidden">
-                {mobileProjects.map((project) => (
-                    <ProjectCard key={project.id} project={project} />
+                {mobileProjects.map((project: ProjectDoc) => (
+                    <ProjectCardWithImage key={project._id} project={project} />
                 ))}
             </div>
 
             {/* Desktop Carousel Section */}
             <div className="hidden sm:block">
                 <Carousel
-                    setApi={setApi}
+                    setApi={setCarouselApi}
                     opts={{
                         align: 'start',
                         loop: false,
@@ -79,9 +85,9 @@ export function OtherProjectsSection({ currentProjectId }: OtherProjectsSectionP
                     className="w-full"
                 >
                     <CarouselContent className="-ml-6">
-                        {otherProjects.map((project) => (
-                            <CarouselItem key={project.id} className="pl-5 basis-1/2 lg:basis-[30.5%]">
-                                <ProjectCard project={project} />
+                        {otherProjects.map((project: ProjectDoc) => (
+                            <CarouselItem key={project._id} className="pl-5 basis-1/2 lg:basis-[30.5%]">
+                                <ProjectCardWithImage project={project} />
                             </CarouselItem>
                         ))}
                     </CarouselContent>
@@ -96,7 +102,7 @@ export function OtherProjectsSection({ currentProjectId }: OtherProjectsSectionP
                             "rounded-full border-black/10 size-12 bg-white hover:bg-black/5 transition-all duration-300 shadow-sm",
                             !canScrollPrev && "opacity-30 cursor-not-allowed"
                         )}
-                        onClick={() => api?.scrollPrev()}
+                        onClick={() => carouselApi?.scrollPrev()}
                         disabled={!canScrollPrev}
                     >
                         <ChevronLeft className="h-5 w-5 text-black/70" />
@@ -108,7 +114,7 @@ export function OtherProjectsSection({ currentProjectId }: OtherProjectsSectionP
                             "rounded-full border-black/10 size-12 bg-white hover:bg-black/5 transition-all duration-300 shadow-sm",
                             !canScrollNext && "opacity-30 cursor-not-allowed"
                         )}
-                        onClick={() => api?.scrollNext()}
+                        onClick={() => carouselApi?.scrollNext()}
                         disabled={!canScrollNext}
                     >
                         <ChevronRight className="h-5 w-5 text-black/70" />
@@ -117,4 +123,11 @@ export function OtherProjectsSection({ currentProjectId }: OtherProjectsSectionP
             </div>
         </section>
     )
+}
+
+/** Wrapper component that resolves the first image URL for a project card */
+function ProjectCardWithImage({ project }: { project: ProjectDoc }) {
+    const resolvedUrls = useProjectImageUrls(project.images)
+    const firstImageUrl = project.images.length > 0 ? resolvedUrls[0] : null
+    return <ProjectCard project={project} imageUrl={firstImageUrl} />
 }
