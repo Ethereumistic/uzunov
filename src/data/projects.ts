@@ -14,7 +14,7 @@ export interface ProjectImage {
 export interface Project {
   id: string
   title: string
-  category: "Office" | "Healthcare" | "Commercial" | "Industrial" | "Residential" | "Other"
+  category: "Office" | "Healthcare" | "Commercial" | "Industrial" | "Residential" | "Interior"
   location: string
   area: number | null
   investor: string
@@ -42,7 +42,7 @@ export const allCategories: ProjectCategory[] = [
   "Commercial",
   "Industrial",
   "Residential",
-  "Other",
+  "Interior",
 ]
 
 export function getProjectById(id: string): Project | undefined {
@@ -61,5 +61,5 @@ export const categoryLabels: Record<ProjectCategory, string> = {
   Commercial: "Търговски",
   Industrial: "Индустриални",
   Residential: "Жилищни",
-  Other: "Други",
+  Interior: "Интериор",
 }

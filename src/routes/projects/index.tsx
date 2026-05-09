@@ -7,7 +7,7 @@ import {
   ShoppingBag,
   Factory,
   Home,
-  Building,
+  Armchair,
 } from "lucide-react"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "#/components/ui/tabs"
 import {
@@ -27,7 +27,7 @@ const categoryIcons: Record<ProjectCategory, React.ElementType> = {
   Commercial: ShoppingBag,
   Industrial: Factory,
   Residential: Home,
-  Other: Building,
+  Interior: Armchair,
 }
 
 export const Route = createFileRoute("/projects/")({
