@@ -44,7 +44,7 @@ export function ContactSection() {
                             <div className="space-y-6">
                                 <h2 className="pl-4 md:pl-0 font-display text-[clamp(2.5rem,5.5vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-ink max-w-[12ch]">
                                     Да{" "}
-                                    <em className="italic font-light text-black/30">
+                                    <em className="italic font-light text-foreground/50">
                                         създадем
                                     </em>{" "}
                                     нещо значимо

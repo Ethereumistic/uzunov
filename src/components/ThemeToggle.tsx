@@ -1,80 +1,91 @@
-import { useEffect, useState } from "react";
+import * as React from "react"
+import { Moon, Sun } from "lucide-react"
+import { cn } from "../lib/utils"
 
-type ThemeMode = "light" | "dark" | "auto";
-
-function getInitialMode(): ThemeMode {
-  if (typeof window === "undefined") {
-    return "auto";
-  }
-
-  const stored = window.localStorage.getItem("theme");
-  if (stored === "light" || stored === "dark" || stored === "auto") {
-    return stored;
-  }
-
-  return "auto";
+function getStoredTheme(): "light" | "dark" | null {
+  if (typeof window === "undefined") return null
+  const stored = window.localStorage.getItem("theme")
+  if (stored === "light" || stored === "dark") return stored
+  return null
 }
 
-function applyThemeMode(mode: ThemeMode) {
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const resolved = mode === "auto" ? (prefersDark ? "dark" : "light") : mode;
-
-  document.documentElement.classList.remove("light", "dark");
-  document.documentElement.classList.add(resolved);
-
-  if (mode === "auto") {
-    document.documentElement.removeAttribute("data-theme");
-  } else {
-    document.documentElement.setAttribute("data-theme", mode);
-  }
-
-  document.documentElement.style.colorScheme = resolved;
+function getSystemTheme(): "light" | "dark" {
+  if (typeof window === "undefined") return "light"
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
 }
 
-export default function ThemeToggle() {
-  const [mode, setMode] = useState<ThemeMode>("auto");
+function applyTheme(theme: "light" | "dark") {
+  const root = document.documentElement
+  root.classList.remove("light", "dark")
+  root.classList.add(theme)
+  root.style.colorScheme = theme
+}
 
-  useEffect(() => {
-    const initialMode = getInitialMode();
-    setMode(initialMode);
-    applyThemeMode(initialMode);
-  }, []);
+interface ThemeToggleProps {
+  className?: string
+}
 
-  useEffect(() => {
-    if (mode !== "auto") {
-      return;
+export function ThemeToggle({ className }: ThemeToggleProps) {
+  // Read the *actual* resolved theme from the DOM on first render
+  // so the icon matches what the init script has already applied.
+  const [resolved, setResolved] = React.useState<"light" | "dark">(() => {
+    if (typeof window === "undefined") return "light"
+    const stored = getStoredTheme()
+    if (stored) return stored
+    return getSystemTheme()
+  })
+
+  // Keep in sync with system changes when no explicit preference is stored
+  React.useEffect(() => {
+    const stored = getStoredTheme()
+    if (stored) return // user has explicit preference, no need to listen
+
+    const media = window.matchMedia("(prefers-color-scheme: dark)")
+    const onChange = () => {
+      const sys = getSystemTheme()
+      setResolved(sys)
+      applyTheme(sys)
     }
+    media.addEventListener("change", onChange)
+    return () => media.removeEventListener("change", onChange)
+  }, [])
 
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = () => applyThemeMode("auto");
-
-    media.addEventListener("change", onChange);
-    return () => {
-      media.removeEventListener("change", onChange);
-    };
-  }, [mode]);
-
-  function toggleMode() {
-    const nextMode: ThemeMode = mode === "light" ? "dark" : mode === "dark" ? "auto" : "light";
-    setMode(nextMode);
-    applyThemeMode(nextMode);
-    window.localStorage.setItem("theme", nextMode);
+  function toggle() {
+    const next: "light" | "dark" = resolved === "dark" ? "light" : "dark"
+    setResolved(next)
+    applyTheme(next)
+    window.localStorage.setItem("theme", next)
   }
-
-  const label =
-    mode === "auto"
-      ? "Theme mode: auto (system). Click to switch to light mode."
-      : `Theme mode: ${mode}. Click to switch mode.`;
 
   return (
     <button
       type="button"
-      onClick={toggleMode}
-      aria-label={label}
-      title={label}
-      className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm font-semibold text-[var(--sea-ink)] shadow-[0_8px_22px_rgba(30,90,72,0.08)] transition hover:-translate-y-0.5"
+      onClick={toggle}
+      aria-label={resolved === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+      className={cn(
+        "relative flex items-center justify-center size-9 rounded-full transition-colors duration-200",
+        "hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
+        className
+      )}
     >
-      {mode === "auto" ? "Auto" : mode === "dark" ? "Dark" : "Light"}
+      <Sun
+        className={cn(
+          "size-[18px] transition-all duration-300",
+          resolved === "dark"
+            ? "rotate-0 scale-100 opacity-100"
+            : "absolute rotate-90 scale-0 opacity-0"
+        )}
+      />
+      <Moon
+        className={cn(
+          "size-[18px] transition-all duration-300",
+          resolved === "light"
+            ? "rotate-0 scale-100 opacity-100"
+            : "absolute -rotate-90 scale-0 opacity-0"
+        )}
+      />
     </button>
-  );
+  )
 }
+
+export default ThemeToggle

@@ -29,13 +29,13 @@ function Service3dPage() {
             ctaImage={`${baseUrl}/4_S.webp`}
         >
             <div className="prose prose-stone lg:prose-lg max-w-none">
-                <h2 className="text-3xl font-display font-semibold mb-6 text-[#1a1916]">Фотореализъм и детайл</h2>
-                <p className="text-black/70 mb-4 leading-relaxed">
+                <h2 className="text-3xl font-display font-semibold mb-6 text-foreground">Фотореализъм и детайл</h2>
+                <p className="text-foreground/90 mb-4 leading-relaxed">
                     Съвременните 3D визуализации са мощен инструмент, който позволява на клиентите ни
                     да видят своя проект преди дори първата копка да бъде направена. Ние създаваме фотореалистични
                     изображения и анимации, които разкриват пълния потенциал на архитектурната идея.
                 </p>
-                <ul className="list-disc pl-5 text-black/70 space-y-2 mb-8 marker:text-black/40">
+                <ul className="list-disc pl-5 text-foreground/90 space-y-2 mb-8 marker:text-foreground/90">
                     <li>Екстериорни визуализации за сгради и комплекси</li>
                     <li>Интериорни 3D рендери на пространства</li>
                     <li>Виртуални разходки и 360-градусови панорами</li>

@@ -44,14 +44,14 @@ export function OtherProjectsSection({ currentProjectId }: OtherProjectsSectionP
         <section className="w-full">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between px-1 mb-10 gap-2 md:gap-5">
                 <div>
-                    <h2 className="text-3xl font-display font-semibold text-[#1a1916]">
-                        Други <span className="font-light italic text-black/40">проекти</span>
+                    <h2 className="text-3xl font-display font-semibold text-foreground">
+                        Други <span className="font-light italic text-foreground/50">проекти</span>
                     </h2>
                 </div>
                 <Link to="/projects">
                     <Button
-                        variant="outline"
-                        className="rounded-full border-stone-200 px-6 hover:bg-[#1a1916] transition-all duration-300 font-bold uppercase"
+                        variant="default"
+                        className=" rounded-2xl  px-6  transition-all duration-300 font-bold uppercase"
                     >
                         Виж всички проекти
                     </Button>

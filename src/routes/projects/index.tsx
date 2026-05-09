@@ -61,7 +61,7 @@ function ProjectsPage() {
           className=""
         >
           <div className="w-full flex justify-center">
-            <TabsList className="grid border-black/10 border w-full grid-cols-2 xs:grid-cols-3 md:flex md:w-auto h-auto gap-2 p-1.5 bg-stone-100/50 backdrop-blur-sm rounded-2xl">
+            <TabsList className="grid border-black/10 border w-full grid-cols-2 xs:grid-cols-3 md:flex md:w-auto h-auto gap-2 p-1.5 bg-background/30 backdrop-blur-sm rounded-2xl">
               {allCategories.map((cat, index) => {
                 const Icon = categoryIcons[cat]
                 const isLast = index === allCategories.length - 1
@@ -70,7 +70,7 @@ function ProjectsPage() {
                     key={cat}
                     value={cat}
                     className={cn(
-                      "group rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 px-3 py-2 sm:px-4 sm:py-2.5 transition-all duration-300 data-[state=active]:bg-black data-[state=active]:shadow-sm data-[state=active]:text-white text-black/50 hover:text-black/80",
+                      "group rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 px-3 py-2 sm:px-4 sm:py-2.5 transition-all duration-300 data-[state=active]:bg-black  data-[state=active]:shadow-sm data-[state=active]:text-white text-foreground dark:text-foreground/80 hover:text-black/80",
                       isLast && "col-span-2 xs:col-span-3 md:col-span-1"
                     )}
                   >
@@ -85,7 +85,7 @@ function ProjectsPage() {
           {allCategories.map((cat) => (
             <TabsContent key={cat} value={cat} className="">
               {filtered.length === 0 ? (
-                <p className="text-black/40 text-sm">Няма намерени проекти.</p>
+                <p className="text-foreground text-sm text-center py-16">Няма намерени проекти.</p>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 md:gap-5 items-stretch md:mt-3 mt-0">
                   {filtered.map((project) => (

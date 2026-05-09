@@ -21,13 +21,13 @@ export default function Footer() {
     ]
 
     return (
-        <footer className="relative mt-32 border-t border-black/3 bg-linear-to-b from-transparent to-white/40 py-8 overflow-hidden">
+        <footer className="relative mt-32  py-8 overflow-hidden">
 
             <div className="mx-auto max-w-7xl px-6">
                 <div className="grid grid-cols-2 gap-12 lg:grid-cols-12 lg:gap-8">
                     {/* Col 1: Brand & Motto */}
-                    <div className="col-span-2 lg:col-span-4 flex flex-col items-start gap-8 order-1">
-                        <Link to="/" className="transition-opacity hover:opacity-80">
+                    <div className="col-span-2 lg:col-span-4 flex flex-col items-start gap-8 order-1" >
+                        <Link to="/" className="transition-opacity hover:opacity-80 dark:invert">
                             <Logo type="horizontal" size="lg" variant="black" />
                         </Link>
                         <p className="max-w-sm text-base leading-relaxed text-foreground/80 font-medium italic">
@@ -46,7 +46,7 @@ export default function Footer() {
                                     key={link.label}
                                     to={link.to}
                                     hash={link.hash}
-                                    className="group text-[12px] font-semibold text-foreground/70 hover:text-primary transition-all flex items-center gap-1 w-fit"
+                                    className="group text-[12px] font-semibold text-foreground/80 hover:text-primary transition-all flex items-center gap-1 w-fit"
                                 >
                                     <span className="relative">
                                         {link.label}
@@ -119,10 +119,10 @@ export default function Footer() {
                     </div>
 
                     <nav className="flex items-center gap-6">
-                        <Link to="/privacy" className="text-[11px] font-bold uppercase tracking-widest text-foreground/30 hover:text-primary transition-colors">
+                        <Link to="/privacy" className="text-[11px] font-bold uppercase tracking-widest text-foreground/50 hover:text-primary transition-colors">
                             Поверителност
                         </Link>
-                        <Link to="/terms" className="text-[11px] font-bold uppercase tracking-widest text-foreground/30 hover:text-primary transition-colors">
+                        <Link to="/terms" className="text-[11px] font-bold uppercase tracking-widest text-foreground/50 hover:text-primary transition-colors">
                             Условия
                         </Link>
                     </nav>

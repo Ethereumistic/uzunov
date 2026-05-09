@@ -13,42 +13,43 @@ import {
     ChevronDown
 } from 'lucide-react'
 import { Link } from "@tanstack/react-router"
+import { ThemeToggle } from "../ThemeToggle"
 
 const services = [
     {
         title: "Архитектура",
         description: "Цялостни архитектурни решения от концепция до реализация.",
-        icon: <Building2 className="size-6 text-black" />,
+        icon: <Building2 className="size-6 text-foreground" />,
         href: "/services/architecture"
     },
     {
         title: "Градоустройство",
         description: "Планиране и развитие на градска среда и урбанизирани територии.",
-        icon: <Map className="size-6 text-black" />,
+        icon: <Map className="size-6 text-foreground" />,
         href: "/services/urban"
     },
     {
         title: "Инженерно проектиране",
         description: "Прецизни инженерни планове и техническа документация.",
-        icon: <Cog className="size-6 text-black" />,
+        icon: <Cog className="size-6 text-foreground" />,
         href: "/services/engineering"
     },
     {
         title: "Консултиране",
         description: "Професионални съвети и експертно мнение за вашия проект.",
-        icon: <MessageSquare className="size-6 text-black" />,
+        icon: <MessageSquare className="size-6 text-foreground" />,
         href: "/services/consulting"
     },
     {
         title: "3D Анимация и VR",
         description: "Фотореалистични визуализации и потапящи VR преживявания.",
-        icon: <Box className="size-6 text-black" />,
+        icon: <Box className="size-6 text-foreground" />,
         href: "/services/3d"
     },
     {
         title: "Управление на проекти",
         description: "Координация и контрол на целия инвестиционен процес.",
-        icon: <ClipboardCheck className="size-6 text-black" />,
+        icon: <ClipboardCheck className="size-6 text-foreground" />,
         href: "/services/projects"
     },
 ]
@@ -92,13 +93,13 @@ export function Navbar() {
                   distortion during the transition. rounded-3xl (24px) reads as a pill
                   at 64px tall and smoothly becomes a rounded-rect when expanded.
                 */}
-                <div className="absolute top-0 left-0 right-0 px-6 rounded-3xl transition-all duration-300 ease-in-out border border-white/20 bg-gradient-to-b from-white/80 to-white/60 backdrop-blur-[15px] shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] saturate-150">
+                <div className="absolute top-0 left-0 right-0 px-6 rounded-3xl transition-all duration-300 ease-in-out border border-white/20 dark:border-white/[0.08] bg-gradient-to-b from-white/80 to-white/60 dark:from-[rgba(26,25,23,0.85)] dark:to-[rgba(26,25,23,0.7)] backdrop-blur-[15px] shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] dark:shadow-[0_8px_40px_0_rgba(0,0,0,0.35)] saturate-150">
 
                     {/* Main bar */}
                     <div className="flex items-center justify-between h-[64px]">
 
-                        {/* Logo */}
-                        <div className="flex shrink-0 items-center -translate-x-2.5">
+                        {/* Logo — invert in dark mode so black logo becomes white */}
+                        <div className="flex shrink-0 items-center -translate-x-2.5 dark:invert">
                             <Link to="/" className="transition-opacity">
                                 <Logo type="horizontal" size="lg" variant="black" />
                             </Link>
@@ -117,10 +118,10 @@ export function Navbar() {
                                 className={cn(
                                     "px-4 py-2 rounded-full text-sm font-bold uppercase transition-all duration-150 select-none",
                                     hoveredNav === "about"
-                                        ? "text-black"
+                                        ? "text-foreground"
                                         : hoveredNav === null
-                                            ? "text-black/70"
-                                            : "text-black/40"
+                                            ? "text-foreground/70"
+                                            : "text-foreground/40"
                                 )}
                             >
                                 За нас
@@ -132,10 +133,10 @@ export function Navbar() {
                                 className={cn(
                                     "px-4 py-2 rounded-full text-sm font-bold uppercase transition-all duration-150 select-none",
                                     hoveredNav === "projects"
-                                        ? "text-black"
+                                        ? "text-foreground"
                                         : hoveredNav === null
-                                            ? "text-black/70"
-                                            : "text-black/40"
+                                            ? "text-foreground/70"
+                                            : "text-foreground/40"
                                 )}
                             >
                                 Проекти
@@ -153,12 +154,12 @@ export function Navbar() {
                                     className={cn(
                                         "inline-flex items-center gap-1 px-4 py-2 rounded-full text-sm font-bold uppercase transition-all duration-150 select-none transition-colors",
                                         servicesOpen
-                                            ? "text-black ring-1 ring-black/12 bg-black/4"
+                                            ? "text-foreground ring-1 ring-foreground/12 bg-foreground/[0.04]"
                                             : hoveredNav === "services"
-                                                ? "text-black"
+                                                ? "text-foreground"
                                                 : hoveredNav === null
-                                                    ? "text-black/70"
-                                                    : "text-black/40"
+                                                    ? "text-foreground/70"
+                                                    : "text-foreground/40"
                                     )}
                                 >
                                     Услуги
@@ -172,18 +173,20 @@ export function Navbar() {
                             </div>
                         </nav>
 
-                        {/* Right side */}
-                        <div className="flex items-center  -mr-3">
+                        {/* Right side: theme toggle + CTA / hamburger */}
+                        <div className="flex items-center -mr-3">
+                            <ThemeToggle className="mr-1" />
+
                             <Link
                                 to="/"
                                 hash="contact"
                                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                                className="hidden md:inline-flex bg-black text-white px-6 py-2.5 rounded-2xl text-sm font-bold uppercase hover:bg-black/80 transition-all shadow-lg hover:shadow-black/20"
+                                className="hidden md:inline-flex bg-primary text-primary-foreground px-6 py-2.5 rounded-2xl text-sm font-bold uppercase hover:bg-primary/80 transition-all shadow-lg hover:shadow-primary/20"
                             >
                                 Контакт
                             </Link>
                             <button
-                                className="md:hidden text-black rounded-full hover:bg-black/5 transition-colors p-2"
+                                className="md:hidden text-foreground rounded-full hover:bg-foreground/5 transition-colors p-2"
                                 onClick={() => {
                                     setMobileOpen(prev => !prev)
                                     setServicesOpen(false)
@@ -211,12 +214,12 @@ export function Navbar() {
                                 key={service.href}
                                 to={service.href as any}
                                 onClick={() => setServicesOpen(false)}
-                                className="group flex items-center gap-4 rounded-2xl border border-black/8 p-4 transition-all duration-200 hover:bg-black/4 hover:border-black/20"
+                                className="group flex items-center gap-4 rounded-2xl border border-foreground/[0.08] p-4 transition-all duration-200 hover:bg-foreground/[0.04] hover:border-foreground/20"
                             >
-                                <div className="flex items-center justify-center size-11 rounded-xl bg-black/6 shrink-0 transition-transform group-hover:scale-105">
+                                <div className="flex items-center justify-center size-11 rounded-xl bg-foreground/6 shrink-0 transition-transform group-hover:scale-105">
                                     {service.icon}
                                 </div>
-                                <span className="font-semibold text-[15px] text-black leading-tight">
+                                <span className="font-semibold text-[15px] text-foreground leading-tight">
                                     {service.title}
                                 </span>
                             </Link>
@@ -237,7 +240,7 @@ export function Navbar() {
                                 to="/"
                                 hash="about"
                                 onClick={() => { setMobileOpen(false); document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) }}
-                                className="px-5 py-3.5 rounded-2xl text-[13px] font-bold uppercase tracking-wider text-black bg-white/40 border border-white/50 shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] active:scale-[0.98] transition-transform flex items-center justify-center"
+                                className="px-5 py-3.5 rounded-2xl text-[13px] font-bold uppercase tracking-wider text-foreground bg-foreground/[0.04] dark:bg-foreground/[0.06] border border-foreground/[0.06] dark:border-foreground/[0.12] shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] dark:shadow-[0_2px_10px_-3px_rgba(0,0,0,0.25)] active:scale-[0.98] transition-transform flex items-center justify-center"
                             >
                                 <span>За нас</span>
                             </Link>
@@ -245,7 +248,7 @@ export function Navbar() {
                             <Link
                                 to="/projects"
                                 onClick={() => setMobileOpen(false)}
-                                className="px-5 py-3.5 rounded-2xl text-[13px] font-bold uppercase tracking-wider text-black bg-white/40 border border-white/50 shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] active:scale-[0.98] transition-transform flex items-center justify-center"
+                                className="px-5 py-3.5 rounded-2xl text-[13px] font-bold uppercase tracking-wider text-foreground bg-foreground/[0.04] dark:bg-foreground/[0.06] border border-foreground/[0.06] dark:border-foreground/[0.12] shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] dark:shadow-[0_2px_10px_-3px_rgba(0,0,0,0.25)] active:scale-[0.98] transition-transform flex items-center justify-center"
                             >
                                 <span>Проекти</span>
                             </Link>
@@ -254,7 +257,7 @@ export function Navbar() {
                                 to="/"
                                 hash="services"
                                 onClick={() => { setMobileOpen(false); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }) }}
-                                className="px-5 py-3.5 rounded-2xl text-[13px] font-bold uppercase tracking-wider text-black bg-white/40 border border-white/50 shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] active:scale-[0.98] transition-transform flex items-center justify-center"
+                                className="px-5 py-3.5 rounded-2xl text-[13px] font-bold uppercase tracking-wider text-foreground bg-foreground/[0.04] dark:bg-foreground/[0.06] border border-foreground/[0.06] dark:border-foreground/[0.12] shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] dark:shadow-[0_2px_10px_-3px_rgba(0,0,0,0.25)] active:scale-[0.98] transition-transform flex items-center justify-center"
                             >
                                 <span>Услуги</span>
                             </Link>
@@ -263,7 +266,7 @@ export function Navbar() {
                                 to="/"
                                 hash="contact"
                                 onClick={() => { setMobileOpen(false); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) }}
-                                className="mt-2 px-5 py-4 rounded-2xl text-[13px] font-black uppercase tracking-widest text-white bg-black shadow-[0_10px_20px_-5px_rgba(0,0,0,0.2)] active:scale-[0.98] transition-transform flex items-center justify-center gap-2"
+                                className="mt-2 px-5 py-4 rounded-2xl text-[13px] font-black uppercase tracking-widest text-primary-foreground bg-primary shadow-[0_10px_20px_-5px_rgba(0,0,0,0.2)] active:scale-[0.98] transition-transform flex items-center justify-center gap-2"
                             >
                                 <span>Контакт</span>
                             </Link>

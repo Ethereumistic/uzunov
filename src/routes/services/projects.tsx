@@ -29,13 +29,13 @@ function ServiceProjectsPage() {
             ctaImage={`${baseUrl}/6_S.webp`}
         >
             <div className="prose prose-stone lg:prose-lg max-w-none">
-                <h2 className="text-3xl font-display font-semibold mb-6 text-[#1a1916]">Контрол и координация</h2>
-                <p className="text-black/70 mb-4 leading-relaxed">
+                <h2 className="text-3xl font-display font-semibold mb-6 text-foreground">Контрол и координация</h2>
+                <p className="text-foreground/90 mb-4 leading-relaxed">
                     За нас управлението на проекти означава пълно покриване на цикъла – от
                     концептуалната фаза до предаването на ключа. Следим за стриктното спазване на срокове,
                     бюджети и качество.
                 </p>
-                <ul className="list-disc pl-5 text-black/70 space-y-2 mb-8 marker:text-black/40">
+                <ul className="list-disc pl-5 text-foreground/90 space-y-2 mb-8 marker:text-foreground/90">
                     <li>Инвеститорски контрол по време на строителството</li>
                     <li>Изготвяне на бюджети и графици за изпълнение</li>
                     <li>Координация между всички участници в процеса</li>

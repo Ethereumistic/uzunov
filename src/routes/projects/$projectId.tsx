@@ -90,14 +90,14 @@ function ProjectDetailPage() {
         <div className="max-w-7xl mx-auto">
           <Link
             to="/projects"
-            className="inline-flex items-center gap-2 text-sm font-medium text-black/40 hover:text-black transition-colors group"
+            className="inline-flex items-center gap-2 text-sm font-medium text-foreground/50 hover:text-foreground transition-colors group"
           >
             <Button
-              variant="outline"
+              variant="ghost"
               size="icon"
-              className="rounded-full border-black/10 size-10 bg-white hover:bg-black/5 transition-all duration-300 shadow-sm"
+              className="size-10 rounded-full "
             >
-              <ChevronLeft className="h-4 w-4 text-black/70" />
+              <ChevronLeft className="h-4 w-4 text-foreground" />
             </Button>
             <span className="group-hover:translate-x-0.5 transition-transform duration-200">
               Обратно към проекти
@@ -134,7 +134,7 @@ function ProjectDetailPage() {
             <div className="lg:sticky lg:top-28 flex flex-col gap-2 md:gap-5">
 
               {/* Glass details card */}
-              <div className="rounded-3xl border border-white/60 bg-linear-to-b from-white/80 to-white/50 backdrop-blur-[22px] shadow-[0_8px_32px_rgba(31,38,135,0.08)] saturate-150 p-7 flex flex-col gap-5">
+              <div className="rounded-3xl  bg-white backdrop-blur-[22px] shadow-[0_8px_32px_rgba(31,38,135,0.08)] saturate-150 p-7 flex flex-col gap-5">
 
                 <div className="flex flex-wrap gap-2">
                   <span className="inline-flex items-center text-[0.625rem] font-semibold tracking-widest uppercase px-3 py-1 rounded-full border border-black/12 bg-black/5 text-black/60">
@@ -228,7 +228,7 @@ function ProjectDetailPage() {
 
               {/* CTA Card */}
               {ctaImageUrl && (
-                <div className="relative h-auto min-h-[280px] w-full flex flex-col items-center justify-center overflow-hidden rounded-3xl border border-white/40 bg-stone-100 transition-all duration-300 hover:shadow-[0_20px_60px_rgba(31,38,135,0.15)] hover:border-white/60 group">
+                <div className="relative h-auto min-h-[280px] w-full flex flex-col items-center justify-center overflow-hidden rounded-3xl transition-all duration-300 hover:shadow-[0_20px_60px_rgba(31,38,135,0.15)]  group">
                   <img
                     src={ctaImageUrl}
                     alt="Contact CTA"
@@ -259,7 +259,7 @@ function ProjectDetailPage() {
           </div>
 
           {/* Other projects */}
-          <div className="mt-24 border-t border-stone-200 pt-20">
+          <div className="mt-24  pt-20">
             <OtherProjectsSection currentProjectId={projectId} />
           </div>
         </div>
@@ -297,7 +297,7 @@ function MainCarousel({
   return (
     <button
       onClick={() => onImageClick(idx)}
-      className="relative overflow-hidden rounded-3xl bg-stone-100 aspect-16/10 group w-full border border-black/5 shadow-lg"
+      className="relative overflow-hidden rounded-3xl  aspect-16/10 group w-full border border-black/5 shadow-lg"
     >
       <img
         key={idx}
@@ -452,10 +452,9 @@ function ProjectBentoGrid({
             key={i}
             onClick={() => onImageClick(i)}
             className={cn(
-              "relative overflow-hidden rounded-2xl bg-stone-100 group",
-              "border border-black/5 shadow-sm",
+              "relative overflow-hidden rounded-2xl  group",
               "hover:border-[#1a1916]/20 transition-all duration-300",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a1916]/30"
+              "focus-visible:outline-none focus-visible:ring-2 "
             )}
             style={{
               gridColumn: `span ${spec.cols}`,
@@ -467,7 +466,7 @@ function ProjectBentoGrid({
               alt={`Изображение ${i + 2}`}
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+            <div className="absolute inset-0 bg-black/0 transition-colors duration-300" />
           </button>
         )
       })}
@@ -568,7 +567,7 @@ function Lightbox({
       onClick={onClose}
     >
       <button
-        className="absolute top-5 right-5 size-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
+        className="absolute top-5 right-5 size-10 rounded-full  flex items-center justify-center text-white hover:bg-white/20 transition-all"
         onClick={onClose}
         aria-label="Затвори"
       >

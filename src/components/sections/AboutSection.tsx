@@ -31,10 +31,10 @@ export default function AboutSection() {
             <div className="relative z-10 mx-auto max-w-6xl">
                 {/* Header Section */}
                 <div className="mb-10 text-center">
-                    <h2 className="mb-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-[#1a1916]">
-                        <span className="font-light italic text-black/40">За</span> УЗУНОВ ПРОЕКТ
+                    <h2 className="mb-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-foreground">
+                        <span className="font-light italic text-foreground/50">За</span> УЗУНОВ ПРОЕКТ
                     </h2>
-                    <p className="mx-auto max-w-2xl text-lg text-stone-500 font-light leading-relaxed">
+                    <p className="mx-auto max-w-2xl text-lg text-foreground/90 font-light leading-relaxed">
                         Повече от две десетилетия създаваме архитектурни решения, които вдъхновяват и издържат изпитанието на времето.
                     </p>
                 </div>

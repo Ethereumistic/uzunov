@@ -61,8 +61,8 @@ export function ServicesSection() {
             <div className="relative z-10 mx-auto max-w-7xl">
                 {/* Header Section */}
                 <div className="mb-12 text-center">
-                    <h2 className="mb-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-[#1a1916]">
-                        <span className="font-light italic text-black/40">Нашите</span> Услуги
+                    <h2 className="mb-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-foreground">
+                        <span className="font-light italic text-foreground/50">Нашите</span> Услуги
                     </h2>
                 </div>
 
@@ -98,7 +98,7 @@ export function ServicesSection() {
                 <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3  gap-2 md:gap-5">
                     {services.map((service, index) => (
                         <Link key={index} to={service.href} className="group block">
-                            <div className="relative aspect-4/5 overflow-hidden rounded-3xl bg-stone-100 shadow-lg border border-black/5">
+                            <div className="relative aspect-4/5 overflow-hidden rounded-3xl shadow-lg  ">
                                 {/* Image background */}
                                 <img
                                     src={service.image}

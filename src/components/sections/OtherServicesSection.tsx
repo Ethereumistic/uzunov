@@ -37,8 +37,8 @@ export function OtherServicesSection({ currentServiceHref }: OtherServicesSectio
     return (
         <section className="w-full">
             <div className="px-1 mb-10">
-                <h2 className="text-3xl font-display font-semibold text-[#1a1916]">
-                    Други <span className="font-light italic text-black/40">услуги</span>
+                <h2 className="text-3xl font-display font-semibold text-foreground">
+                    Други <span className="font-light italic text-foreground/50">услуги</span>
                 </h2>
             </div>
 
@@ -46,7 +46,7 @@ export function OtherServicesSection({ currentServiceHref }: OtherServicesSectio
             <div className="flex flex-col gap-2 sm:hidden">
                 {otherServices.map((service, index) => (
                     <Link key={index} to={service.href} className="group block">
-                        <div className="relative aspect-video overflow-hidden rounded-3xl bg-stone-100 shadow-lg  ">
+                        <div className="relative aspect-video overflow-hidden rounded-3xl shadow-lg  ">
                             <img
                                 src={service.image}
                                 alt={service.title}
@@ -87,7 +87,7 @@ export function OtherServicesSection({ currentServiceHref }: OtherServicesSectio
                         {otherServices.map((service, index) => (
                             <CarouselItem key={index} className="pl-4 sm:pl-5 basis-[85%] sm:basis-1/2 lg:basis-[29.5%]">
                                 <Link to={service.href} className="group block">
-                                    <div className="relative aspect-4/5 overflow-hidden rounded-3xl bg-stone-100 shadow-lg border border-black/5">
+                                    <div className="relative aspect-4/5 overflow-hidden rounded-3xl shadow-lg ">
                                         {/* Image background */}
                                         <img
                                             src={service.image}

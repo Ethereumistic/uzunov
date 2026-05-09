@@ -29,13 +29,13 @@ function ServiceEngineeringPage() {
             ctaImage={`${baseUrl}/4_S.webp`}
         >
             <div className="prose prose-stone lg:prose-lg max-w-none">
-                <h2 className="text-3xl font-display font-semibold mb-6 text-[#1a1916]">Конструкции и системи</h2>
-                <p className="text-black/70 mb-4 leading-relaxed">
+                <h2 className="text-3xl font-display font-semibold mb-6 text-foreground">Конструкции и системи</h2>
+                <p className="text-foreground/90 mb-4 leading-relaxed">
                     Добрата архитектура се нуждае от надежден инженерен гръбнак. Нашите инженерни раздели
                     разработват иновативни и сигурни решения в сферата на конструкциите, водоснабдяването,
                     ОВК и електроинсталациите, гарантирайки дълголетието на всяка сграда.
                 </p>
-                <ul className="list-disc pl-5 text-black/70 space-y-2 mb-8 marker:text-black/40">
+                <ul className="list-disc pl-5 text-foreground/90 space-y-2 mb-8 marker:text-foreground/90">
                     <li>Проектиране на стоманобетонни и метални конструкции</li>
                     <li>Енергийна ефективност и еко-оценки</li>
                     <li>Отопление, вентилация и климатизация (ОВК)</li>
