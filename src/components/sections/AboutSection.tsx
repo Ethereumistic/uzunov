@@ -1,23 +1,24 @@
 import { Card } from '#/components/ui/card'
 import { Target, Eye, Lightbulb } from 'lucide-react'
+import { m } from '#/paraglide/messages'
 
 // Philosophy, Mission, Vision data
 const coreValues = [
     {
-        title: 'Философия',
-        description: 'Проектираме вдъхновяващи и вечни пространства.', // 46 chars
+        titleKey: "about.philosophy",
+        textKey: "about.philosophy.text",
         icon: Lightbulb,
         image: 'https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/about/1_S.webp'
     },
     {
-        title: 'Мисия',
-        description: 'Превръщаме идеите ви в реалност с иновации.', // 43 chars
+        titleKey: "about.mission",
+        textKey: "about.mission.text",
         icon: Target,
         image: 'https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/about/2_S.webp'
     },
     {
-        title: 'Визия',
-        description: 'Оформяме бъдещето с устойчива архитектура.', // 42 chars
+        titleKey: "about.vision",
+        textKey: "about.vision.text",
         icon: Eye,
         image: 'https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/about/3_S.webp'
     }
@@ -29,11 +30,15 @@ export default function AboutSection() {
             <div className="relative z-10 mx-auto max-w-6xl">
                 {/* Header Section */}
                 <div className="mb-10 text-center">
-                    <h2 className="mb-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-foreground">
-                        <span className="font-light italic text-foreground/50">За</span> УЗУНОВ ПРОЕКТ
+                    <h2 className="mb-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.1] tracking-tight text-foreground">
+                        {(() => {
+                            const t = m["about.title"]()
+                            const [first, ...rest] = t.split(' ')
+                            return <>{first}{rest.length > 0 && <span className="font-bold"> {rest.join(' ')}</span>}</>
+                        })()}
                     </h2>
                     <p className="mx-auto max-w-2xl text-lg text-foreground/90 font-light leading-relaxed">
-                        Повече от две десетилетия създаваме архитектурни решения, които вдъхновяват и издържат изпитанието на времето.
+                        {m["about.description"]()}
                     </p>
                 </div>
 
@@ -59,10 +64,10 @@ export default function AboutSection() {
                                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-lg transition-transform duration-500 group-hover:scale-110 md:h-14 md:w-14">
                                         <value.icon className="h-6 w-6 text-white" />
                                     </div>
-                                    <h3 className="text-3xl font-bold text-white tracking-tight drop-shadow-md md:text-2xl">{value.title}</h3>
+                                    <h3 className="text-3xl font-bold text-white tracking-tight drop-shadow-md md:text-2xl">{m[value.titleKey as keyof typeof m]()}</h3>
                                 </div>
                                 <p className="text-base leading-relaxed text-white/90 font-light drop-shadow-md transition-all duration-500 delay-200 ease-out md:opacity-0 md:group-hover:opacity-100 md:absolute md:bottom-2 md:left-8 md:right-8">
-                                    {value.description}
+                                    {m[value.textKey as keyof typeof m]()}
                                 </p>
                             </div>
                         </Card>

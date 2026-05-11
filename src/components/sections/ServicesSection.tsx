@@ -7,48 +7,49 @@ import {
     Box,
     ClipboardCheck,
 } from 'lucide-react'
+import { m } from '#/paraglide/messages'
 
 // Services data using our CDN S variants
 const baseUrl = 'https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/services'
 export const services = [
     {
-        title: 'Архитектура',
-        description: 'Цялостни архитектурни решения от концепция до реализация.',
+        titleKey: 'services.architecture.title',
+        descriptionKey: 'services.architecture.description',
         icon: Building2,
         image: `${baseUrl}/architecture/6_S.webp`,
         href: '/services/architecture'
     },
     {
-        title: 'Градоустройство',
-        description: 'Цялостно градоустройствено планиране и развитие на урбанизираните територии.',
+        titleKey: 'services.urban.title',
+        descriptionKey: 'services.urban.description',
         icon: Map,
         image: `${baseUrl}/interior/1_S.webp`,
         href: '/services/urban'
     },
     {
-        title: 'Инженерно проектиране',
-        description: 'Прецизни инженерни планове и техническа документация.',
+        titleKey: 'services.engineering.title',
+        descriptionKey: 'services.engineering.description',
         icon: Cog,
         image: `${baseUrl}/engineering/2_S.webp`,
         href: '/services/engineering'
     },
     {
-        title: 'Консултиране',
-        description: 'Професионални съвети и експертно мнение за вашия проект.',
+        titleKey: 'services.consulting.title',
+        descriptionKey: 'services.consulting.description',
         icon: MessageSquare,
         image: `${baseUrl}/consulting/5_S.webp`,
         href: '/services/consulting'
     },
     {
-        title: '3D Анимация и VR',
-        description: 'Фотореалистични визуализации и потапящи VR преживявания.',
+        titleKey: 'services.3d.title',
+        descriptionKey: 'services.3d.description',
         icon: Box,
         image: `${baseUrl}/3D/6_S.webp`,
         href: '/services/3d'
     },
     {
-        title: 'Управление на проекти',
-        description: 'Координация и контрол на целия инвестиционен процес.',
+        titleKey: 'services.projectManagement.title',
+        descriptionKey: 'services.projectManagement.description',
         icon: ClipboardCheck,
         image: `${baseUrl}/projects/5_S.webp`,
         href: '/services/projects'
@@ -61,8 +62,12 @@ export function ServicesSection() {
             <div className="relative z-10 mx-auto max-w-7xl">
                 {/* Header Section */}
                 <div className="mb-12 text-center">
-                    <h2 className="mb-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-foreground">
-                        <span className="font-light italic text-foreground/50">Нашите</span> Услуги
+                    <h2 className="mb-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.1] tracking-tight text-foreground">
+                        {(() => {
+                            const t = m["services.sectionTitle"]()
+                            const [first, ...rest] = t.split(' ')
+                            return <>{first}{rest.length > 0 && <span className="font-bold"> {rest.join(' ')}</span>}</>
+                        })()}
                     </h2>
                 </div>
 
@@ -73,7 +78,7 @@ export function ServicesSection() {
                             <div className="relative aspect-video overflow-hidden rounded-3xl bg-stone-100 shadow-lg">
                                 <img
                                     src={service.image}
-                                    alt={service.title}
+                                    alt={m[service.titleKey as keyof typeof m]()}
                                     className="absolute inset-0 h-full w-full object-cover"
                                 />
                                 {/* Always visible gradient */}
@@ -83,10 +88,10 @@ export function ServicesSection() {
                                         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-lg">
                                             <service.icon className="h-5 w-5 text-white" />
                                         </div>
-                                        <h3 className="text-xl font-bold tracking-tight">{service.title}</h3>
+                                        <h3 className="text-xl font-bold tracking-tight">{m[service.titleKey as keyof typeof m]()}</h3>
                                     </div>
                                     <p className="text-sm text-white/90 line-clamp-2 font-light leading-relaxed">
-                                        {service.description}
+                                        {m[service.descriptionKey as keyof typeof m]()}
                                     </p>
                                 </div>
                             </div>
@@ -102,7 +107,7 @@ export function ServicesSection() {
                                 {/* Image background */}
                                 <img
                                     src={service.image}
-                                    alt={service.title}
+                                    alt={m[service.titleKey as keyof typeof m]()}
                                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                                 />
 
@@ -115,10 +120,10 @@ export function ServicesSection() {
                                         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-lg transition-transform duration-500 group-hover:scale-110">
                                             <service.icon className="h-6 w-6 text-white" />
                                         </div>
-                                        <h3 className="text-2xl font-bold tracking-tight drop-shadow-md leading-tight">{service.title}</h3>
+                                        <h3 className="text-2xl font-bold tracking-tight drop-shadow-md leading-tight">{m[service.titleKey as keyof typeof m]()}</h3>
                                     </div>
                                     <p className="text-sm text-white/95 line-clamp-3 leading-relaxed font-light transition-all duration-500 group-hover:text-white">
-                                        {service.description}
+                                        {m[service.descriptionKey as keyof typeof m]()}
                                     </p>
                                 </div>
                             </div>

@@ -1,6 +1,12 @@
-import { getLocale, setLocale, localizeUrl } from "../paraglide/runtime";
-import { useNavigate } from "@tanstack/react-router";
-import { useCallback, useState } from "react";
+import { getLocale, setLocale } from "../paraglide/runtime";
+import { ChevronDown } from "lucide-react";
+import { Button } from "./ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 const FLAGS: Record<string, { src: string; label: string }> = {
   bg: {
@@ -17,99 +23,70 @@ const LOCALES = ["bg", "en"] as const;
 
 export function LanguageSwitcher({ className = "" }: { className?: string }) {
   const locale = getLocale();
-  const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
 
-  const switchLocale = useCallback(
-    async (newLocale: "bg" | "en") => {
-      if (newLocale === locale) {
-        setOpen(false);
-        return;
-      }
-
-      // Set locale in cookie and global variable (no reload)
-      setLocale(newLocale, { reload: false });
-
-      // Navigate via TanStack Router to preserve the React tree (and theme state).
-      // The router's rewrite rules handle de/localization of the URL.
-      const localizedUrl = localizeUrl(window.location.href, { locale: newLocale });
-      const path = localizedUrl.pathname + localizedUrl.search + localizedUrl.hash;
-
-      try {
-        await navigate({ to: path as any });
-      } catch {
-        // Fallback: full page reload if client-side navigation fails
-        window.location.href = localizedUrl.href;
-      }
-
-      setOpen(false);
-    },
-    [locale, navigate]
-  );
+  const switchLocale = (newLocale: "bg" | "en") => {
+    if (newLocale !== locale) {
+      setLocale(newLocale);
+    }
+  };
 
   return (
-    <div className={`relative ${className}`}>
-      <button
-        onClick={() => setOpen(!open)}
-        className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-sm transition-colors hover:bg-white/10"
-        aria-label={`Current language: ${locale === "bg" ? "Bulgarian" : "English"}`}
-      >
-        <img
-          src={FLAGS[locale].src}
-          alt={`${locale} flag`}
-          className="w-5 h-auto rounded-sm object-contain"
-          width={24}
-          height={16}
-        />
-        {/* <span className="text-xs font-medium uppercase tracking-wide">
-          {FLAGS[locale].label}
-        </span> */}
-        <svg
-          className={`w-3 h-3 transition-transform ${open ? "rotate-180" : ""}`}
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="ghost"
+          size="sm"
+          className={`gap-1.5 px-2 ${className}`}
+          aria-label={`Current language: ${locale === "bg" ? "Bulgarian" : "English"}`}
         >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
-
-      {open && (
-        <>
-          {/* Backdrop to close dropdown */}
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setOpen(false)}
+          <img
+            src={FLAGS[locale].src}
+            alt={`${locale} flag`}
+            className="w-5 h-auto rounded-sm object-contain"
+            width={24}
+            height={16}
           />
-          <div className="absolute right-0 top-full mt-1 z-50 bg-white dark:bg-neutral-800 rounded-lg shadow-lg border border-neutral-200 dark:border-neutral-700 py-1 min-w-[140px]">
-            {LOCALES.map((l) => (
-              <button
-                key={l}
-                onClick={() => switchLocale(l)}
-                className={`w-full flex items-center gap-2 px-3 py-2 text-sm transition-colors ${locale === l
-                  ? "bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 font-medium"
-                  : "hover:bg-neutral-50 dark:hover:bg-neutral-700"
-                  }`}
+          <ChevronDown className="size-3" />
+        </Button>
+      </DropdownMenuTrigger>
+
+      <DropdownMenuContent align="end" className="min-w-[140px]">
+        {LOCALES.map((l) => (
+          <DropdownMenuItem
+            key={l}
+            onSelect={() => switchLocale(l)}
+            className={`flex items-center gap-2 ${
+              locale === l
+                ? "bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 font-medium focus:bg-teal-50 dark:focus:bg-teal-900/30 focus:text-teal-700 dark:focus:text-teal-300"
+                : ""
+            }`}
+          >
+            <img
+              src={FLAGS[l].src}
+              alt={`${l} flag`}
+              className="w-5 h-auto rounded-sm object-contain"
+              width={24}
+              height={16}
+            />
+            <span>{l === "bg" ? "BG" : "EN"}</span>
+            {locale === l && (
+              <svg
+                className="w-4 h-4 ml-auto text-teal-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
               >
-                <img
-                  src={FLAGS[l].src}
-                  alt={`${l} flag`}
-                  className="w-5 h-auto rounded-sm object-contain"
-                  width={24}
-                  height={16}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 13l4 4L19 7"
                 />
-                <span>{l === "bg" ? "BG" : "EN"}</span>
-                {locale === l && (
-                  <svg className="w-4 h-4 ml-auto text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                )}
-              </button>
-            ))}
-          </div>
-        </>
-      )}
-    </div>
+              </svg>
+            )}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

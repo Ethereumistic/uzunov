@@ -60,17 +60,6 @@ export interface Project {
   updatedAt: number;
 }
 
-/** Category display labels (Bulgarian) */
-export const categoryLabels: Record<ProjectCategoryFilter, string> = {
-  All: "Всички",
-  Office: "Офиси",
-  Healthcare: "Здравеопазване",
-  Commercial: "Търговски",
-  Industrial: "Индустриални",
-  Residential: "Жилищни",
-  Interior: "Интериор",
-};
-
 /** All category filter options */
 export const allCategories: ProjectCategoryFilter[] = [
   "All",
@@ -81,3 +70,33 @@ export const allCategories: ProjectCategoryFilter[] = [
   "Residential",
   "Interior",
 ];
+
+/** Maps category to its message key */
+export function getCategoryLabelKey(category: ProjectCategoryFilter): string {
+  switch (category) {
+    case "All": return "categories.all";
+    case "Office": return "categories.office";
+    case "Healthcare": return "categories.healthcare";
+    case "Commercial": return "categories.commercial";
+    case "Industrial": return "categories.industrial";
+    case "Residential": return "categories.residential";
+    case "Interior": return "categories.interior";
+    default:
+      return "categories.all";
+  }
+}
+
+/** Maps category to its Bulgarian label (fallback when messages not loaded) */
+export function getCategoryBulgarianLabel(category: ProjectCategoryFilter): string {
+  switch (category) {
+    case "All": return "Всички";
+    case "Office": return "Офиси";
+    case "Healthcare": return "Здравеопазване";
+    case "Commercial": return "Търговски";
+    case "Industrial": return "Индустриални";
+    case "Residential": return "Жилищни";
+    case "Interior": return "Интериор";
+    default:
+      return "Всички";
+  }
+}

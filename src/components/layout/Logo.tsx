@@ -1,4 +1,5 @@
 import { cn } from "../../lib/utils"
+import { m } from "../../paraglide/messages"
 
 interface LogoProps {
     type?: "logomark" | "horizontal" | "logotype"
@@ -56,7 +57,7 @@ export function Logo({
             top,
             isBlack ? "text-black" : (isInverse ? "text-white" : "text-black")
         )}>
-            Узунов Проект
+            {m["logo.text"]()}
         </div>
     )
 

@@ -14,6 +14,7 @@ import { cn } from '#/lib/utils'
 import { ProjectCard } from '#/components/projects/ProjectCard'
 import { useProjectImageUrls } from '#/hooks/useProjectImages'
 import type { Doc } from '../../../convex/_generated/dataModel'
+import { m } from '#/paraglide/messages'
 
 type ProjectDoc = Doc<"projects">
 
@@ -51,7 +52,7 @@ export function OtherProjectsSection({ currentProjectSlug }: OtherProjectsSectio
             <div className="flex flex-col sm:flex-row sm:items-end justify-between px-1 mb-10 gap-2 md:gap-5">
                 <div>
                     <h2 className="text-3xl font-display font-semibold text-foreground">
-                        Други <span className="font-light italic text-foreground/50">проекти</span>
+                        {m["projects.otherProjects"]()}
                     </h2>
                 </div>
                 <Link to="/projects">
@@ -59,7 +60,7 @@ export function OtherProjectsSection({ currentProjectSlug }: OtherProjectsSectio
                         variant="default"
                         className=" rounded-2xl  px-6  transition-all duration-300 font-bold uppercase"
                     >
-                        Виж всички проекти
+                        {m["projects.viewAll"]()}
                     </Button>
                 </Link>
             </div>

@@ -1,6 +1,7 @@
 import * as React from "react"
 import { cn } from "#/lib/utils"
 import { ArrowRight, Mail, MapPin } from "lucide-react"
+import { m } from "#/paraglide/messages"
 
 export function ContactSection() {
     const [isSubmitting, setIsSubmitting] = React.useState(false)
@@ -42,16 +43,15 @@ export function ContactSection() {
                         {/* ── Left: text content ──────────────────────────── */}
                         <div className="lg:col-span-5 flex flex-col justify-center space-y-10 py-8">
                             <div className="space-y-6">
-                                <h2 className="pl-4 md:pl-0 font-display text-[clamp(2.5rem,5.5vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-ink max-w-[12ch]">
-                                    Да{" "}
-                                    <em className="italic font-light text-foreground/50">
-                                        създадем
-                                    </em>{" "}
-                                    нещо значимо
+                                <h2 className="pl-4 md:pl-0 font-display text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[1.1] tracking-tight text-ink max-w-[14ch] text-wrap balance">
+                                    {(() => {
+                                        const t = m["contact.title"]()
+                                        const words = t.split(' ')
+                                        return <>{words.slice(0, -1).join(' ')}{words.length > 1 && <span className="font-bold"> {words[words.length - 1]}</span>}</>
+                                    })()}
                                 </h2>
                                 <p className="pl-4 md:pl-0 text-ink-soft text-lg leading-relaxed max-w-md font-light">
-                                    От концепция до детайлна реализация, ние сме тук, за да
-                                    превърнем вашите идеи в устойчива архитектура.
+                                    {m["contact.description"]()}
                                 </p>
                             </div>
 
@@ -64,7 +64,7 @@ export function ContactSection() {
                                     </div>
                                     <div>
                                         <p className="text-label text-[10px] mb-1 opacity-50 tracking-widest uppercase font-bold">
-                                            Пишете ни
+                                            {m["contact.writeUs"]()}
                                         </p>
                                         <a
                                             href="mailto:arh_uzunov@abv.bg"
@@ -82,10 +82,10 @@ export function ContactSection() {
                                     </div>
                                     <div>
                                         <p className="text-label text-[10px] mb-1 opacity-50 tracking-widest uppercase font-bold">
-                                            Посетете ни
+                                            {m["contact.visitUs"]()}
                                         </p>
                                         <p className="text-xl font-bold max-w-xs">
-                                            гр. Габрово, бул. &quot;Васил Априлов&quot; 46, етаж 7, офис 18
+                                            {m["contact.address"]()}
                                         </p>
                                     </div>
                                 </a>
@@ -135,41 +135,41 @@ export function ContactSection() {
                                     />
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                                        <Field label="Вашето име" className="md:col-span-2">
+                                        <Field label={m["contact.nameLabel"]()} className="md:col-span-2">
                                             <Input
                                                 type="text"
                                                 id="name"
                                                 name="name"
                                                 required
-                                                placeholder="Име и фамилия"
+                                                placeholder={m["contact.namePlaceholder"]()}
                                             />
                                         </Field>
-                                        <Field label="Имейл адрес">
+                                        <Field label={m["contact.emailLabel"]()}>
                                             <Input
                                                 type="email"
                                                 id="email"
                                                 name="email"
                                                 required
-                                                placeholder="example@mail.com"
+                                                placeholder={m["contact.emailPlaceholder"]()}
                                             />
                                         </Field>
-                                        <Field label="Телефон">
+                                        <Field label={m["contact.phoneLabel"]()}>
                                             <Input
                                                 type="tel"
                                                 id="phone"
                                                 name="phone"
                                                 required
-                                                placeholder="+359 ..."
+                                                placeholder={m["contact.phonePlaceholder"]()}
                                             />
                                         </Field>
                                     </div>
 
-                                    <Field label="Вашето съобщение" className="flex-1 flex flex-col">
+                                    <Field label={m["contact.messageLabel"]()} className="flex-1 flex flex-col">
                                         <textarea
                                             id="message"
                                             name="message"
                                             required
-                                            placeholder="Опишете накратко вашия проект..."
+                                            placeholder={m["contact.messagePlaceholder"]()}
                                             className={cn(inputCls, "resize-none py-5 flex-1 min-h-[120px]")}
                                         />
                                     </Field>
@@ -193,10 +193,10 @@ export function ContactSection() {
                                             {isSubmitting ? (
                                                 <div className="size-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                                             ) : isSuccess ? (
-                                                "Изпратено ✓"
+                                                m["contact.sent"]()
                                             ) : (
                                                 <>
-                                                    Изпрати запитване
+                                                    {m["contact.send"]()}
                                                     <ArrowRight strokeWidth={1.5} size={14} />
                                                 </>
                                             )}
@@ -216,7 +216,7 @@ export function ContactSection() {
                             className="w-full aspect-[4/3] sm:aspect-[15/4] block"
                             style={{ border: 0 }}
                             loading="lazy"
-                            title="Габрово, България"
+                            title={m["contact.addressCity"]()}
                             allowFullScreen
                         />
                         {/* Subtle gradient overlay for blending */}
@@ -224,7 +224,7 @@ export function ContactSection() {
                         {/* Click-to-navigate hint */}
                         <div className="absolute bottom-3 left-3 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-black/10 shadow-md text-[11px] font-bold uppercase tracking-wider text-[#1a1916] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <MapPin className="size-3" />
-                            Отвори картата
+                            {m["contact.openMap"]()}
                         </div>
                     </div>
                 </a>

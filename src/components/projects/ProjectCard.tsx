@@ -7,6 +7,7 @@ import {
   type LucideIcon,
 } from "lucide-react"
 import { cn } from "#/lib/utils"
+import { getLocale } from "#/paraglide/runtime"
 import type { ProjectDoc } from "#/types/project"
 
 const categoryIcons: Record<string, LucideIcon> = {
@@ -41,8 +42,15 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, imageUrl }: ProjectCardProps) {
+  const locale = getLocale()
+  const isBg = locale === "bg"
+
   const hasImage = project.images.length > 0 && imageUrl
   const CategoryIcon = categoryIcons[project.category] || Building2
+
+  // Use localized title, fall back to _bg if _en is empty
+  const title = isBg ? project.title_bg : (project.title_en || project.title_bg)
+  const altText = isBg ? project.title_bg : (project.title_en || project.title_bg)
 
   return (
     <Link
@@ -56,7 +64,7 @@ export function ProjectCard({ project, imageUrl }: ProjectCardProps) {
           {hasImage ? (
             <img
               src={imageUrl!}
-              alt={project.title_bg}
+              alt={altText}
               className="w-full h-full object-cover transition-transform duration-2000 ease-out group-hover:scale-105"
             />
           ) : (
@@ -76,7 +84,7 @@ export function ProjectCard({ project, imageUrl }: ProjectCardProps) {
             <CategoryIcon className="h-6 w-6 text-white" />
           </div>
           <h3 className="text-lg font-bold text-white tracking-tight drop-shadow-md leading-tight">
-            {project.title_bg}
+            {title}
           </h3>
         </div>
       </div>

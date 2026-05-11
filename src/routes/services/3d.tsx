@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ServiceLayout } from '#/components/services/ServiceLayout'
+import { m } from '#/paraglide/messages'
 
 const baseUrl = 'https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/services/3D'
 
@@ -10,15 +11,18 @@ export const Route = createFileRoute('/services/3d')({
 function Service3dPage() {
     return (
         <ServiceLayout
-            title={<>3D <em className="italic font-light">Визуализации</em></>}
-            subtitle="Висококачествени реалистични 3D визуализации за по-ясно разбиране и представяне на вашия проект."
+            titleKey="service.3d.title"
+            subtitleKey="service.3d.subtitle"
+            ctaHeadingKey="cta.haveIdea"
+            ctaDescKey="cta.contactConsultation"
+            ctaButtonKey="cta.contactUs"
             heroImage={{
                 id: '3d-1',
                 srcS: `${baseUrl}/2_S.webp`,
                 srcM: `${baseUrl}/2_M.webp`,
                 srcL: `${baseUrl}/2_L.webp`,
                 src: `${baseUrl}/2_L.webp`,
-                alt: '3D Визуализации'
+                alt: m["services.3d.title"](),
             }}
             bentoImages={[
                 `${baseUrl}/1_S.webp`,
@@ -29,17 +33,15 @@ function Service3dPage() {
             ctaImage={`${baseUrl}/4_S.webp`}
         >
             <div className="prose prose-stone lg:prose-lg max-w-none">
-                <h2 className="text-3xl font-display font-semibold mb-6 text-foreground">Фотореализъм и детайл</h2>
+                <h2 className="text-3xl font-display font-semibold mb-6 text-foreground">{m["service.3d.heading"]()}</h2>
                 <p className="text-foreground/90 mb-4 leading-relaxed">
-                    Съвременните 3D визуализации са мощен инструмент, който позволява на клиентите ни
-                    да видят своя проект преди дори първата копка да бъде направена. Ние създаваме фотореалистични
-                    изображения и анимации, които разкриват пълния потенциал на архитектурната идея.
+                    {m["service.3d.intro"]()}
                 </p>
                 <ul className="list-disc pl-5 text-foreground/90 space-y-2 mb-8 marker:text-foreground/90">
-                    <li>Екстериорни визуализации за сгради и комплекси</li>
-                    <li>Интериорни 3D рендери на пространства</li>
-                    <li>Виртуални разходки и 360-градусови панорами</li>
-                    <li>Продуктови и детайлни студийни рендери</li>
+                    <li>{m["service.3d.item1"]()}</li>
+                    <li>{m["service.3d.item2"]()}</li>
+                    <li>{m["service.3d.item3"]()}</li>
+                    <li>{m["service.3d.item4"]()}</li>
                 </ul>
             </div>
         </ServiceLayout>

@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ServiceLayout } from '#/components/services/ServiceLayout'
+import { m } from '#/paraglide/messages'
 
 const baseUrl = 'https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/services/consulting'
 
@@ -10,15 +11,18 @@ export const Route = createFileRoute('/services/consulting')({
 function ServiceConsultingPage() {
     return (
         <ServiceLayout
-            title={<>Консултантски <em className="italic font-light">Услуги</em></>}
-            subtitle="Цялостни консултантски услуги от идеята до въвеждането в експлоатация."
+            titleKey="service.consulting.title"
+            subtitleKey="service.consulting.subtitle"
+            ctaHeadingKey="cta.haveIdea"
+            ctaDescKey="cta.contactConsultation"
+            ctaButtonKey="cta.contactUs"
             heroImage={{
                 id: 'consulting-1',
                 srcS: `${baseUrl}/2_S.webp`,
                 srcM: `${baseUrl}/2_M.webp`,
                 srcL: `${baseUrl}/2_L.webp`,
                 src: `${baseUrl}/2_L.webp`,
-                alt: 'Консултантски Услуги'
+                alt: m["services.consulting.title"](),
             }}
             bentoImages={[
                 `${baseUrl}/1_S.webp`,
@@ -29,17 +33,15 @@ function ServiceConsultingPage() {
             ctaImage={`${baseUrl}/5_S.webp`}
         >
             <div className="prose prose-stone lg:prose-lg max-w-none">
-                <h2 className="text-3xl font-display font-semibold mb-6 text-foreground">Вашият доверен партньор</h2>
+                <h2 className="text-3xl font-display font-semibold mb-6 text-foreground">{m["service.consulting.heading"]()}</h2>
                 <p className="text-foreground/90 mb-4 leading-relaxed">
-                    Инвестиционният процес е сложен маратон, в който експертното мнение е безценно.
-                    Предлагаме професионални консултации, за да ви помогнем във вземането на стратегически,
-                    технически и финансови решения на всяка стъпка.
+                    {m["service.consulting.intro"]()}
                 </p>
                 <ul className="list-disc pl-5 text-foreground/90 space-y-2 mb-8 marker:text-foreground/90">
-                    <li>Помощ при съгласуване на проекти и документация</li>
-                    <li>Избор на подходящ терен и градоустройствени анализи</li>
-                    <li>Оптимизиране на инвестиционните разходи</li>
-                    <li>Независим одит на вече съществуващи проекти</li>
+                    <li>{m["service.consulting.item1"]()}</li>
+                    <li>{m["service.consulting.item2"]()}</li>
+                    <li>{m["service.consulting.item3"]()}</li>
+                    <li>{m["service.consulting.item4"]()}</li>
                 </ul>
             </div>
         </ServiceLayout>

@@ -7,11 +7,13 @@ import {
   Calendar,
 } from "lucide-react";
 import type { Project } from "#/types/project";
-import { categoryLabels } from "#/types/project";
+import { getCategoryLabelKey, getCategoryBulgarianLabel } from "#/types/project";
+import { m } from "#/paraglide/messages";
+import { getLocale } from "#/paraglide/runtime";
 
 interface ProjectDetailCardProps {
   project: Project;
-  locale: "bg" | "en";
+  locale?: "bg" | "en";
 }
 
 function DetailRow({
@@ -38,7 +40,9 @@ function DetailRow({
   );
 }
 
-export function ProjectDetailCard({ project, locale }: ProjectDetailCardProps) {
+export function ProjectDetailCard({ project, locale: propLocale }: ProjectDetailCardProps) {
+  // Use prop locale if provided, otherwise detect from runtime
+  const locale = propLocale ?? getLocale();
   const isBg = locale === "bg";
 
   const title = isBg ? project.title_bg : project.title_en;
@@ -46,32 +50,16 @@ export function ProjectDetailCard({ project, locale }: ProjectDetailCardProps) {
   const location = isBg ? project.location_bg : project.location_en;
   const investor = isBg ? project.investor_bg : project.investor_en;
 
-  const labels = isBg
-    ? {
-        location: "Местоположение",
-        area: "Разгърната площ",
-        investor: "Инвеститор",
-        status: project.status === "done" ? "Завършен" : "В процес",
-        year: "Година",
-        subBuildings: "Сгради в комплекса",
-        awards: "Отличия",
-      }
-    : {
-        location: "Location",
-        area: "Built-up Area",
-        investor: "Investor",
-        status: project.status === "done" ? "Completed" : "In Progress",
-        year: "Year",
-        subBuildings: "Buildings in the complex",
-        awards: "Awards",
-      };
-
   return (
     <div className="rounded-3xl bg-white backdrop-blur-[22px] shadow-[0_8px_32px_rgba(31,38,135,0.08)] saturate-150 p-7 flex flex-col gap-5">
       {/* Category + Awards badges */}
       <div className="flex flex-wrap gap-2">
         <span className="inline-flex items-center text-[0.625rem] font-semibold tracking-widest uppercase px-3 py-1 rounded-full border border-black/12 bg-black/5 text-black/60">
-          {categoryLabels[project.category]}
+          {(() => {
+            const key = getCategoryLabelKey(project.category)
+            const msg = m[key as keyof typeof m]
+            return typeof msg === "function" ? msg() : getCategoryBulgarianLabel(project.category)
+          })()}
         </span>
         {project.awards.map((_, i) => (
           <span
@@ -79,7 +67,7 @@ export function ProjectDetailCard({ project, locale }: ProjectDetailCardProps) {
             className="inline-flex items-center gap-1 text-[0.625rem] font-semibold px-3 py-1 rounded-full bg-amber-400/90 text-amber-900 border border-amber-300/60"
           >
             <Trophy size={10} />
-            {isBg ? "Награда" : "Award"}
+            {m["projectDetail.award"]()}
           </span>
         ))}
       </div>
@@ -98,20 +86,20 @@ export function ProjectDetailCard({ project, locale }: ProjectDetailCardProps) {
 
       {/* Detail rows */}
       <div className="flex flex-col gap-4">
-        <DetailRow icon={<MapPin size={15} />} label={labels.location} value={location} />
+        <DetailRow icon={<MapPin size={15} />} label={m["project.location"]()} value={location} />
         {project.area != null && (
           <DetailRow
             icon={<Ruler size={15} />}
-            label={labels.area}
-            value={`${project.area.toLocaleString(isBg ? "bg-BG" : "en-US")} м²`}
+            label={m["project.area"]()}
+            value={`${project.area.toLocaleString(isBg ? "bg-BG" : "en-US")} ${m["project.areaUnit"]()}`}
           />
         )}
-        <DetailRow icon={<User size={15} />} label={labels.investor} value={investor} />
-        <DetailRow icon={<Building2 size={15} />} label={labels.status} value={labels.status} />
+        <DetailRow icon={<User size={15} />} label={m["project.investor"]()} value={investor} />
+        <DetailRow icon={<Building2 size={15} />} label={m["project.status.completed"]()} value={project.status === "done" ? m["project.status.completed"]() : m["project.status.inProgress"]()} />
         {project.completionDate && (
           <DetailRow
             icon={<Calendar size={15} />}
-            label={labels.year}
+            label={m["project.year"]()}
             value={new Date(project.completionDate).getFullYear().toString()}
           />
         )}
@@ -123,14 +111,14 @@ export function ProjectDetailCard({ project, locale }: ProjectDetailCardProps) {
           <div className="border-t border-black/6" />
           <div>
             <p className="text-[0.6875rem] font-semibold tracking-widest uppercase text-black/35 mb-3">
-              {labels.subBuildings}
+              {m["project.buildings"]()}
             </p>
             <div className="flex flex-col gap-2">
               {project.details.map((d, i) => (
                 <div key={i} className="flex items-center justify-between text-sm">
                   <span className="text-black/60">{isBg ? d.name_bg : d.name_en}</span>
                   <span className="font-medium text-[#1a1916]">
-                    {d.area.toLocaleString(isBg ? "bg-BG" : "en-US")} м²
+                    {d.area.toLocaleString(isBg ? "bg-BG" : "en-US")} {m["project.areaUnit"]()}
                   </span>
                 </div>
               ))}
@@ -145,7 +133,7 @@ export function ProjectDetailCard({ project, locale }: ProjectDetailCardProps) {
           <div className="border-t border-black/6" />
           <div>
             <p className="text-[0.6875rem] font-semibold tracking-widest uppercase text-black/35 mb-3">
-              {labels.awards}
+              {m["project.awards"]()}
             </p>
             <div className="flex flex-col gap-2">
               {project.awards.map((award, i) => (

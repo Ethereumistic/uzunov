@@ -1,14 +1,15 @@
 import { useEffect, useState, useRef } from 'react'
+import { m } from '#/paraglide/messages'
 
 interface Stat {
     value: string
-    label: string
+    labelKey: string
 }
 
 const stats: Stat[] = [
-    { value: '20+', label: 'Години опит' },
-    { value: '300+', label: 'Реализирани проекта' },
-    { value: '250+', label: 'Доволни клиенти' }
+    { value: '20+', labelKey: 'numbers.years' },
+    { value: '300+', labelKey: 'numbers.projectsCount' },
+    { value: '250+', labelKey: 'numbers.clients' }
 ]
 
 function AnimatedNumber({ value }: { value: string }) {
@@ -80,18 +81,21 @@ export function NumbersSection() {
                         <div
                             className="h-full w-full bg-cover bg-center transition-transform duration-2000 ease-out scale-100 md:scale-150 md:group-hover:scale-145"
                             style={{ backgroundImage: `url('https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/services/architecture/1_L.webp')` }}
-                        // style={{ backgroundImage: `url('https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/projects/scentia/scientia-slide3.webp')` }}
                         />
                         <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/40 to-black/20 transition-opacity duration-700" />
                     </div>
 
                     <div className="relative z-10">
                         <div className="mb-20 text-center">
-                            <h2 className="mb-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-white drop-shadow-md">
-                                Студиото <br className="md:hidden" /><span className="font-light italic text-white/50">в цифри</span>
+                            <h2 className="mb-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.1] tracking-tight text-white drop-shadow-md">
+                                {(() => {
+                                    const t = m["numbers.title"]()
+                                    const words = t.split(' ')
+                                    return <>{words.slice(0, 2).join(' ')}{words.length > 2 && <span className="font-bold"> {words.slice(2).join(' ')}</span>}</>
+                                })()}
                             </h2>
                             <p className="md:flex hidden mx-auto max-w-2xl text-lg text-white/80 font-light leading-relaxed drop-shadow-sm">
-                                Дългогодишният опит и стотиците проектирани пространства са гаранция за нашето качество и прецизност.
+                                {m["numbers.description"]()}
                             </p>
                         </div>
 
@@ -104,7 +108,7 @@ export function NumbersSection() {
                                         </span>
                                     </div>
                                     <div className="text-[0.75rem] text-nowrap font-bold uppercase tracking-[0.3em] text-white/70 drop-shadow-md">
-                                        {stat.label}
+                                        {m[stat.labelKey as keyof typeof m]()}
                                     </div>
                                 </div>
                             ))}

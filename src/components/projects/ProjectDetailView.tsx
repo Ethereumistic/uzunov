@@ -11,10 +11,12 @@ import { ProjectDetailCard } from "#/components/projects/ProjectDetailCard";
 import { useProjectImageUrls } from "#/hooks/useProjectImages";
 import type { Project } from "#/types/project";
 import type { SlideData } from "#/components/layout/HeroSlider";
+import { m } from "#/paraglide/messages";
+import { getLocale } from "#/paraglide/runtime";
 
 interface ProjectDetailViewProps {
   project: Project;
-  locale: "bg" | "en";
+  locale?: "bg" | "en";
   /** Whether to show the "Other projects" section at the bottom */
   showOtherProjects?: boolean;
   /** Whether to show the back-link and page header */
@@ -23,12 +25,15 @@ interface ProjectDetailViewProps {
 
 export function ProjectDetailView({
   project,
-  locale,
+  locale: propLocale,
   showOtherProjects = true,
   showPageHeader = true,
 }: ProjectDetailViewProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const locale = propLocale ?? getLocale();
+  const isBg = locale === "bg";
 
   const openLightbox = useCallback((i: number) => {
     setLightboxIndex(i);
@@ -41,7 +46,6 @@ export function ProjectDetailView({
   // Resolve all image URLs via Convex storage
   const resolvedUrls = useProjectImageUrls(images);
 
-  const isBg = locale === "bg";
   const title = isBg ? project.title_bg : project.title_en;
   const description = isBg ? project.description_bg : project.description_en;
 
@@ -93,7 +97,7 @@ export function ProjectDetailView({
                 <ChevronLeft className="h-4 w-4 text-foreground" />
               </Button>
               <span className="group-hover:translate-x-0.5 transition-transform duration-200">
-                {isBg ? "Обратно към проекти" : "Back to projects"}
+                {m["projectDetail.backToProjects"]()}
               </span>
             </Link>
           </div>
@@ -150,18 +154,16 @@ export function ProjectDetailView({
                     </div>
                     <div className="bg-black/30 backdrop-blur-md rounded-2xl p-5 border border-white/20 shadow-xl max-w-xs">
                       <h3 className="font-display text-xl font-semibold mb-2 text-white leading-tight">
-                        {isBg ? "Имате идея?" : "Have an idea?"}
+                        {m["cta.haveIdea"]()}
                       </h3>
                       <p className="text-white/90 mb-4 text-sm">
-                        {isBg
-                          ? "Свържете се с нас за консултация по вашия следващ проект"
-                          : "Contact us for a consultation on your next project"}
+                        {m["cta.contactConsultation"]()}
                       </p>
                       <a
                         href="/#contact"
                         className="inline-block px-6 py-2.5 bg-white/90 backdrop-blur-md text-[#1a1916] rounded-xl font-medium hover:bg-white transition-all duration-200 shadow-lg text-sm"
                       >
-                        {isBg ? "Свържете се с нас" : "Contact us"}
+                        {m["cta.contactUs"]()}
                       </a>
                     </div>
                   </div>
@@ -241,7 +243,7 @@ function Lightbox({
       <button
         className="absolute top-5 right-5 size-10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all"
         onClick={onClose}
-        aria-label="Затвори"
+        aria-label={m["projectDetail.close"]()}
       >
         <X size={18} />
       </button>
@@ -250,7 +252,7 @@ function Lightbox({
         <button
           className="absolute left-5 top-1/2 -translate-y-1/2 size-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
           onClick={(e) => { e.stopPropagation(); prevImage() }}
-          aria-label="Предишна"
+          aria-label={m["projectDetail.previous"]()}
         >
           <ChevronLeft size={22} />
         </button>
@@ -259,7 +261,7 @@ function Lightbox({
       <img
         key={index}
         src={images[index]}
-        alt={`Изображение ${index + 1}`}
+        alt={`${m["projectDetail.image"]()} ${index + 1}`}
         className="max-w-full max-h-[calc(100vh-120px)] object-contain rounded-2xl select-none"
         onClick={(e) => e.stopPropagation()}
         style={{ animation: "fadeIn 0.18s ease" }}
@@ -269,7 +271,7 @@ function Lightbox({
         <button
           className="absolute right-5 top-1/2 -translate-y-1/2 size-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
           onClick={(e) => { e.stopPropagation(); nextImage() }}
-          aria-label="Следваща"
+          aria-label={m["projectDetail.next"]()}
         >
           <ChevronRight size={22} />
         </button>

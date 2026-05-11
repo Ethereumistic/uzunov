@@ -181,7 +181,7 @@ export function Navbar() {
                         {/* Right side: language switcher + theme toggle + CTA / hamburger */}
                         <div className="flex items-center -mr-3 gap-1">
 
-                            <div className="flex xl:hidden">
+                            <div className="flex justify-center items-center xl:hidden">
                                 <LanguageSwitcher />
                                 <ThemeToggle />
                             </div>

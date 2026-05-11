@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ServiceLayout } from '#/components/services/ServiceLayout'
+import { m } from '#/paraglide/messages'
 
 const baseUrl = 'https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/services/engineering'
 
@@ -10,15 +11,18 @@ export const Route = createFileRoute('/services/engineering')({
 function ServiceEngineeringPage() {
     return (
         <ServiceLayout
-            title={<>Инженерно <em className="italic font-light">Проектиране</em></>}
-            subtitle="Пълно инженерно обезпечаване за сигурност и ефективност на вашите сгради."
+            titleKey="service.engineering.title"
+            subtitleKey="service.engineering.subtitle"
+            ctaHeadingKey="cta.haveIdea"
+            ctaDescKey="cta.contactConsultation"
+            ctaButtonKey="cta.contactUs"
             heroImage={{
                 id: 'eng-1',
                 srcS: `${baseUrl}/1_S.webp`,
                 srcM: `${baseUrl}/1_M.webp`,
                 srcL: `${baseUrl}/1_L.webp`,
                 src: `${baseUrl}/1_L.webp`,
-                alt: 'Инженерно Проектиране'
+                alt: m["services.engineering.title"](),
             }}
             bentoImages={[
                 `${baseUrl}/2_S.webp`,
@@ -29,20 +33,18 @@ function ServiceEngineeringPage() {
             ctaImage={`${baseUrl}/4_S.webp`}
         >
             <div className="prose prose-stone lg:prose-lg max-w-none">
-                <h2 className="text-3xl font-display font-semibold mb-6 text-foreground">Конструкции и системи</h2>
+                <h2 className="text-3xl font-display font-semibold mb-6 text-foreground">{m["service.engineering.heading"]()}</h2>
                 <p className="text-foreground/90 mb-4 leading-relaxed">
-                    Добрата архитектура се нуждае от надежден инженерен гръбнак. Нашите инженерни раздели
-                    разработват иновативни и сигурни решения в сферата на конструкциите, водоснабдяването,
-                    ОВК и електроинсталациите, гарантирайки дълголетието на всяка сграда.
+                    {m["service.engineering.intro"]()}
                 </p>
                 <ul className="list-disc pl-5 text-foreground/90 space-y-2 mb-8 marker:text-foreground/90">
-                    <li>Проектиране на стоманобетонни и метални конструкции</li>
-                    <li>Енергийна ефективност и еко-оценки</li>
-                    <li>Отопление, вентилация и климатизация (ОВК)</li>
-                    <li>ВиК и електрически инсталации</li>
-                    <li>Вертикално планиране</li>
-                    <li>Паркоустройство и благоустрояване</li>
-                    <li>Пожарна безопасност</li>
+                    <li>{m["service.engineering.item1"]()}</li>
+                    <li>{m["service.engineering.item2"]()}</li>
+                    <li>{m["service.engineering.item3"]()}</li>
+                    <li>{m["service.engineering.item4"]()}</li>
+                    <li>{m["service.engineering.item5"]()}</li>
+                    <li>{m["service.engineering.item6"]()}</li>
+                    <li>{m["service.engineering.item7"]()}</li>
                 </ul>
             </div>
         </ServiceLayout>

@@ -3,24 +3,44 @@ import { PageHeader } from '#/components/layout/PageHeader'
 import type { SlideData } from '#/components/layout/HeroSlider'
 import { useLocation } from '@tanstack/react-router'
 import { OtherServicesSection } from '#/components/sections/OtherServicesSection'
+import { m } from '#/paraglide/messages'
 
 interface ServiceLayoutProps {
-    title: React.ReactNode;
-    subtitle: string;
-    heroImage: SlideData;
-    bentoImages: string[];
-    ctaImage: string;
-    children: React.ReactNode;
+    /** Message key for the title, e.g. "service.architecture.title" */
+    titleKey: string
+    /** Message key for the subtitle */
+    subtitleKey: string
+    /** Message key for the CTA heading */
+    ctaHeadingKey: string
+    /** Message key for the CTA description */
+    ctaDescKey: string
+    /** Message key for the CTA button label */
+    ctaButtonKey: string
+    heroImage: SlideData
+    bentoImages: string[]
+    ctaImage: string
+    children?: React.ReactNode
 }
 
-export function ServiceLayout({ title, subtitle, heroImage, bentoImages, ctaImage, children }: ServiceLayoutProps) {
+export function ServiceLayout({
+    titleKey,
+    subtitleKey,
+    ctaHeadingKey,
+    ctaDescKey,
+    ctaButtonKey,
+    heroImage,
+    bentoImages,
+    ctaImage,
+    children,
+}: ServiceLayoutProps) {
     const { pathname } = useLocation()
+
     return (
         <div className="min-h-screen p-2 md:p-5 bg-transparent">
             {/* The single hero slide */}
             <PageHeader
-                title={title}
-                subtitle={subtitle}
+                title={<>{m[titleKey as keyof typeof m]()}</>}
+                subtitle={m[subtitleKey as keyof typeof m]()}
                 slides={[heroImage]}
             />
 
@@ -74,10 +94,10 @@ export function ServiceLayout({ title, subtitle, heroImage, bentoImages, ctaImag
                                     </svg>
                                 </div>
                                 <div className="bg-black/30 backdrop-blur-md rounded-2xl p-6 sm:p-5 lg:p-6 shadow-xl max-w-sm">
-                                    <h3 className="font-display text-2xl font-semibold mb-2 sm:text-xl lg:text-2xl text-white leading-tight">Имате идея?</h3>
-                                    <p className="text-white/90 mb-4 sm:mb-3 lg:mb-4 text-sm">Свържете се с нас за консултация по вашия следващ проект</p>
+                                    <h3 className="font-display text-2xl font-semibold mb-2 sm:text-xl lg:text-2xl text-white leading-tight">{m[ctaHeadingKey as keyof typeof m]()}</h3>
+                                    <p className="text-white/90 mb-4 sm:mb-3 lg:mb-4 text-sm">{m[ctaDescKey as keyof typeof m]()}</p>
                                     <a href="/#contact" className="inline-block px-6 py-3 bg-white/90 backdrop-blur-md text-[#1a1916] rounded-xl font-medium hover:bg-white transition-all duration-200 sm:px-5 sm:py-2 lg:px-6 lg:py-3 shadow-lg">
-                                        Свържете се с нас
+                                        {m[ctaButtonKey as keyof typeof m]()}
                                     </a>
                                 </div>
                             </div>

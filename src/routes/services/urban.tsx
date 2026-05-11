@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ServiceLayout } from '#/components/services/ServiceLayout'
+import { m } from '#/paraglide/messages'
 
 const baseUrl = 'https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/services/interior'
 
@@ -10,15 +11,18 @@ export const Route = createFileRoute('/services/urban')({
 function ServiceUrbanPage() {
     return (
         <ServiceLayout
-            title={<>Градоустройство</>}
-            subtitle="Създаваме устойчива градска среда, която балансира нуждите на хората, природата и икономиката."
+            titleKey="service.urban.title"
+            subtitleKey="service.urban.subtitle"
+            ctaHeadingKey="cta.haveIdea"
+            ctaDescKey="cta.contactConsultation"
+            ctaButtonKey="cta.contactUs"
             heroImage={{
                 id: 'urban-1',
                 srcS: `${baseUrl}/1_S.webp`,
                 srcM: `${baseUrl}/1_M.webp`,
                 srcL: `${baseUrl}/1_L.webp`,
                 src: `${baseUrl}/1_L.webp`,
-                alt: 'Градоустройство'
+                alt: m["services.urban.title"](),
             }}
             bentoImages={[
                 `${baseUrl}/2_S.webp`,
@@ -29,17 +33,15 @@ function ServiceUrbanPage() {
             ctaImage={`${baseUrl}/6_S.webp`}
         >
             <div className="prose prose-stone lg:prose-lg max-w-none">
-                <h2 className="text-3xl font-display font-semibold mb-6 text-foreground">От генерален план до реализация</h2>
+                <h2 className="text-3xl font-display font-semibold mb-6 text-foreground">{m["service.urban.heading"]()}</h2>
                 <p className="text-foreground/90 mb-4 leading-relaxed">
-                    Градоустройството е основата на устойчивото развитие на всяка общност. Ние създаваме комплексни
-                    градоустройствени решения, които осигуряват хармонично развитие на урбанизираните територии
-                    и подобряват качеството на живот.
+                    {m["service.urban.intro"]()}
                 </p>
                 <ul className="list-disc pl-5 text-foreground/90 space-y-2 mb-8 marker:text-foreground/90">
-                    <li>Детайлни устройствени планове (ПУП) за жилни, смесени и обществени зони</li>
-                    <li>Градоустройствено планиране и визи за застрояване</li>
-                    <li>Инфраструктурно проектиране и паркоустройство</li>
-                    <li>Координация с общински и регионални институции</li>
+                    <li>{m["service.urban.item1"]()}</li>
+                    <li>{m["service.urban.item2"]()}</li>
+                    <li>{m["service.urban.item3"]()}</li>
+                    <li>{m["service.urban.item4"]()}</li>
                 </ul>
             </div>
         </ServiceLayout>

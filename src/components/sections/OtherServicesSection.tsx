@@ -10,6 +10,7 @@ import {
 } from '#/components/ui/carousel'
 import { Button } from '#/components/ui/button'
 import { cn } from '#/lib/utils'
+import { m } from '#/paraglide/messages'
 
 interface OtherServicesSectionProps {
     currentServiceHref: string
@@ -38,7 +39,7 @@ export function OtherServicesSection({ currentServiceHref }: OtherServicesSectio
         <section className="w-full">
             <div className="px-1 mb-10">
                 <h2 className="text-3xl font-display font-semibold text-foreground">
-                    Други <span className="font-light italic text-foreground/50">услуги</span>
+                    {m["services.otherServices"]()}
                 </h2>
             </div>
 
@@ -49,7 +50,7 @@ export function OtherServicesSection({ currentServiceHref }: OtherServicesSectio
                         <div className="relative aspect-video overflow-hidden rounded-3xl shadow-lg  ">
                             <img
                                 src={service.image}
-                                alt={service.title}
+                                alt={m[service.titleKey as keyof typeof m]()}
                                 className="absolute inset-0 h-full w-full object-cover"
                             />
                             {/* Always visible gradient */}
@@ -59,10 +60,10 @@ export function OtherServicesSection({ currentServiceHref }: OtherServicesSectio
                                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-lg">
                                         <service.icon className="h-5 w-5 text-white" />
                                     </div>
-                                    <h3 className="text-xl font-bold tracking-tight">{service.title}</h3>
+                                    <h3 className="text-xl font-bold tracking-tight">{m[service.titleKey as keyof typeof m]()}</h3>
                                 </div>
                                 <p className="text-sm text-white/90 line-clamp-2 font-light leading-relaxed">
-                                    {service.description}
+                                    {m[service.descriptionKey as keyof typeof m]()}
                                 </p>
                             </div>
                         </div>
@@ -91,7 +92,7 @@ export function OtherServicesSection({ currentServiceHref }: OtherServicesSectio
                                         {/* Image background */}
                                         <img
                                             src={service.image}
-                                            alt={service.title}
+                                            alt={m[service.titleKey as keyof typeof m]()}
                                             className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
                                         />
 
@@ -104,10 +105,10 @@ export function OtherServicesSection({ currentServiceHref }: OtherServicesSectio
                                                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-xl border border-white/30 shadow-lg transition-transform duration-500 group-hover:scale-110">
                                                     <service.icon className="h-6 w-6 text-white" />
                                                 </div>
-                                                <h3 className="text-2xl font-bold tracking-tight drop-shadow-md leading-tight">{service.title}</h3>
+                                                <h3 className="text-2xl font-bold tracking-tight drop-shadow-md leading-tight">{m[service.titleKey as keyof typeof m]()}</h3>
                                             </div>
                                             <p className="text-sm text-white/95 line-clamp-3 leading-relaxed font-light transition-all duration-500 group-hover:text-white">
-                                                {service.description}
+                                                {m[service.descriptionKey as keyof typeof m]()}
                                             </p>
                                         </div>
                                     </div>

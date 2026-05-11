@@ -16,8 +16,9 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "#/components/ui/tabs"
 import { cn } from "#/lib/utils"
 import { PageHeader } from "#/components/layout/PageHeader"
 import { ProjectCard } from "#/components/projects/ProjectCard"
-import { categoryLabels, allCategories, type ProjectCategoryFilter } from "#/types/project"
+import { allCategories, type ProjectCategoryFilter, getCategoryLabelKey, getCategoryBulgarianLabel } from "#/types/project"
 import { useProjectImageUrls } from "#/hooks/useProjectImages"
+import { m } from "#/paraglide/messages"
 
 const categoryIcons: Record<ProjectCategoryFilter, React.ElementType> = {
   All: LayoutGrid,
@@ -42,12 +43,23 @@ function ProjectsPage() {
     ? (allProjects ?? [])
     : (allProjects ?? []).filter((p) => p.category === activeTab)
 
+  // Helper to safely get translated category label
+  const getCategoryLabel = (cat: ProjectCategoryFilter) => {
+    const key = getCategoryLabelKey(cat)
+    const messageFn = m[key as keyof typeof m]
+    if (typeof messageFn === "function") {
+      return messageFn()
+    }
+    // Fallback to Bulgarian if message not loaded yet
+    return getCategoryBulgarianLabel(cat)
+  }
+
   return (
     <main className="min-h-screen p-2 md:p-5 bg-transparent">
 
       <PageHeader
-        title={<>Нашите <em className="italic font-light">проекти</em></>}
-        subtitle="Над две десетилетия проектиране — офиси, медицински, търговски и индустриални обекти в цяла България."
+        title={<>{(m["projects.title"]()).split(" ").slice(0, -1).join(" ")}{" "}<em className="italic font-light">{(m["projects.title"]()).split(" ").slice(-1)[0]}</em></>}
+        subtitle={m["projects.subtitle"]()}
         className="md:mb-5 mb-2"
       />
       <div className="max-w-7xl mx-auto">
@@ -76,7 +88,7 @@ function ProjectsPage() {
                       )}
                     >
                       <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-all duration-300 group-data-[state=active]:scale-110 group-data-[state=active]:opacity-100 opacity-60" />
-                      <span className="font-medium tracking-tight whitespace-nowrap">{categoryLabels[cat]}</span>
+                      <span className="font-medium tracking-tight whitespace-nowrap">{getCategoryLabel(cat)}</span>
                     </TabsTrigger>
                   )
                 })}
@@ -86,7 +98,7 @@ function ProjectsPage() {
             {allCategories.map((cat) => (
               <TabsContent key={cat} value={cat} className="">
                 {filtered.length === 0 ? (
-                  <p className="text-foreground text-sm text-center py-16">Няма намерени проекти.</p>
+                  <p className="text-foreground text-sm text-center py-16">{m["projects.noProjectsFound"]()}</p>
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 md:gap-5 items-stretch md:mt-3 mt-0">
                     {filtered.map((project) => (
@@ -97,7 +109,7 @@ function ProjectsPage() {
                       filtered.length % 2 === 0 ? "sm:col-span-2" : "sm:col-span-1",
                       "col-span-1"
                     )}>
-                      <div className="relative h-full min-h-[320px] w-full flex flex-col items-center justify-center overflow-hidden rounded-3xl border border-white/40 bg-stone-100 transition-all duration-300 hover:shadow-[0_20px_60px_rgba(31,38,135,0.15)] hover:border-white/60">
+                      <div className="relative h-full min-h-[320px] w-full flex flex-col items-center justify-center overflow-hidden rounded-3xl  transition-all duration-300 hover:shadow-[0_20px_60px_rgba(31,38,135,0.15)] hover:border-white/60">
                         <img
                           src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?q=80&w=2676&auto=format&fit=crop"
                           alt="Architectural pattern"
@@ -112,10 +124,10 @@ function ProjectsPage() {
                             </svg>
                           </div>
                           <div className="bg-black/30 backdrop-blur-md rounded-2xl p-6 sm:p-5 lg:p-6 border border-white/20 shadow-xl max-w-sm">
-                            <h3 className="font-display text-2xl font-semibold mb-2 sm:text-xl lg:text-2xl text-white leading-tight">Имате идея?</h3>
-                            <p className="text-white/90 mb-4 sm:mb-3 lg:mb-4 text-sm">Свържете се с нас за консултация по вашия следващ проект</p>
+                            <h3 className="font-display text-2xl font-semibold mb-2 sm:text-xl lg:text-2xl text-white leading-tight">{m["cta.haveIdea"]()}</h3>
+                            <p className="text-white/90 mb-4 sm:mb-3 lg:mb-4 text-sm">{m["cta.contactConsultation"]()}</p>
                             <button className="px-6 py-3 bg-white/90 backdrop-blur-md text-[#1a1916] rounded-xl font-medium hover:bg-white transition-all duration-200 sm:px-5 sm:py-2 lg:px-6 lg:py-3 shadow-lg">
-                              Свържете се с нас
+                              {m["cta.contactUs"]()}
                             </button>
                           </div>
                         </div>

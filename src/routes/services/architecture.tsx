@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ServiceLayout } from '#/components/services/ServiceLayout'
+import { m } from '#/paraglide/messages'
 
 const baseUrl = 'https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/services/architecture'
 
@@ -10,15 +11,18 @@ export const Route = createFileRoute('/services/architecture')({
 function ServiceArchitecturePage() {
     return (
         <ServiceLayout
-            title={<>Архитектурно <em className="italic font-light">Проектиране</em></>}
-            subtitle="Комплексни архитектурни решения, съобразени с вашите изисквания и съвременните стандарти."
+            titleKey="service.architecture.title"
+            subtitleKey="service.architecture.subtitle"
+            ctaHeadingKey="cta.haveIdea"
+            ctaDescKey="cta.contactConsultation"
+            ctaButtonKey="cta.contactUs"
             heroImage={{
                 id: 'arch-1',
                 srcS: `${baseUrl}/2_S.webp`,
                 srcM: `${baseUrl}/2_M.webp`,
                 srcL: `${baseUrl}/2_L.webp`,
                 src: `${baseUrl}/2_L.webp`,
-                alt: 'Архитектурно Проектиране'
+                alt: m["services.architecture.title"](),
             }}
             bentoImages={[
                 `${baseUrl}/1_S.webp`,
@@ -29,17 +33,15 @@ function ServiceArchitecturePage() {
             ctaImage={`${baseUrl}/6_S.webp`}
         >
             <div className="prose prose-stone lg:prose-lg max-w-none">
-                <h2 className="text-3xl font-display font-semibold mb-6 text-foreground">От концепция до реализация</h2>
+                <h2 className="text-3xl font-display font-semibold mb-6 text-foreground">{m["service.architecture.heading"]()}</h2>
                 <p className="text-foreground/80 mb-4 leading-relaxed">
-                    Нашето студио предлага пълен обхват от архитектурни услуги. Ние вярваме, че добрата архитектура
-                    балансира между естетика, функционалност и устойчивост, създавайки пространства, които подобряват
-                    качеството на живот на своите обитатели.
+                    {m["service.architecture.intro"]()}
                 </p>
                 <ul className="list-disc pl-5 text-foreground/90 space-y-2 mb-8 marker:text-foreground/90">
-                    <li>Идейни проекти и градоустройствени концепции</li>
-                    <li>Технически и работни проекти за всички видове сгради</li>
-                    <li>Реконструкция и адаптация на съществуващи обекти</li>
-                    <li>Проектиране на обществени, жилищни и индустриални сгради</li>
+                    <li>{m["service.architecture.item1"]()}</li>
+                    <li>{m["service.architecture.item2"]()}</li>
+                    <li>{m["service.architecture.item3"]()}</li>
+                    <li>{m["service.architecture.item4"]()}</li>
                 </ul>
             </div>
         </ServiceLayout>

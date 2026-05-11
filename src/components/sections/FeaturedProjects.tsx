@@ -5,6 +5,7 @@ import { api } from "../../../convex/_generated/api"
 import { ProjectCard } from "../projects/ProjectCard"
 import { useProjectImageUrls } from "#/hooks/useProjectImages"
 import type { Doc } from "../../../convex/_generated/dataModel"
+import { m } from "../../paraglide/messages"
 
 type ProjectDoc = Doc<"projects">
 
@@ -16,11 +17,15 @@ export function FeaturedProjects() {
     <section id="projects" className="w-full py-24 px-0 md:px-5">
       {/* ── Section header */}
       <div className="mb-10 text-center">
-        <h2 className="mb-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-foreground ">
-          Работа, <span className="font-light italic text-foreground/50">която говори</span>
+        <h2 className="mb-6 font-display text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.1] tracking-tight text-foreground">
+          {(() => {
+            const t = m["projects.featuredTitle"]()
+            const [first, ...rest] = t.split(' ')
+            return <>{first}{rest.length > 0 && <span className="font-bold"> {rest.join(' ')}</span>}</>
+          })()}
         </h2>
         <p className="mx-auto max-w-2xl text-lg text-foreground/90 font-light leading-relaxed">
-          Разгледайте част от нашите реализирани проекти, които показват нашия подход към дизайна и функционалността.
+          {m["projects.featuredDescription"]()}
         </p>
       </div>
 
@@ -37,7 +42,7 @@ export function FeaturedProjects() {
           to="/projects"
           className="group flex items-center gap-2 rounded-full bg-foreground px-8 py-4 text-background font-medium transition-all duration-300 hover:bg-foreground/80 hover:shadow-lg"
         >
-          Виж всички проекти
+          {m["projects.viewAll"]()}
           <ChevronRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
         </Link>
       </div>

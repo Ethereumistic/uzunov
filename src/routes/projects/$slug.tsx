@@ -3,6 +3,8 @@ import { useQuery } from "convex/react"
 import { api } from "../../../convex/_generated/api"
 import { ArrowLeft } from "lucide-react"
 import { ProjectDetailView } from "#/components/projects/ProjectDetailView"
+import { getLocale } from "#/paraglide/runtime"
+import { m } from "#/paraglide/messages"
 
 export const Route = createFileRoute("/projects/$slug")({
   component: ProjectDetailPage,
@@ -11,6 +13,7 @@ export const Route = createFileRoute("/projects/$slug")({
 function ProjectDetailPage() {
   const { slug } = Route.useParams()
   const project = useQuery(api.projects.getBySlug, { slug })
+  const locale = getLocale()
 
   // Loading state
   if (project === undefined) {
@@ -28,18 +31,18 @@ function ProjectDetailPage() {
         <div className="text-center">
           <p className="text-6xl mb-4 opacity-20">◻</p>
           <h1 className="font-display text-2xl font-bold text-[#1a1916] mb-3">
-            Проектът не е намерен
+            {m["projects.notFound"]()}
           </h1>
           <Link
             to="/projects"
             className="inline-flex items-center gap-2 text-sm text-black/50 hover:text-black transition-colors"
           >
-            <ArrowLeft size={14} /> Обратно към проекти
+            <ArrowLeft size={14} /> {m["projects.backToProjects"]()}
           </Link>
         </div>
       </main>
     )
   }
 
-  return <ProjectDetailView project={project} locale="bg" />
+  return <ProjectDetailView project={project} locale={locale} />
 }

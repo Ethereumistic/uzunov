@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ServiceLayout } from '#/components/services/ServiceLayout'
+import { m } from '#/paraglide/messages'
 
 const baseUrl = 'https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/services/projects'
 
@@ -10,15 +11,18 @@ export const Route = createFileRoute('/services/projects')({
 function ServiceProjectsPage() {
     return (
         <ServiceLayout
-            title={<>Управление на <em className="italic font-light">Проекти</em></>}
-            subtitle="Оптимално планиране и контрол на строителния процес от начало до край."
+            titleKey="service.projects.title"
+            subtitleKey="service.projects.subtitle"
+            ctaHeadingKey="cta.haveIdea"
+            ctaDescKey="cta.contactConsultation"
+            ctaButtonKey="cta.contactUs"
             heroImage={{
                 id: 'pm-1',
                 srcS: `${baseUrl}/5_S.webp`,
                 srcM: `${baseUrl}/5_M.webp`,
                 srcL: `${baseUrl}/5_L.webp`,
                 src: `${baseUrl}/5_L.webp`,
-                alt: 'Управление на Проекти'
+                alt: m["services.projectManagement.title"](),
             }}
             bentoImages={[
                 `${baseUrl}/2_S.webp`,
@@ -29,17 +33,15 @@ function ServiceProjectsPage() {
             ctaImage={`${baseUrl}/6_S.webp`}
         >
             <div className="prose prose-stone lg:prose-lg max-w-none">
-                <h2 className="text-3xl font-display font-semibold mb-6 text-foreground">Контрол и координация</h2>
+                <h2 className="text-3xl font-display font-semibold mb-6 text-foreground">{m["service.projects.heading"]()}</h2>
                 <p className="text-foreground/90 mb-4 leading-relaxed">
-                    За нас управлението на проекти означава пълно покриване на цикъла – от
-                    концептуалната фаза до предаването на ключа. Следим за стриктното спазване на срокове,
-                    бюджети и качество.
+                    {m["service.projects.intro"]()}
                 </p>
                 <ul className="list-disc pl-5 text-foreground/90 space-y-2 mb-8 marker:text-foreground/90">
-                    <li>Инвеститорски контрол по време на строителството</li>
-                    <li>Изготвяне на бюджети и графици за изпълнение</li>
-                    <li>Координация между всички участници в процеса</li>
-                    <li>Организация на тръжни процедури и избор на изпълнители</li>
+                    <li>{m["service.projects.item1"]()}</li>
+                    <li>{m["service.projects.item2"]()}</li>
+                    <li>{m["service.projects.item3"]()}</li>
+                    <li>{m["service.projects.item4"]()}</li>
                 </ul>
             </div>
         </ServiceLayout>
