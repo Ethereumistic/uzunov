@@ -2,7 +2,10 @@ import { Link, useRouter } from "@tanstack/react-router";
 import { useQuery } from "convex/react";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { api } from "../../../convex/_generated/api";
-import { FolderOpen, LogOut, Globe, BookOpen } from "lucide-react";
+import { Building2, LogOut, Globe, BookOpen } from "lucide-react";
+import { LanguageSwitcher } from "#/components/LanguageSwitcher";
+import { ThemeToggle } from "#/components/ThemeToggle";
+import { m } from "../../paraglide/messages";
 import {
   Sidebar,
   SidebarContent,
@@ -78,17 +81,17 @@ export function AdminSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link to="/admin/projects">
-                <FolderOpen className="h-4 w-4" />
-                <span>Projects</span>
+              <Link to="/admin/projects" className="flex items-center gap-2">
+                <Building2 className="h-4 w-4" />
+                <span>{m["admin.sidebar.projects"]()}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link to="/admin/blog">
+              <Link to="/admin/blog" className="flex items-center gap-2">
                 <BookOpen className="h-4 w-4" />
-                <span>Blog</span>
+                <span>{m["admin.sidebar.blog"]()}</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -109,13 +112,18 @@ export function AdminSidebar() {
             <DropdownMenuItem asChild>
               <Link to="/">
                 <Globe className="h-4 w-4" />
-                Back to Website
+                {m["admin.sidebar.backToWebsite"]()}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
+            <div className="flex items-center gap-1 px-2 py-1.5">
+              <LanguageSwitcher />
+              <ThemeToggle />
+            </div>
+            <DropdownMenuSeparator />
             <DropdownMenuItem variant="destructive" onClick={handleSignOut}>
               <LogOut className="h-4 w-4" />
-              Sign Out
+              {m["admin.sidebar.signOut"]()}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -199,5 +199,9 @@
 
   "legal.privacy.title": "Privacy Policy",
   "legal.terms.title": "Terms & Conditions",
-  "legal.onlyBulgarian": "This document is only available in Bulgarian."
+  "legal.onlyBulgarian": "This document is only available in Bulgarian.",
+  "admin.sidebar.projects": "Projects",
+  "admin.sidebar.blog": "Blog",
+  "admin.sidebar.backToWebsite": "Back to Website",
+  "admin.sidebar.signOut": "Sign Out"
 }

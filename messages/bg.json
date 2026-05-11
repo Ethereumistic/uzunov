@@ -199,5 +199,9 @@
 
   "legal.privacy.title": "Политика за поверителност",
   "legal.terms.title": "Общи условия",
-  "legal.onlyBulgarian": "Този документ е наличен само на български."
+  "legal.onlyBulgarian": "Този документ е наличен само на български.",
+  "admin.sidebar.projects": "Проекти",
+  "admin.sidebar.blog": "Блог",
+  "admin.sidebar.backToWebsite": "Обратно към сайта",
+  "admin.sidebar.signOut": "Изход"
 }

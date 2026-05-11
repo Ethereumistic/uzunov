@@ -6,6 +6,9 @@ import type { Id } from "../../../convex/_generated/dataModel";
 import { ArrowLeft, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Button } from "#/components/ui/button";
 import { cn } from "#/lib/utils";
+import { getLocale } from "#/paraglide/runtime";
+import { m } from "#/paraglide/messages";
+import { getLocalizedValue, hasEnValue } from "#/lib/localeField";
 
 export const Route = createFileRoute("/blog/$slug")({
   component: BlogPostPage,
@@ -24,6 +27,7 @@ function formatDate(dateStr: string, locale: string = "bg"): string {
 function BlogPostPage() {
   const { slug } = Route.useParams();
   const post = useQuery(api.posts.getBySlug, { slug });
+  const locale = getLocale();
 
   // Loading state
   if (post === undefined) {
@@ -41,25 +45,30 @@ function BlogPostPage() {
         <div className="text-center">
           <p className="text-6xl mb-4 opacity-20">📝</p>
           <h1 className="font-display text-2xl font-bold text-foreground mb-3">
-            Статията не е намерена
+            {m["blog.notFound"]()}
           </h1>
           <Link
             to="/blog"
             className="inline-flex items-center gap-2 text-sm text-foreground/50 hover:text-foreground transition-colors"
           >
-            <ArrowLeft size={14} /> Обратно към блога
+            <ArrowLeft size={14} /> {m["blog.backToBlog"]()}
           </Link>
         </div>
       </main>
     );
   }
 
-  return <BlogPostDetailView post={post} />;
+  return <BlogPostDetailView post={post} locale={locale} />;
 }
 
-function BlogPostDetailView({ post }: { post: any }) {
+function BlogPostDetailView({ post, locale }: { post: any; locale: "bg" | "en" }) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const title = getLocalizedValue(post, "title", locale);
+  const excerpt = getLocalizedValue(post, "excerpt", locale);
+  const body = getLocalizedValue(post, "body", locale);
+  const showOnlyBulgarianNotice = locale === "en" && !hasEnValue(post, "body");
 
   // Collect all image storage IDs for URL resolution
   const coverStorageId = post.coverImage as string | undefined;
@@ -116,7 +125,7 @@ function BlogPostDetailView({ post }: { post: any }) {
               <ChevronLeft className="h-4 w-4 text-foreground" />
             </Button>
             <span className="group-hover:translate-x-0.5 transition-transform duration-200">
-              Обратно към блога
+              {m["blog.backToBlog"]()}
             </span>
           </Link>
         </div>
@@ -136,7 +145,7 @@ function BlogPostDetailView({ post }: { post: any }) {
                 >
                   <img
                     src={coverUrl}
-                    alt={post.title_bg}
+                    alt={title}
                     className="w-full aspect-[16/10] object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
@@ -180,7 +189,7 @@ function BlogPostDetailView({ post }: { post: any }) {
             <div className="lg:sticky lg:top-28">
               {/* Title */}
               <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3 leading-tight">
-                {post.title_bg}
+                {title}
               </h1>
 
               {/* Date */}
@@ -188,21 +197,28 @@ function BlogPostDetailView({ post }: { post: any }) {
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                <time>{formatDate(post.displayDate)}</time>
+                <time>{formatDate(post.displayDate, locale)}</time>
               </div>
 
+              {/* Bulgarian-only notice */}
+              {showOnlyBulgarianNotice && (
+                <div className="mb-6 px-4 py-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-sm">
+                  {m["blog.onlyBulgarian"]()}
+                </div>
+              )}
+
               {/* Excerpt - desktop only (hidden on mobile, shown here for desktop sticky column) */}
-              {post.excerpt_bg && (
+              {excerpt && (
                 <p className="text-lg text-foreground/70 leading-relaxed mb-6 font-medium border-l-4 border-[#c5a882] pl-4">
-                  {post.excerpt_bg}
+                  {excerpt}
                 </p>
               )}
 
               {/* Rich text body */}
-              {post.body_bg ? (
+              {body ? (
                 <div
                   className="prose prose-stone max-w-none prose-headings:font-display prose-headings:text-foreground prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-img:rounded-2xl prose-img:shadow-sm"
-                  dangerouslySetInnerHTML={{ __html: post.body_bg }}
+                  dangerouslySetInnerHTML={{ __html: body }}
                 />
               ) : (
                 <p className="text-foreground/30 italic">No content yet</p>
@@ -273,7 +289,7 @@ function LightboxModal({
       <button
         className="absolute top-5 right-5 size-10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all"
         onClick={onClose}
-        aria-label="Затвори"
+        aria-label="Close"
       >
         <X size={18} />
       </button>
@@ -282,7 +298,7 @@ function LightboxModal({
         <button
           className="absolute left-5 top-1/2 -translate-y-1/2 size-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
           onClick={(e) => { e.stopPropagation(); prev(); }}
-          aria-label="Предишна"
+          aria-label="Previous"
         >
           <ChevronLeft size={22} />
         </button>
@@ -291,7 +307,7 @@ function LightboxModal({
       <img
         key={index}
         src={images[index]}
-        alt={`Изображение ${index + 1}`}
+        alt={`Image ${index + 1}`}
         className="max-w-full max-h-[calc(100vh-120px)] object-contain rounded-2xl select-none"
         onClick={(e) => e.stopPropagation()}
         style={{ animation: "fadeIn 0.18s ease" }}
@@ -301,7 +317,7 @@ function LightboxModal({
         <button
           className="absolute right-5 top-1/2 -translate-y-1/2 size-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all"
           onClick={(e) => { e.stopPropagation(); next(); }}
-          aria-label="Следваща"
+          aria-label="Next"
         >
           <ChevronRight size={22} />
         </button>
