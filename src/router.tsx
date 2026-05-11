@@ -3,6 +3,8 @@ import { routeTree } from "./routeTree.gen";
 
 import { getContext } from "./integrations/tanstack-query/root-provider";
 
+import { deLocalizeUrl, localizeUrl } from "./paraglide/runtime";
+
 export function getRouter() {
   const router = createTanStackRouter({
     routeTree,
@@ -12,6 +14,18 @@ export function getRouter() {
     scrollRestoration: true,
     defaultPreload: "intent",
     defaultPreloadStaleTime: 0,
+
+    rewrite: {
+      input: ({ url }) => {
+        // Don't localize/delocalize admin routes
+        if (url.pathname.startsWith("/admin")) return url;
+        return deLocalizeUrl(url);
+      },
+      output: ({ url }) => {
+        if (url.pathname.startsWith("/admin")) return url;
+        return localizeUrl(url);
+      },
+    },
   });
 
   return router;

@@ -14,14 +14,30 @@ import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import appCss from "../styles.css?url";
 
 import type { QueryClient } from "@tanstack/react-query";
+import { getLocale, setLocale } from "../paraglide/runtime";
 
 interface MyRouterContext {
   queryClient: QueryClient;
+  locale: string;
 }
 
 const THEME_INIT_SCRIPT = `(function(){try{var stored=window.localStorage.getItem('theme');var mode=(stored==='light'||stored==='dark'||stored==='auto')?stored:'auto';var prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;var resolved=mode==='auto'?(prefersDark?'dark':'light'):mode;var root=document.documentElement;root.classList.remove('light','dark');root.classList.add(resolved);if(mode==='auto'){root.removeAttribute('data-theme')}else{root.setAttribute('data-theme',mode)}root.style.colorScheme=resolved;}catch(e){}})();`;
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
+  beforeLoad: ({ location }) => {
+    // The rewrite.input (deLocalizeUrl) may have already stripped the locale
+    // from location.pathname. We need to detect locale from the raw URL.
+    // On client: window.location has the original URL before rewrite.
+    const rawPathname =
+      typeof window !== "undefined"
+        ? window.location.pathname
+        : location.pathname;
+    const detectedLocale = rawPathname.match(/^\/en(\/|$)/) ? "en" : "bg";
+    if (getLocale() !== detectedLocale) {
+      setLocale(detectedLocale);
+    }
+    return { locale: detectedLocale };
+  },
   head: () => ({
     meta: [
       {
@@ -32,7 +48,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "TanStack Start Starter",
+        title: "Узунов Проект",
       },
     ],
     links: [
@@ -48,9 +64,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 function RootDocument({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
+  const locale = getLocale();
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <HeadContent />
