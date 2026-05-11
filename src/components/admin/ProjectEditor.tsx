@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "#/components/ui/select";
 import { Plus, X, ArrowLeft, Save, Send, Image as ImageIcon } from "lucide-react";
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "#/components/ui/resizable";
 import type { ProjectFormState } from "#/types/project-form";
 import { emptyFormState } from "#/types/project-form";
 import type { ProjectCategory, ImageAR, ProjectImage } from "#/types/project";
@@ -242,43 +243,38 @@ export function ProjectEditor({ initialData, projectId }: ProjectEditorProps) {
   };
 
   return (
-    <div className="flex h-[calc(100vh-4rem)]">
-      {/* Left: Editor (50%) */}
-      <div className="w-1/2 overflow-y-auto p-6 border-r border-stone-200">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
-            <Link to="/admin/projects">
-              <Button variant="ghost" size="icon">
-                <ArrowLeft className="h-4 w-4" />
-              </Button>
-            </Link>
-            <h1 className="text-2xl font-display font-bold">
-              {isEditing ? `Edit: ${initialData?.title_bg}` : "New Project"}
-            </h1>
+    <>
+    <ResizablePanelGroup orientation="horizontal" className="h-full">
+      {/* Left: Editor */}
+      <ResizablePanel defaultSize={30} minSize={25}>
+        <div className="flex flex-col h-full">
+          {/* Header */}
+          <div className="shrink-0 px-6 pt-6 pb-4 border-b border-stone-200">
+            <div className="flex items-center gap-3">
+              <Link to="/admin/projects">
+                <Button variant="ghost" size="icon">
+                  <ArrowLeft className="h-4 w-4" />
+                </Button>
+              </Link>
+              <h1 className="text-2xl font-display font-bold">
+                {isEditing ? `Edit: ${initialData?.title_bg}` : "New Project"}
+              </h1>
+            </div>
           </div>
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={handleSave} disabled={saving}>
-              <Save className="h-4 w-4 mr-2" />
-              {saving ? "Saving…" : "Save Draft"}
-            </Button>
-            <Button onClick={handleSave} disabled={saving}>
-              <Send className="h-4 w-4 mr-2" />
-              {saving ? "Publishing…" : "Publish"}
-            </Button>
-          </div>
-        </div>
 
-        {/* Language Tabs */}
-        <Tabs value={locale} onValueChange={(v) => setLocale(v as "bg" | "en")}>
-          <TabsList>
-            <TabsTrigger value="bg">БГ</TabsTrigger>
-            <TabsTrigger value="en">EN</TabsTrigger>
-          </TabsList>
-        </Tabs>
+          {/* Scrollable form */}
+          <div className="flex-1 overflow-y-auto p-6">
 
-        {/* Form Fields */}
-        <div className="mt-6 space-y-6">
+          {/* Language Tabs */}
+          <Tabs value={locale} onValueChange={(v) => setLocale(v as "bg" | "en")}>
+            <TabsList>
+              <TabsTrigger value="bg">БГ</TabsTrigger>
+              <TabsTrigger value="en">EN</TabsTrigger>
+            </TabsList>
+          </Tabs>
+
+          {/* Form Fields */}
+          <div className="mt-6 space-y-6">
           {/* Title */}
           <div className="space-y-2">
             <Label htmlFor="title">Title {isBg ? "(БГ)" : "(EN)"}</Label>
@@ -564,15 +560,21 @@ export function ProjectEditor({ initialData, projectId }: ProjectEditorProps) {
             </div>
           </div>
         </div>
-      </div>
+          </div>
+        </div>
+      </ResizablePanel>
 
-      {/* Right: Live Preview (50%) */}
-      <div className="w-1/2 overflow-hidden bg-stone-50">
-        <div className="p-4">
-          <h3 className="text-sm font-medium text-stone-500 mb-2">
-            Live Preview ({locale === "bg" ? "БГ" : "EN"})
-          </h3>
-          <div className="overflow-y-auto h-[calc(100vh-8rem)]">
+      <ResizableHandle withHandle />
+
+      {/* Right: Live Preview */}
+      <ResizablePanel defaultSize={70} minSize={30}>
+        <div className="h-full bg-stone-50 flex flex-col">
+          <div className="shrink-0 px-4 pt-4 pb-2">
+            <h3 className="text-sm font-medium text-stone-500">
+              Live Preview ({locale === "bg" ? "БГ" : "EN"})
+            </h3>
+          </div>
+          <div className="flex-1 min-h-0 overflow-auto px-4 pb-4">
             {form.title_bg ? (
               <ProjectPreview form={form} locale={locale} />
             ) : (
@@ -581,8 +583,21 @@ export function ProjectEditor({ initialData, projectId }: ProjectEditorProps) {
               </div>
             )}
           </div>
+          <div className="shrink-0 px-4 pb-4 pt-2">
+            <div className="flex items-center justify-end gap-2">
+              <Button variant="outline" onClick={handleSave} disabled={saving}>
+                <Save className="h-4 w-4 mr-2" />
+                {saving ? "Saving…" : "Save Draft"}
+              </Button>
+              <Button onClick={handleSave} disabled={saving}>
+                <Send className="h-4 w-4 mr-2" />
+                {saving ? "Publishing…" : "Publish"}
+              </Button>
+            </div>
+          </div>
         </div>
-      </div>
+      </ResizablePanel>
+    </ResizablePanelGroup>
 
       {/* Gallery Dialog */}
       <ImageGalleryDialog
@@ -591,6 +606,6 @@ export function ProjectEditor({ initialData, projectId }: ProjectEditorProps) {
         onSelectImage={handleGallerySelect}
         currentImageIds={currentImageIds}
       />
-    </div>
+    </>
   );
 }

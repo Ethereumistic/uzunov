@@ -25,7 +25,7 @@ function AdminLayout() {
   return (
     <SidebarProvider>
       <AdminSidebar />
-      <main className="flex-1 p-6 overflow-y-auto">
+      <main className="flex-1 h-svh overflow-hidden">
         <Outlet />
       </main>
     </SidebarProvider>

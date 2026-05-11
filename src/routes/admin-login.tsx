@@ -44,18 +44,18 @@ function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-stone-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <div className="w-full max-w-sm">
         {/* Logo / Wordmark */}
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-display font-bold tracking-tight text-[#1a1916]">
+          <h1 className="text-2xl font-display font-bold tracking-tight text-foreground">
             Узунов
           </h1>
-          <p className="text-sm text-stone-500 mt-1">Admin Panel</p>
+          <p className="text-sm text-muted-foreground mt-1">Admin Panel</p>
         </div>
 
         {/* Login Card */}
-        <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-6">
+        <div className="bg-card rounded-2xl border border-border shadow-sm p-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
@@ -92,19 +92,19 @@ function AdminLogin() {
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#1a1916] hover:bg-[#1a1916]/90 text-white"
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
             >
               {loading ? (isSignUp ? "Creating account…" : "Signing in…") : (isSignUp ? "Sign Up" : "Sign In")}
             </Button>
           </form>
 
           {/* TODO: Remove sign-up toggle after bootstrapping admin account */}
-          <p className="text-center text-sm text-stone-500 mt-4">
+          <p className="text-center text-sm text-muted-foreground mt-4">
             {isSignUp ? "Already have an account? " : "Don't have an account? "}
             <button
               type="button"
               onClick={() => setIsSignUp(!isSignUp)}
-              className="text-[#1a1916] font-medium hover:underline"
+              className="text-foreground font-medium hover:underline"
             >
               {isSignUp ? "Sign in" : "Sign up"}
             </button>
