@@ -1,12 +1,97 @@
+import { useEffect, useState, useRef } from 'react'
 import { ArrowRight, MoveRight } from "lucide-react"
 import { cn } from "../../lib/utils"
 import { HeroSlider, useHeroSlider } from "./HeroSlider"
+
+// ── Animated number (same pattern as NumbersSection) ─────────────────────
+function AnimatedNumber({ value }: { value: string }) {
+    // Awards like "x1" / "x2" are static — no animation needed
+    if (/^x\d+$/i.test(value)) {
+        return <span className="tabular-nums">{value}</span>
+    }
+
+    const [displayValue, setDisplayValue] = useState(0)
+    const [hasAnimated, setHasAnimated] = useState(false)
+    const elementRef = useRef<HTMLSpanElement>(null)
+
+    const numericValue = parseInt(value.replace(/[^0-9]/g, '')) || 0
+    const suffix = value.replace(/[0-9]/g, '')
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting && !hasAnimated) setHasAnimated(true)
+            },
+            { threshold: 0.1 }
+        )
+        if (elementRef.current) observer.observe(elementRef.current)
+        return () => observer.disconnect()
+    }, [hasAnimated])
+
+    useEffect(() => {
+        if (!hasAnimated) return
+        let startTimestamp: number | null = null
+        const duration = 1800
+        const step = (timestamp: number) => {
+            if (!startTimestamp) startTimestamp = timestamp
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1)
+            const easeOutExpo = (x: number): number => x === 1 ? 1 : 1 - Math.pow(2, -10 * x)
+            setDisplayValue(Math.floor(easeOutExpo(progress) * numericValue))
+            if (progress < 1) window.requestAnimationFrame(step)
+        }
+        window.requestAnimationFrame(step)
+    }, [hasAnimated, numericValue])
+
+    return (
+        <span ref={elementRef} className="tabular-nums">
+            {displayValue}{suffix}
+        </span>
+    )
+}
+
+// ── Corner badge ─────────────────────────────────────────────────────────
+function CornerBadge({ value, label }: { value: string; label: string }) {
+    return (
+        <div className="flex flex-col items-center justify-center text-center leading-tight">
+            <span className="font-display text-[clamp(1rem,2.5vw,1.75rem)] font-bold text-white drop-shadow-lg">
+                <AnimatedNumber value={value} />
+            </span>
+            <span className="font-sans text-[clamp(0.45rem,1vw,0.7rem)] font-bold uppercase tracking-[0.25em] text-white/90 drop-shadow-md">
+                {label}
+            </span>
+        </div>
+    )
+}
+
+// ── 4 corner stats for the hero image ───────────────────────────────────
+const heroStats = [
+    { value: '30+', label: 'години', position: 'top-left' },
+    { value: '300+', label: 'проекти', position: 'top-right' },
+    { value: 'x1', label: 'Фасада на годината', position: 'bottom-left' },
+    { value: 'x2', label: 'Сграда на годината', position: 'bottom-right' },
+]
 
 function HeroContent() {
     const { current, go, slides } = useHeroSlider()
 
     return (
         <>
+            {/* ── 4 corner badges (over the image) ────────────────────── */}
+            <div className="absolute inset-0 pointer-events-none">
+                {heroStats.map((stat) => {
+                    const isTop = stat.position.startsWith('top')
+                    const isLeft = stat.position.endsWith('left')
+                    return (
+                        <div
+                            key={stat.position}
+                            className={`absolute ${isTop ? 'top-25 xl:top-6' : 'bottom-6'} ${isLeft ? 'left-6' : 'right-6'} z-10 opacity-0 animate-[fade-in_600ms_ease_forwards]`}
+                        >
+                            <CornerBadge value={stat.value} label={stat.label} />
+                        </div>
+                    )
+                })}
+            </div>
+
             {/* ── Centre content ──────────────────────────────────── */}
             <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center text-white">
                 {/* Main headline */}

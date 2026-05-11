@@ -2,7 +2,7 @@ import { Link, useRouter } from "@tanstack/react-router";
 import { useQuery } from "convex/react";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { api } from "../../../convex/_generated/api";
-import { FolderOpen, LogOut, Globe } from "lucide-react";
+import { FolderOpen, LogOut, Globe, BookOpen } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -81,6 +81,14 @@ export function AdminSidebar() {
               <Link to="/admin/projects">
                 <FolderOpen className="h-4 w-4" />
                 <span>Projects</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Link to="/admin/blog">
+                <BookOpen className="h-4 w-4" />
+                <span>Blog</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

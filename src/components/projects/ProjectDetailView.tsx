@@ -1,5 +1,6 @@
-import { useState, useCallback } from "react";
-import { Link, ChevronLeft, X, ChevronRight } from "lucide-react"; // keep icons used here
+import { useState, useCallback, useEffect } from "react";
+import { Link } from "@tanstack/react-router";
+import { ChevronLeft, X, ChevronRight } from "lucide-react";
 import { cn } from "#/lib/utils";
 import { Button } from "#/components/ui/button";
 import { PageHeader } from "#/components/layout/PageHeader";
@@ -214,7 +215,7 @@ function Lightbox({
   }, [images.length]);
 
   // Keyboard controls
-  useState(() => {
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
       if (e.key === "ArrowLeft") prevImage();
@@ -222,15 +223,15 @@ function Lightbox({
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  });
+  }, [onClose, prevImage, nextImage]);
 
   // Lock body scroll
-  useState(() => {
+  useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "";
     };
-  });
+  }, []);
 
   return (
     <div

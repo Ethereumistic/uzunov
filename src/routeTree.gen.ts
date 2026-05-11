@@ -16,6 +16,7 @@ import { Route as AdminLoginRouteImport } from './routes/admin-login'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjectsIndexRouteImport } from './routes/projects/index'
+import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as ServicesUrbanRouteImport } from './routes/services/urban'
 import { Route as ServicesProjectsRouteImport } from './routes/services/projects'
@@ -25,11 +26,15 @@ import { Route as ServicesArchitectureRouteImport } from './routes/services/arch
 import { Route as Services3dRouteImport } from './routes/services/3d'
 import { Route as ProjectsSlugRouteImport } from './routes/projects/$slug'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
+import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as AdminProjectsIndexRouteImport } from './routes/admin/projects/index'
+import { Route as AdminBlogIndexRouteImport } from './routes/admin/blog/index'
 import { Route as DemoFormSimpleRouteImport } from './routes/demo/form.simple'
 import { Route as DemoFormAddressRouteImport } from './routes/demo/form.address'
 import { Route as AdminProjectsNewRouteImport } from './routes/admin/projects/new'
+import { Route as AdminBlogNewRouteImport } from './routes/admin/blog/new'
 import { Route as AdminProjectsProjectIdEditRouteImport } from './routes/admin/projects/$projectId/edit'
+import { Route as AdminBlogPostIdEditRouteImport } from './routes/admin/blog/$postId/edit'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -65,6 +70,11 @@ const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => ProjectsRoute,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
@@ -111,9 +121,19 @@ const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
   path: '/demo/tanstack-query',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminProjectsIndexRoute = AdminProjectsIndexRouteImport.update({
   id: '/projects/',
   path: '/projects/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBlogIndexRoute = AdminBlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
   getParentRoute: () => AdminRoute,
 } as any)
 const DemoFormSimpleRoute = DemoFormSimpleRouteImport.update({
@@ -131,12 +151,22 @@ const AdminProjectsNewRoute = AdminProjectsNewRouteImport.update({
   path: '/projects/new',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminBlogNewRoute = AdminBlogNewRouteImport.update({
+  id: '/blog/new',
+  path: '/blog/new',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminProjectsProjectIdEditRoute =
   AdminProjectsProjectIdEditRouteImport.update({
     id: '/projects/$projectId/edit',
     path: '/projects/$projectId/edit',
     getParentRoute: () => AdminRoute,
   } as any)
+const AdminBlogPostIdEditRoute = AdminBlogPostIdEditRouteImport.update({
+  id: '/blog/$postId/edit',
+  path: '/blog/$postId/edit',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -145,6 +175,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/terms': typeof TermsRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/services/3d': typeof Services3dRoute
@@ -154,11 +185,15 @@ export interface FileRoutesByFullPath {
   '/services/projects': typeof ServicesProjectsRoute
   '/services/urban': typeof ServicesUrbanRoute
   '/admin/': typeof AdminIndexRoute
+  '/blog/': typeof BlogIndexRoute
   '/projects/': typeof ProjectsIndexRoute
+  '/admin/blog/new': typeof AdminBlogNewRoute
   '/admin/projects/new': typeof AdminProjectsNewRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
+  '/admin/blog/': typeof AdminBlogIndexRoute
   '/admin/projects/': typeof AdminProjectsIndexRoute
+  '/admin/blog/$postId/edit': typeof AdminBlogPostIdEditRoute
   '/admin/projects/$projectId/edit': typeof AdminProjectsProjectIdEditRoute
 }
 export interface FileRoutesByTo {
@@ -166,6 +201,7 @@ export interface FileRoutesByTo {
   '/admin-login': typeof AdminLoginRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/services/3d': typeof Services3dRoute
@@ -175,11 +211,15 @@ export interface FileRoutesByTo {
   '/services/projects': typeof ServicesProjectsRoute
   '/services/urban': typeof ServicesUrbanRoute
   '/admin': typeof AdminIndexRoute
+  '/blog': typeof BlogIndexRoute
   '/projects': typeof ProjectsIndexRoute
+  '/admin/blog/new': typeof AdminBlogNewRoute
   '/admin/projects/new': typeof AdminProjectsNewRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
+  '/admin/blog': typeof AdminBlogIndexRoute
   '/admin/projects': typeof AdminProjectsIndexRoute
+  '/admin/blog/$postId/edit': typeof AdminBlogPostIdEditRoute
   '/admin/projects/$projectId/edit': typeof AdminProjectsProjectIdEditRoute
 }
 export interface FileRoutesById {
@@ -190,6 +230,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/terms': typeof TermsRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/services/3d': typeof Services3dRoute
@@ -199,11 +240,15 @@ export interface FileRoutesById {
   '/services/projects': typeof ServicesProjectsRoute
   '/services/urban': typeof ServicesUrbanRoute
   '/admin/': typeof AdminIndexRoute
+  '/blog/': typeof BlogIndexRoute
   '/projects/': typeof ProjectsIndexRoute
+  '/admin/blog/new': typeof AdminBlogNewRoute
   '/admin/projects/new': typeof AdminProjectsNewRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
+  '/admin/blog/': typeof AdminBlogIndexRoute
   '/admin/projects/': typeof AdminProjectsIndexRoute
+  '/admin/blog/$postId/edit': typeof AdminBlogPostIdEditRoute
   '/admin/projects/$projectId/edit': typeof AdminProjectsProjectIdEditRoute
 }
 export interface FileRouteTypes {
@@ -215,6 +260,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/projects'
     | '/terms'
+    | '/blog/$slug'
     | '/demo/tanstack-query'
     | '/projects/$slug'
     | '/services/3d'
@@ -224,11 +270,15 @@ export interface FileRouteTypes {
     | '/services/projects'
     | '/services/urban'
     | '/admin/'
+    | '/blog/'
     | '/projects/'
+    | '/admin/blog/new'
     | '/admin/projects/new'
     | '/demo/form/address'
     | '/demo/form/simple'
+    | '/admin/blog/'
     | '/admin/projects/'
+    | '/admin/blog/$postId/edit'
     | '/admin/projects/$projectId/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -236,6 +286,7 @@ export interface FileRouteTypes {
     | '/admin-login'
     | '/privacy'
     | '/terms'
+    | '/blog/$slug'
     | '/demo/tanstack-query'
     | '/projects/$slug'
     | '/services/3d'
@@ -245,11 +296,15 @@ export interface FileRouteTypes {
     | '/services/projects'
     | '/services/urban'
     | '/admin'
+    | '/blog'
     | '/projects'
+    | '/admin/blog/new'
     | '/admin/projects/new'
     | '/demo/form/address'
     | '/demo/form/simple'
+    | '/admin/blog'
     | '/admin/projects'
+    | '/admin/blog/$postId/edit'
     | '/admin/projects/$projectId/edit'
   id:
     | '__root__'
@@ -259,6 +314,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/projects'
     | '/terms'
+    | '/blog/$slug'
     | '/demo/tanstack-query'
     | '/projects/$slug'
     | '/services/3d'
@@ -268,11 +324,15 @@ export interface FileRouteTypes {
     | '/services/projects'
     | '/services/urban'
     | '/admin/'
+    | '/blog/'
     | '/projects/'
+    | '/admin/blog/new'
     | '/admin/projects/new'
     | '/demo/form/address'
     | '/demo/form/simple'
+    | '/admin/blog/'
     | '/admin/projects/'
+    | '/admin/blog/$postId/edit'
     | '/admin/projects/$projectId/edit'
   fileRoutesById: FileRoutesById
 }
@@ -283,6 +343,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   ProjectsRoute: typeof ProjectsRouteWithChildren
   TermsRoute: typeof TermsRoute
+  BlogSlugRoute: typeof BlogSlugRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   Services3dRoute: typeof Services3dRoute
   ServicesArchitectureRoute: typeof ServicesArchitectureRoute
@@ -290,6 +351,7 @@ export interface RootRouteChildren {
   ServicesEngineeringRoute: typeof ServicesEngineeringRoute
   ServicesProjectsRoute: typeof ServicesProjectsRoute
   ServicesUrbanRoute: typeof ServicesUrbanRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   DemoFormAddressRoute: typeof DemoFormAddressRoute
   DemoFormSimpleRoute: typeof DemoFormSimpleRoute
 }
@@ -344,6 +406,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/projects/'
       preLoaderRoute: typeof ProjectsIndexRouteImport
       parentRoute: typeof ProjectsRoute
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/admin/': {
       id: '/admin/'
@@ -408,11 +477,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoTanstackQueryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/projects/': {
       id: '/admin/projects/'
       path: '/projects'
       fullPath: '/admin/projects/'
       preLoaderRoute: typeof AdminProjectsIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/blog/': {
+      id: '/admin/blog/'
+      path: '/blog'
+      fullPath: '/admin/blog/'
+      preLoaderRoute: typeof AdminBlogIndexRouteImport
       parentRoute: typeof AdminRoute
     }
     '/demo/form/simple': {
@@ -436,6 +519,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProjectsNewRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/blog/new': {
+      id: '/admin/blog/new'
+      path: '/blog/new'
+      fullPath: '/admin/blog/new'
+      preLoaderRoute: typeof AdminBlogNewRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/projects/$projectId/edit': {
       id: '/admin/projects/$projectId/edit'
       path: '/projects/$projectId/edit'
@@ -443,20 +533,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProjectsProjectIdEditRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/blog/$postId/edit': {
+      id: '/admin/blog/$postId/edit'
+      path: '/blog/$postId/edit'
+      fullPath: '/admin/blog/$postId/edit'
+      preLoaderRoute: typeof AdminBlogPostIdEditRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminBlogNewRoute: typeof AdminBlogNewRoute
   AdminProjectsNewRoute: typeof AdminProjectsNewRoute
+  AdminBlogIndexRoute: typeof AdminBlogIndexRoute
   AdminProjectsIndexRoute: typeof AdminProjectsIndexRoute
+  AdminBlogPostIdEditRoute: typeof AdminBlogPostIdEditRoute
   AdminProjectsProjectIdEditRoute: typeof AdminProjectsProjectIdEditRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminIndexRoute: AdminIndexRoute,
+  AdminBlogNewRoute: AdminBlogNewRoute,
   AdminProjectsNewRoute: AdminProjectsNewRoute,
+  AdminBlogIndexRoute: AdminBlogIndexRoute,
   AdminProjectsIndexRoute: AdminProjectsIndexRoute,
+  AdminBlogPostIdEditRoute: AdminBlogPostIdEditRoute,
   AdminProjectsProjectIdEditRoute: AdminProjectsProjectIdEditRoute,
 }
 
@@ -483,6 +586,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   ProjectsRoute: ProjectsRouteWithChildren,
   TermsRoute: TermsRoute,
+  BlogSlugRoute: BlogSlugRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   Services3dRoute: Services3dRoute,
   ServicesArchitectureRoute: ServicesArchitectureRoute,
@@ -490,6 +594,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesEngineeringRoute: ServicesEngineeringRoute,
   ServicesProjectsRoute: ServicesProjectsRoute,
   ServicesUrbanRoute: ServicesUrbanRoute,
+  BlogIndexRoute: BlogIndexRoute,
   DemoFormAddressRoute: DemoFormAddressRoute,
   DemoFormSimpleRoute: DemoFormSimpleRoute,
 }

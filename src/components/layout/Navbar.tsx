@@ -107,7 +107,7 @@ export function Navbar() {
 
                         {/* Desktop Navigation */}
                         <nav
-                            className="hidden md:flex items-center gap-1"
+                            className="hidden xl:flex items-center gap-1"
                             onMouseLeave={() => setHoveredNav(null)}
                         >
                             <Link
@@ -140,6 +140,21 @@ export function Navbar() {
                                 )}
                             >
                                 Проекти
+                            </Link>
+
+                            <Link
+                                to="/blog"
+                                onMouseEnter={() => setHoveredNav("blog")}
+                                className={cn(
+                                    "px-4 py-2 rounded-full text-sm font-bold uppercase transition-all duration-150 select-none",
+                                    hoveredNav === "blog"
+                                        ? "text-foreground"
+                                        : hoveredNav === null
+                                            ? "text-foreground/70"
+                                            : "text-foreground/40"
+                                )}
+                            >
+                                Блог
                             </Link>
 
                             {/* Services trigger — hover activates panel */}
@@ -176,7 +191,7 @@ export function Navbar() {
                         {/* Right side: theme toggle + CTA / hamburger */}
                         <div className="flex items-center -mr-3">
 
-                            <div className="flex md:hidden">
+                            <div className="flex xl:hidden">
                                 <ThemeToggle />
                             </div>
 
@@ -184,12 +199,12 @@ export function Navbar() {
                                 to="/"
                                 hash="contact"
                                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                                className="hidden md:inline-flex bg-primary text-primary-foreground px-6 py-2.5 rounded-2xl text-sm font-bold uppercase hover:bg-primary/80 transition-all shadow-lg hover:shadow-primary/20"
+                                className="hidden xl:inline-flex bg-primary text-primary-foreground px-6 py-2.5 rounded-2xl text-sm font-bold uppercase hover:bg-primary/80 transition-all shadow-lg hover:shadow-primary/20"
                             >
                                 Контакт
                             </Link>
                             <button
-                                className="md:hidden text-foreground rounded-full hover:bg-foreground/5 transition-colors p-2"
+                                className="xl:hidden text-foreground rounded-full hover:bg-foreground/5 transition-colors p-2"
                                 onClick={() => {
                                     setMobileOpen(prev => !prev)
                                     setServicesOpen(false)
@@ -198,7 +213,7 @@ export function Navbar() {
                             >
                                 {mobileOpen ? <X size={20} /> : <Menu size={20} />}
                             </button>
-                            <div className="md:flex hidden">
+                            <div className="xl:flex hidden">
                                 <ThemeToggle />
                             </div>
                         </div>
@@ -235,7 +250,7 @@ export function Navbar() {
                     {/* Mobile Expanded Menu */}
                     <div
                         className={cn(
-                            "md:hidden overflow-hidden transition-all duration-300 ease-in-out",
+                            "xl:hidden overflow-hidden transition-all duration-300 ease-in-out",
                             mobileOpen
                                 ? "max-h-[600px] opacity-100 pb-5 pt-3"
                                 : "max-h-0 opacity-0 pb-0 pt-0 pointer-events-none"
@@ -257,6 +272,14 @@ export function Navbar() {
                                 className="px-5 py-3.5 rounded-2xl text-[13px] font-bold uppercase tracking-wider text-foreground bg-foreground/[0.04] dark:bg-foreground/[0.06] border border-foreground/[0.06] dark:border-foreground/[0.12] shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] dark:shadow-[0_2px_10px_-3px_rgba(0,0,0,0.25)] active:scale-[0.98] transition-transform flex items-center justify-center"
                             >
                                 <span>Проекти</span>
+                            </Link>
+
+                            <Link
+                                to="/blog"
+                                onClick={() => setMobileOpen(false)}
+                                className="px-5 py-3.5 rounded-2xl text-[13px] font-bold uppercase tracking-wider text-foreground bg-foreground/[0.04] dark:bg-foreground/[0.06] border border-foreground/[0.06] dark:border-foreground/[0.12] shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] dark:shadow-[0_2px_10px_-3px_rgba(0,0,0,0.25)] active:scale-[0.98] transition-transform flex items-center justify-center"
+                            >
+                                <span>Блог</span>
                             </Link>
 
                             <Link

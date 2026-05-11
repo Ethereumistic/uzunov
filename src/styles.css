@@ -418,6 +418,21 @@
 }
 
 /* ─── Utilities ────────────────────────────────────────────────── */
+
+/* Prose color overrides for semantic theming */
+.prose-stone :where(p, li, td, th, figcaption, blockquote) {
+  color: var(--foreground);
+}
+.prose-stone :where(strong) {
+  color: var(--foreground);
+}
+.prose-stone :where(ul > li::marker) {
+  color: var(--ink-ghost);
+}
+.prose-stone :where(ol > li::marker) {
+  color: var(--ink-ghost);
+}
+
 /* ─── Dark Mode ─────────────────────────────────────────────── */
 .dark {
   --stone-50: #111110;

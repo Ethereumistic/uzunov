@@ -74,4 +74,27 @@ export default defineSchema({
   })
     .index("by_hash", ["hash"])
     .index("by_storageId", ["storageId"]),
+
+  // ── Blog posts ──
+  posts: defineTable({
+    slug: v.string(),
+    title_bg: v.string(),
+    title_en: v.optional(v.string()),
+    body_bg: v.string(),              // Rich text (HTML) in Bulgarian
+    body_en: v.optional(v.string()),  // Rich text (HTML) in English
+    excerpt_bg: v.optional(v.string()), // Short summary for cards
+    excerpt_en: v.optional(v.string()),
+    coverImage: v.optional(v.id("_storage")), // Main/cover image
+    images: v.array(v.object({
+      storageId: v.optional(v.id("_storage")),
+      url_legacy: v.optional(v.string()),
+    })),
+    published: v.boolean(),         // Draft vs Published
+    displayDate: v.string(),          // Admin-set display date "YYYY-MM-DD"
+    order: v.number(),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_published", ["published"])
+    .index("by_order", ["order"])
+    .index("by_displayDate", ["displayDate"]),
 });

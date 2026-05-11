@@ -200,11 +200,12 @@ export const remove = mutation({
   },
 });
 
-/** List all unique images across all projects (for gallery reuse) */
+/** List all unique images across all projects and posts (for gallery reuse) */
 export const listAllImages = query({
   args: {},
   handler: async (ctx) => {
     const projects = await ctx.db.query("projects").collect();
+    const posts = await ctx.db.query("posts").collect();
     const seen = new Set<string>();
     const images: Array<{
       storageId: string;
@@ -227,6 +228,38 @@ export const listAllImages = query({
             url: url ?? undefined,
             projectName: project.title_bg,
             projectId: project._id,
+          });
+        }
+      }
+    }
+
+    // Also include blog post images (gallery + cover)
+    for (const post of posts) {
+      // Cover image
+      if (post.coverImage && !seen.has(post.coverImage)) {
+        seen.add(post.coverImage);
+        const url = await ctx.storage.getUrl(post.coverImage);
+        images.push({
+          storageId: post.coverImage,
+          ar: "L",
+          url: url ?? undefined,
+          projectName: post.title_bg,
+          projectId: post._id,
+        });
+      }
+
+      // Gallery images
+      for (const image of post.images) {
+        if (image.storageId && !seen.has(image.storageId)) {
+          seen.add(image.storageId);
+          const url = await ctx.storage.getUrl(image.storageId);
+          images.push({
+            storageId: image.storageId,
+            ar: "L",
+            url_legacy: image.url_legacy,
+            url: url ?? undefined,
+            projectName: post.title_bg,
+            projectId: post._id,
           });
         }
       }
