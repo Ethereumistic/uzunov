@@ -1,5 +1,4 @@
-import { getLocale, setLocale } from "../paraglide/runtime";
-import { useRouter } from "@tanstack/react-router";
+import { getLocale, setLocale, localizeUrl } from "../paraglide/runtime";
 import { useCallback, useState } from "react";
 
 const FLAGS: Record<string, { src: string; label: string }> = {
@@ -17,55 +16,25 @@ const LOCALES = ["bg", "en"] as const;
 
 export function LanguageSwitcher({ className = "" }: { className?: string }) {
   const locale = getLocale();
-  const router = useRouter();
   const [open, setOpen] = useState(false);
 
   const switchLocale = useCallback(
-    (newLocale: string) => {
+    (newLocale: "bg" | "en") => {
       if (newLocale === locale) {
         setOpen(false);
         return;
       }
-      setLocale(newLocale);
 
-      // Get current path and compute the new localized URL
-      const currentPath =
-        typeof window !== "undefined"
-          ? window.location.pathname + window.location.search + window.location.hash
-          : "/";
+      // Set locale in cookie and global variable
+      setLocale(newLocale, { reload: false });
 
-      // Compute the new path:
-      // If switching to EN, we need to add /en prefix
-      // If switching to BG, we need to remove /en prefix
-      let newPath: string;
-      if (newLocale === "en") {
-        // Remove any existing /en prefix first, then add it
-        const basePath = currentPath.replace(/^\/en(\/|$)/, "/");
-        const normalizedPath = basePath === "/" ? "" : basePath;
-        newPath = `/en${normalizedPath}` || "/en";
-        if (!newPath.endsWith("/") && !newPath.includes("?")) {
-          // keep as-is
-        }
-      } else {
-        // Remove /en prefix
-        newPath = currentPath.replace(/^\/en(\/|$)/, "/");
-        // Normalize: replace // with /
-        newPath = newPath.replace(/\/\//g, "/");
-        if (newPath === "") newPath = "/";
-      }
+      // Calculate the localized URL
+      const localizedUrl = localizeUrl(window.location.href, { locale: newLocale });
 
-      // Preserve search and hash
-      if (typeof window !== "undefined") {
-        const search = window.location.search;
-        const hash = window.location.hash;
-        if (search && !newPath.includes(search)) newPath += search;
-        if (hash && !newPath.includes(hash)) newPath += hash;
-      }
-
-      setOpen(false);
-      router.navigate({ href: newPath, replace: false });
+      // Navigate to the localized URL (this will trigger a full page load)
+      window.location.href = localizedUrl.href;
     },
-    [locale, router]
+    [locale]
   );
 
   return (

@@ -1,8 +1,6 @@
 import { Card } from '#/components/ui/card'
 import { Target, Eye, Lightbulb } from 'lucide-react'
 
-import { NumbersSection } from './NumbersSection'
-
 // Philosophy, Mission, Vision data
 const coreValues = [
     {
