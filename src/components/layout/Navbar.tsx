@@ -14,41 +14,37 @@ import {
 } from 'lucide-react'
 import { Link } from "@tanstack/react-router"
 import { ThemeToggle } from "../ThemeToggle"
+import { LanguageSwitcher } from "../LanguageSwitcher"
+import { m } from "../../paraglide/messages"
 
-const services = [
+const serviceItems = [
     {
-        title: "Архитектура",
-        description: "Цялостни архитектурни решения от концепция до реализация.",
+        titleKey: "services.architecture.title",
         icon: <Building2 className="size-6 text-foreground" />,
         href: "/services/architecture"
     },
     {
-        title: "Градоустройство",
-        description: "Планиране и развитие на градска среда и урбанизирани територии.",
+        titleKey: "services.urban.title",
         icon: <Map className="size-6 text-foreground" />,
         href: "/services/urban"
     },
     {
-        title: "Инженерно проектиране",
-        description: "Прецизни инженерни планове и техническа документация.",
+        titleKey: "services.engineering.title",
         icon: <Cog className="size-6 text-foreground" />,
         href: "/services/engineering"
     },
     {
-        title: "Консултиране",
-        description: "Професионални съвети и експертно мнение за вашия проект.",
+        titleKey: "services.consulting.title",
         icon: <MessageSquare className="size-6 text-foreground" />,
         href: "/services/consulting"
     },
     {
-        title: "3D Анимация и VR",
-        description: "Фотореалистични визуализации и потапящи VR преживявания.",
+        titleKey: "services.3d.title",
         icon: <Box className="size-6 text-foreground" />,
         href: "/services/3d"
     },
     {
-        title: "Управление на проекти",
-        description: "Координация и контрол на целия инвестиционен процес.",
+        titleKey: "services.projectManagement.title",
         icon: <ClipboardCheck className="size-6 text-foreground" />,
         href: "/services/projects"
     },
@@ -87,18 +83,12 @@ export function Navbar() {
     return (
         <header className="sticky top-5 -translate-y-3 md:translate-y-0 md:top-4 mt-8 mb-[-96px] left-0 right-0 z-50 flex justify-center px-4 pointer-events-none transition-all duration-500 ease-in-out">
             <div ref={navRef} className="w-full max-w-[22rem] sm:max-w-xl md:max-w-3xl xl:max-w-5xl 2xl:max-w-280 pointer-events-auto transition-all duration-300 relative h-[64px]">
-                {/*
-                  ROUNDING FIX: Always rounded-3xl — never toggle the border-radius.
-                  Animating between rounded-full and a lower radius causes ugly shape
-                  distortion during the transition. rounded-3xl (24px) reads as a pill
-                  at 64px tall and smoothly becomes a rounded-rect when expanded.
-                */}
                 <div className="absolute top-0 left-0 right-0 px-6 rounded-3xl transition-all duration-300 ease-in-out border border-white/20 dark:border-white/[0.08] bg-gradient-to-b from-white/80 to-white/60 dark:from-[rgba(26,25,23,0.85)] dark:to-[rgba(26,25,23,0.7)] backdrop-blur-[15px] shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] dark:shadow-[0_8px_40px_0_rgba(0,0,0,0.35)] saturate-150">
 
                     {/* Main bar */}
                     <div className="flex items-center justify-between h-[64px]">
 
-                        {/* Logo — invert in dark mode so black logo becomes white */}
+                        {/* Logo */}
                         <div className="flex shrink-0 items-center -translate-x-2.5 dark:invert">
                             <Link to="/" className="transition-opacity">
                                 <Logo type="horizontal" size="lg" variant="black" />
@@ -124,7 +114,7 @@ export function Navbar() {
                                             : "text-foreground/40"
                                 )}
                             >
-                                За нас
+                                {m["nav.about"]()}
                             </Link>
 
                             <Link
@@ -139,7 +129,7 @@ export function Navbar() {
                                             : "text-foreground/40"
                                 )}
                             >
-                                Проекти
+                                {m["nav.projects"]()}
                             </Link>
 
                             <Link
@@ -154,10 +144,10 @@ export function Navbar() {
                                             : "text-foreground/40"
                                 )}
                             >
-                                Блог
+                                {m["nav.blog"]()}
                             </Link>
 
-                            {/* Services trigger — hover activates panel */}
+                            {/* Services trigger */}
                             <div
                                 onMouseEnter={() => { handleServicesMouseEnter(); setHoveredNav("services") }}
                                 onMouseLeave={() => { handleServicesMouseLeave(); setHoveredNav(null) }}
@@ -177,7 +167,7 @@ export function Navbar() {
                                                     : "text-foreground/40"
                                     )}
                                 >
-                                    Услуги
+                                    {m["nav.services"]()}
                                     <ChevronDown
                                         className={cn(
                                             "size-3.5 transition-transform duration-300",
@@ -188,10 +178,11 @@ export function Navbar() {
                             </div>
                         </nav>
 
-                        {/* Right side: theme toggle + CTA / hamburger */}
-                        <div className="flex items-center -mr-3">
+                        {/* Right side: language switcher + theme toggle + CTA / hamburger */}
+                        <div className="flex items-center -mr-3 gap-1">
 
                             <div className="flex xl:hidden">
+                                <LanguageSwitcher />
                                 <ThemeToggle />
                             </div>
 
@@ -201,7 +192,7 @@ export function Navbar() {
                                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                                 className="hidden xl:inline-flex bg-primary text-primary-foreground px-6 py-2.5 rounded-2xl text-sm font-bold uppercase hover:bg-primary/80 transition-all shadow-lg hover:shadow-primary/20"
                             >
-                                Контакт
+                                {m["nav.contact"]()}
                             </Link>
                             <button
                                 className="xl:hidden text-foreground rounded-full hover:bg-foreground/5 transition-colors p-2"
@@ -209,11 +200,12 @@ export function Navbar() {
                                     setMobileOpen(prev => !prev)
                                     setServicesOpen(false)
                                 }}
-                                aria-label="Toggle menu"
+                                aria-label={m["aria.menuToggle"]()}
                             >
                                 {mobileOpen ? <X size={20} /> : <Menu size={20} />}
                             </button>
-                            <div className="xl:flex hidden">
+                            <div className="hidden xl:flex">
+                                <LanguageSwitcher />
                                 <ThemeToggle />
                             </div>
                         </div>
@@ -230,7 +222,7 @@ export function Navbar() {
                                 : "max-h-0 opacity-0 pb-0 pt-0 pointer-events-none"
                         )}
                     >
-                        {services.map((service) => (
+                        {serviceItems.map((service) => (
                             <Link
                                 key={service.href}
                                 to={service.href as any}
@@ -241,7 +233,7 @@ export function Navbar() {
                                     {service.icon}
                                 </div>
                                 <span className="font-semibold text-[15px] text-foreground leading-tight">
-                                    {service.title}
+                                    {m[service.titleKey as keyof typeof m]()}
                                 </span>
                             </Link>
                         ))}
@@ -263,7 +255,7 @@ export function Navbar() {
                                 onClick={() => { setMobileOpen(false); document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) }}
                                 className="px-5 py-3.5 rounded-2xl text-[13px] font-bold uppercase tracking-wider text-foreground bg-foreground/[0.04] dark:bg-foreground/[0.06] border border-foreground/[0.06] dark:border-foreground/[0.12] shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] dark:shadow-[0_2px_10px_-3px_rgba(0,0,0,0.25)] active:scale-[0.98] transition-transform flex items-center justify-center"
                             >
-                                <span>За нас</span>
+                                <span>{m["nav.about"]()}</span>
                             </Link>
 
                             <Link
@@ -271,7 +263,7 @@ export function Navbar() {
                                 onClick={() => setMobileOpen(false)}
                                 className="px-5 py-3.5 rounded-2xl text-[13px] font-bold uppercase tracking-wider text-foreground bg-foreground/[0.04] dark:bg-foreground/[0.06] border border-foreground/[0.06] dark:border-foreground/[0.12] shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] dark:shadow-[0_2px_10px_-3px_rgba(0,0,0,0.25)] active:scale-[0.98] transition-transform flex items-center justify-center"
                             >
-                                <span>Проекти</span>
+                                <span>{m["nav.projects"]()}</span>
                             </Link>
 
                             <Link
@@ -279,7 +271,7 @@ export function Navbar() {
                                 onClick={() => setMobileOpen(false)}
                                 className="px-5 py-3.5 rounded-2xl text-[13px] font-bold uppercase tracking-wider text-foreground bg-foreground/[0.04] dark:bg-foreground/[0.06] border border-foreground/[0.06] dark:border-foreground/[0.12] shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] dark:shadow-[0_2px_10px_-3px_rgba(0,0,0,0.25)] active:scale-[0.98] transition-transform flex items-center justify-center"
                             >
-                                <span>Блог</span>
+                                <span>{m["nav.blog"]()}</span>
                             </Link>
 
                             <Link
@@ -288,7 +280,7 @@ export function Navbar() {
                                 onClick={() => { setMobileOpen(false); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }) }}
                                 className="px-5 py-3.5 rounded-2xl text-[13px] font-bold uppercase tracking-wider text-foreground bg-foreground/[0.04] dark:bg-foreground/[0.06] border border-foreground/[0.06] dark:border-foreground/[0.12] shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] dark:shadow-[0_2px_10px_-3px_rgba(0,0,0,0.25)] active:scale-[0.98] transition-transform flex items-center justify-center"
                             >
-                                <span>Услуги</span>
+                                <span>{m["nav.services"]()}</span>
                             </Link>
 
                             <Link
@@ -297,7 +289,7 @@ export function Navbar() {
                                 onClick={() => { setMobileOpen(false); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) }}
                                 className="mt-2 px-5 py-4 rounded-2xl text-[13px] font-black uppercase tracking-widest text-primary-foreground bg-primary shadow-[0_10px_20px_-5px_rgba(0,0,0,0.2)] active:scale-[0.98] transition-transform flex items-center justify-center gap-2"
                             >
-                                <span>Контакт</span>
+                                <span>{m["nav.contact"]()}</span>
                             </Link>
                         </nav>
                     </div>

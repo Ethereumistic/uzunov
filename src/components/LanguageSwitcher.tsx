@@ -4,11 +4,11 @@ import { useCallback, useState } from "react";
 
 const FLAGS: Record<string, { src: string; label: string }> = {
   bg: {
-    src: "https://flagcdn.com/w40/bg.png",
+    src: "https://flagcdn.com/32x24/bg.webp",
     label: "БГ",
   },
   en: {
-    src: "https://flagcdn.com/w40/en.png",
+    src: "https://flagcdn.com/32x24/us.webp",
     label: "EN",
   },
 };
@@ -108,11 +108,10 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
               <button
                 key={l}
                 onClick={() => switchLocale(l)}
-                className={`w-full flex items-center gap-2 px-3 py-2 text-sm transition-colors ${
-                  locale === l
-                    ? "bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 font-medium"
-                    : "hover:bg-neutral-50 dark:hover:bg-neutral-700"
-                }`}
+                className={`w-full flex items-center gap-2 px-3 py-2 text-sm transition-colors ${locale === l
+                  ? "bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 font-medium"
+                  : "hover:bg-neutral-50 dark:hover:bg-neutral-700"
+                  }`}
               >
                 <img
                   src={FLAGS[l].src}
