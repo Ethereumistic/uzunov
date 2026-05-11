@@ -264,5 +264,8 @@
   "admin.sidebar.projects": "Projects",
   "admin.sidebar.blog": "Blog",
   "admin.sidebar.backToWebsite": "Back to Website",
-  "admin.sidebar.signOut": "Sign Out"
+  "admin.sidebar.signOut": "Sign Out",
+
+  "search.placeholder": "Search projects, posts, services…",
+  "search.noResults": "No results found"
 }

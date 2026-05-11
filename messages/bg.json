@@ -264,5 +264,8 @@
   "admin.sidebar.projects": "Проекти",
   "admin.sidebar.blog": "Блог",
   "admin.sidebar.backToWebsite": "Обратно към сайта",
-  "admin.sidebar.signOut": "Изход"
+  "admin.sidebar.signOut": "Изход",
+
+  "search.placeholder": "Търсене на проекти, статии, услуги…",
+  "search.noResults": "Няма намерени резултати"
 }

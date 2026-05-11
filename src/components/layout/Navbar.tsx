@@ -460,6 +460,57 @@ export function Navbar() {
                         )}
                     >
                         <nav className="flex flex-col gap-2.5 group/nav">
+                            {/* Mobile search input */}
+                            <div className="relative">
+                                <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-foreground/40 pointer-events-none" />
+                                <input
+                                    ref={searchInputRef}
+                                    type="text"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    onFocus={() => setSearchOpen(true)}
+                                    placeholder={m["search.placeholder"]()}
+                                    className="w-full h-12 pl-11 pr-4 rounded-2xl border border-foreground/[0.08] dark:border-foreground/[0.16] bg-foreground/[0.04] dark:bg-foreground/[0.06] text-sm text-foreground placeholder:text-foreground/40 outline-none focus:border-foreground/25 focus:ring-2 focus:ring-foreground/10 transition-all"
+                                />
+                                {/* Mobile results dropdown */}
+                                {searchOpen && debouncedQuery.length >= 2 && (
+                                    <div className="absolute top-full left-0 right-0 mt-2 rounded-2xl border border-foreground/[0.08] bg-white/95 dark:bg-[rgba(26,25,23,0.95)] backdrop-blur-xl shadow-[0_12px_40px_-8px_rgba(0,0,0,0.15)] dark:shadow-[0_12px_40px_-8px_rgba(0,0,0,0.5)] overflow-hidden z-50"
+                                    >
+                                        {combinedResults.length === 0 && convexResults !== undefined && (
+                                            <div className="px-4 py-3 text-sm text-foreground/50 text-center">
+                                                {m["search.noResults"]()}
+                                            </div>
+                                        )}
+                                        {combinedResults.map((result, i) => (
+                                            <Link
+                                                key={`${result.type}-${result.href}-${i}`}
+                                                to={result.href as any}
+                                                onClick={() => { closeSearch(); setMobileOpen(false) }}
+                                                className="flex items-center gap-3 px-4 py-3 hover:bg-foreground/[0.04] transition-colors group"
+                                            >
+                                                <div className="flex items-center justify-center size-8 rounded-lg bg-foreground/[0.04] shrink-0">
+                                                    {result.icon}
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <div className="text-sm font-semibold text-foreground truncate">
+                                                        {result.title}
+                                                    </div>
+                                                    {result.subtitle && (
+                                                        <div className="text-xs text-foreground/50 capitalize">
+                                                            {result.subtitle}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <span className="text-[10px] font-bold uppercase tracking-wider text-foreground/30 bg-foreground/[0.04] px-2 py-0.5 rounded-full">
+                                                    {result.type}
+                                                </span>
+                                                <ArrowRight className="size-3.5 text-foreground/20 group-hover:text-foreground/50 transition-colors shrink-0" />
+                                            </Link>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+
                             <Link
                                 to="/"
                                 hash="about"
