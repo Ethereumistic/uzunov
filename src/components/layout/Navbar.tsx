@@ -10,12 +10,19 @@ import {
     ClipboardCheck,
     Menu,
     X,
-    ChevronDown
+    ChevronDown,
+    Search,
+    FolderKanban,
+    FileText,
+    ArrowRight,
 } from 'lucide-react'
 import { Link } from "@tanstack/react-router"
 import { ThemeToggle } from "../ThemeToggle"
 import { LanguageSwitcher } from "../LanguageSwitcher"
 import { m } from "../../paraglide/messages"
+import { useQuery } from "convex/react"
+import { api } from "../../../convex/_generated/api"
+import { getLocale } from "#/paraglide/runtime"
 
 const serviceItems = [
     {
@@ -57,7 +64,123 @@ export function Navbar() {
     const navRef = React.useRef<HTMLDivElement>(null)
     const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
-    // Close on outside click
+    // ── Search state ──
+    const [searchOpen, setSearchOpen] = React.useState(false)
+    const [searchQuery, setSearchQuery] = React.useState("")
+    const [debouncedQuery, setDebouncedQuery] = React.useState("")
+    const searchInputRef = React.useRef<HTMLInputElement>(null)
+    const searchResultsRef = React.useRef<HTMLDivElement>(null)
+
+    // Debounce the search query — 300ms
+    React.useEffect(() => {
+        const timer = setTimeout(() => setDebouncedQuery(searchQuery), 300)
+        return () => clearTimeout(timer)
+    }, [searchQuery])
+
+    // Convex query — backend returns [] for queries < 2 chars, so always safe to call.
+    // Client-side 300ms debounce already limits call frequency.
+    const convexResults = useQuery(api.search.search, { query: debouncedQuery, limit: 6 })
+
+    // Client-side service search
+    const serviceResults = React.useMemo(() => {
+        if (debouncedQuery.length < 2) return []
+        const term = debouncedQuery.toLowerCase()
+        return serviceItems.filter((s) => {
+            const title = m[s.titleKey as keyof typeof m]()
+            return title.toLowerCase().includes(term)
+        }).map((s) => ({
+            type: "service" as const,
+            title: m[s.titleKey as keyof typeof m](),
+            href: s.href,
+            icon: s.icon,
+        }))
+    }, [debouncedQuery])
+
+    // Merge and limit to 3 results total
+    const combinedResults = React.useMemo(() => {
+        if (!convexResults) return serviceResults.slice(0, 3).map(s => ({ ...s, subtitle: undefined }))
+        const all: Array<{
+            type: string
+            title: string
+            href: string
+            icon?: React.ReactNode
+            subtitle?: string
+        }> = []
+
+        // Services first (instant, local)
+        for (const s of serviceResults) {
+            if (all.length >= 3) break
+            all.push({ ...s, subtitle: undefined })
+        }
+
+        // Then Convex results (projects + posts)
+        const locale = getLocale()
+        for (const r of convexResults) {
+            if (all.length >= 3) break
+            if (r.type === "project") {
+                all.push({
+                    type: "project",
+                    title: locale === "bg" ? r.title_bg : (r.title_en || r.title_bg),
+                    href: `/projects/${r.slug}`,
+                    icon: <FolderKanban className="size-4 text-foreground/60" />,
+                    subtitle: r.category,
+                })
+            } else if (r.type === "post") {
+                all.push({
+                    type: "post",
+                    title: locale === "bg" ? r.title_bg : (r.title_en || r.title_bg),
+                    href: `/blog/${r.slug}`,
+                    icon: <FileText className="size-4 text-foreground/60" />,
+                    subtitle: r.displayDate,
+                })
+            }
+        }
+
+        return all
+    }, [convexResults, serviceResults])
+
+    // Focus input when search opens
+    React.useEffect(() => {
+        if (searchOpen) {
+            // Small delay so the DOM element exists
+            requestAnimationFrame(() => searchInputRef.current?.focus())
+        }
+    }, [searchOpen])
+
+    // Close search on Escape
+    React.useEffect(() => {
+        function handleKeyDown(e: KeyboardEvent) {
+            if (e.key === "Escape" && searchOpen) {
+                setSearchOpen(false)
+                setSearchQuery("")
+            }
+        }
+        document.addEventListener("keydown", handleKeyDown)
+        return () => document.removeEventListener("keydown", handleKeyDown)
+    }, [searchOpen])
+
+    // Close search on outside click
+    React.useEffect(() => {
+        function handleClickOutside(e: MouseEvent) {
+            if (
+                searchOpen &&
+                navRef.current &&
+                !navRef.current.contains(e.target as Node)
+            ) {
+                setSearchOpen(false)
+                setSearchQuery("")
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside)
+        return () => document.removeEventListener("mousedown", handleClickOutside)
+    }, [searchOpen])
+
+    function closeSearch() {
+        setSearchOpen(false)
+        setSearchQuery("")
+    }
+
+    // Close menus on outside click
     React.useEffect(() => {
         function handleClickOutside(e: MouseEvent) {
             if (navRef.current && !navRef.current.contains(e.target as Node)) {
@@ -95,9 +218,12 @@ export function Navbar() {
                             </Link>
                         </div>
 
-                        {/* Desktop Navigation */}
+                        {/* Desktop Navigation — hidden when search is active */}
                         <nav
-                            className="hidden xl:flex items-center gap-1"
+                            className={cn(
+                                "hidden xl:flex items-center gap-1 transition-all duration-300",
+                                searchOpen && "opacity-0 pointer-events-none absolute"
+                            )}
                             onMouseLeave={() => setHoveredNav(null)}
                         >
                             <Link
@@ -178,13 +304,98 @@ export function Navbar() {
                             </div>
                         </nav>
 
-                        {/* Right side: language switcher + theme toggle + CTA / hamburger */}
+                        {/* Desktop search input — shown when search is active */}
+                        <div
+                            className={cn(
+                                "hidden xl:flex items-center flex-1 transition-all duration-300",
+                                searchOpen
+                                    ? "opacity-100 pointer-events-auto"
+                                    : "opacity-0 pointer-events-none absolute w-0 h-0 overflow-hidden"
+                            )}
+                        >
+                            <div className="relative flex-1 mr-3">
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-foreground/40 pointer-events-none" />
+                                <input
+                                    ref={searchInputRef}
+                                    type="text"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    placeholder="Search projects, posts, services…"
+                                    className="w-full h-9 pl-9 pr-4 rounded-xl border border-foreground/10 bg-foreground/[0.03] dark:bg-foreground/[0.06] backdrop-blur-sm text-sm text-foreground placeholder:text-foreground/40 outline-none focus:border-foreground/25 focus:ring-2 focus:ring-foreground/10 transition-all"
+                                />
+                                {/* Results dropdown */}
+                                {searchOpen && debouncedQuery.length >= 2 && (
+                                    <div
+                                        ref={searchResultsRef}
+                                        className="absolute top-full left-0 right-0 mt-2 rounded-2xl border border-foreground/[0.08] bg-white/90 dark:bg-[rgba(26,25,23,0.95)] backdrop-blur-xl shadow-[0_12px_40px_-8px_rgba(0,0,0,0.15)] dark:shadow-[0_12px_40px_-8px_rgba(0,0,0,0.5)] overflow-hidden z-50"
+                                    >
+                                        {combinedResults.length === 0 && convexResults !== undefined && (
+                                            <div className="px-4 py-3 text-sm text-foreground/50 text-center">
+                                                No results found
+                                            </div>
+                                        )}
+                                        {combinedResults.map((result, i) => (
+                                            <Link
+                                                key={`${result.type}-${result.href}-${i}`}
+                                                to={result.href as any}
+                                                onClick={closeSearch}
+                                                className="flex items-center gap-3 px-4 py-3 hover:bg-foreground/[0.04] transition-colors group"
+                                            >
+                                                <div className="flex items-center justify-center size-8 rounded-lg bg-foreground/[0.04] shrink-0">
+                                                    {result.icon}
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <div className="text-sm font-semibold text-foreground truncate">
+                                                        {result.title}
+                                                    </div>
+                                                    {result.subtitle && (
+                                                        <div className="text-xs text-foreground/50 capitalize">
+                                                            {result.subtitle}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <span className="text-[10px] font-bold uppercase tracking-wider text-foreground/30 bg-foreground/[0.04] px-2 py-0.5 rounded-full">
+                                                    {result.type}
+                                                </span>
+                                                <ArrowRight className="size-3.5 text-foreground/20 group-hover:text-foreground/50 transition-colors shrink-0" />
+                                            </Link>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Right side: search + language switcher + theme toggle + CTA / hamburger */}
                         <div className="flex items-center -mr-3 gap-1">
 
                             <div className="flex justify-center items-center xl:hidden">
                                 <LanguageSwitcher />
                                 <ThemeToggle />
                             </div>
+
+                            {/* Desktop search toggle button */}
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    if (searchOpen) {
+                                        closeSearch()
+                                    } else {
+                                        setSearchOpen(true)
+                                        setServicesOpen(false)
+                                    }
+                                }}
+                                className={cn(
+                                    "hidden xl:flex items-center justify-center size-9 rounded-full transition-colors duration-200",
+                                    "hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
+                                    searchOpen && "bg-foreground/[0.06]"
+                                )}
+                                aria-label="Search"
+                            >
+                                {searchOpen
+                                    ? <X className="size-[18px] text-foreground" />
+                                    : <Search className="size-[18px] text-foreground/70" />
+                                }
+                            </button>
 
                             <Link
                                 to="/"

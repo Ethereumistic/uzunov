@@ -14,6 +14,7 @@ import type * as images from "../images.js";
 import type * as migrations from "../migrations.js";
 import type * as posts from "../posts.js";
 import type * as projects from "../projects.js";
+import type * as search from "../search.js";
 import type * as seedBlog from "../seedBlog.js";
 import type * as seedProjectTranslations from "../seedProjectTranslations.js";
 import type * as users from "../users.js";
@@ -31,6 +32,7 @@ declare const fullApi: ApiFromModules<{
   migrations: typeof migrations;
   posts: typeof posts;
   projects: typeof projects;
+  search: typeof search;
   seedBlog: typeof seedBlog;
   seedProjectTranslations: typeof seedProjectTranslations;
   users: typeof users;

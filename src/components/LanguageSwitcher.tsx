@@ -1,92 +1,58 @@
 import { getLocale, setLocale } from "../paraglide/runtime";
-import { ChevronDown } from "lucide-react";
-import { Button } from "./ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+import { cn } from "../lib/utils";
 
-const FLAGS: Record<string, { src: string; label: string }> = {
-  bg: {
-    src: "https://flagcdn.com/32x24/bg.webp",
-    label: "БГ",
-  },
-  en: {
-    src: "https://flagcdn.com/32x24/us.webp",
-    label: "EN",
-  },
-};
+const FLAGS = {
+  bg: "https://flagcdn.com/32x24/bg.webp",
+  en: "https://flagcdn.com/32x24/us.webp",
+} as const;
 
-const LOCALES = ["bg", "en"] as const;
+interface LanguageSwitcherProps {
+  className?: string;
+}
 
-export function LanguageSwitcher({ className = "" }: { className?: string }) {
+export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
   const locale = getLocale();
 
-  const switchLocale = (newLocale: "bg" | "en") => {
-    if (newLocale !== locale) {
-      setLocale(newLocale);
-    }
-  };
+  function toggle() {
+    const next = locale === "bg" ? "en" : "bg";
+    setLocale(next);
+  }
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          size="sm"
-          className={`gap-1.5 px-2 ${className}`}
-          aria-label={`Current language: ${locale === "bg" ? "Bulgarian" : "English"}`}
-        >
-          <img
-            src={FLAGS[locale].src}
-            alt={`${locale} flag`}
-            className="w-5 h-auto rounded-sm object-contain"
-            width={24}
-            height={16}
-          />
-          <ChevronDown className="size-3" />
-        </Button>
-      </DropdownMenuTrigger>
-
-      <DropdownMenuContent align="end" className="min-w-[140px]">
-        {LOCALES.map((l) => (
-          <DropdownMenuItem
-            key={l}
-            onSelect={() => switchLocale(l)}
-            className={`flex items-center gap-2 ${
-              locale === l
-                ? "bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 font-medium focus:bg-teal-50 dark:focus:bg-teal-900/30 focus:text-teal-700 dark:focus:text-teal-300"
-                : ""
-            }`}
-          >
-            <img
-              src={FLAGS[l].src}
-              alt={`${l} flag`}
-              className="w-5 h-auto rounded-sm object-contain"
-              width={24}
-              height={16}
-            />
-            <span>{l === "bg" ? "BG" : "EN"}</span>
-            {locale === l && (
-              <svg
-                className="w-4 h-4 ml-auto text-teal-600"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M5 13l4 4L19 7"
-                />
-              </svg>
-            )}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={locale === "bg" ? "Switch to English" : "Превключване на български"}
+      className={cn(
+        "relative flex items-center justify-center size-9 rounded-full transition-colors duration-200",
+        "hover:bg-foreground/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
+        className
+      )}
+    >
+      <img
+        src={FLAGS.bg}
+        alt="БГ"
+        width={24}
+        height={16}
+        className={cn(
+          "aspect-video w-5 rounded-[2px] object-cover transition-all duration-300",
+          locale === "bg"
+            ? "rotate-0 scale-100 opacity-100"
+            : "absolute rotate-90 scale-0 opacity-0"
+        )}
+      />
+      <img
+        src={FLAGS.en}
+        alt="EN"
+        width={24}
+        height={16}
+        className={cn(
+          "aspect-video w-5 rounded-[2px] object-cover transition-all duration-300",
+          locale === "en"
+            ? "rotate-0 scale-100 opacity-100"
+            : "absolute -rotate-90 scale-0 opacity-0"
+        )}
+      />
+    </button>
   );
 }
