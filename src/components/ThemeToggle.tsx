@@ -14,6 +14,12 @@ function getSystemTheme(): "light" | "dark" {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
 }
 
+function getResolvedTheme(): "light" | "dark" {
+  const stored = getStoredTheme()
+  if (stored) return stored
+  return getSystemTheme()
+}
+
 function applyTheme(theme: "light" | "dark") {
   const root = document.documentElement
   root.classList.remove("light", "dark")
@@ -26,14 +32,36 @@ interface ThemeToggleProps {
 }
 
 export function ThemeToggle({ className }: ThemeToggleProps) {
-  // Read the *actual* resolved theme from the DOM on first render
-  // so the icon matches what the init script has already applied.
+  // Read theme from DOM on mount to avoid hydration mismatch
+  // The THEME_INIT_SCRIPT in __root.tsx already set the correct theme before this mounts
   const [resolved, setResolved] = React.useState<"light" | "dark">(() => {
     if (typeof window === "undefined") return "light"
-    const stored = getStoredTheme()
-    if (stored) return stored
-    return getSystemTheme()
+    // Read from DOM classList to match what THEME_INIT_SCRIPT applied
+    const root = document.documentElement
+    if (root.classList.contains("dark")) return "dark"
+    if (root.classList.contains("light")) return "light"
+    // Fallback: compute it ourselves
+    return getResolvedTheme()
   })
+
+  // After hydration, re-sync state with the actual DOM.
+  // The THEME_INIT_SCRIPT sets the theme before React hydrates, but hydration
+  // reconciliation may wipe the class/style. This runs before paint to correct
+  // any mismatch between ThemeToggle state and the real DOM.
+  React.useLayoutEffect(() => {
+    const root = document.documentElement
+    const actual: "light" | "dark" = root.classList.contains("dark")
+      ? "dark"
+      : root.classList.contains("light")
+        ? "light"
+        : getSystemTheme()
+
+    // If DOM lost the theme class during hydration, re-apply it
+    if (!root.classList.contains(actual)) {
+      applyTheme(actual)
+    }
+    setResolved(actual)
+  }, [])
 
   // Keep in sync with system changes when no explicit preference is stored
   React.useEffect(() => {

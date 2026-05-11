@@ -1,4 +1,5 @@
 import { getLocale, setLocale, localizeUrl } from "../paraglide/runtime";
+import { useNavigate } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
 
 const FLAGS: Record<string, { src: string; label: string }> = {
@@ -16,25 +17,34 @@ const LOCALES = ["bg", "en"] as const;
 
 export function LanguageSwitcher({ className = "" }: { className?: string }) {
   const locale = getLocale();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   const switchLocale = useCallback(
-    (newLocale: "bg" | "en") => {
+    async (newLocale: "bg" | "en") => {
       if (newLocale === locale) {
         setOpen(false);
         return;
       }
 
-      // Set locale in cookie and global variable
+      // Set locale in cookie and global variable (no reload)
       setLocale(newLocale, { reload: false });
 
-      // Calculate the localized URL
+      // Navigate via TanStack Router to preserve the React tree (and theme state).
+      // The router's rewrite rules handle de/localization of the URL.
       const localizedUrl = localizeUrl(window.location.href, { locale: newLocale });
+      const path = localizedUrl.pathname + localizedUrl.search + localizedUrl.hash;
 
-      // Navigate to the localized URL (this will trigger a full page load)
-      window.location.href = localizedUrl.href;
+      try {
+        await navigate({ to: path as any });
+      } catch {
+        // Fallback: full page reload if client-side navigation fails
+        window.location.href = localizedUrl.href;
+      }
+
+      setOpen(false);
     },
-    [locale]
+    [locale, navigate]
   );
 
   return (
@@ -51,9 +61,9 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
           width={24}
           height={16}
         />
-        <span className="text-xs font-medium uppercase tracking-wide">
+        {/* <span className="text-xs font-medium uppercase tracking-wide">
           {FLAGS[locale].label}
-        </span>
+        </span> */}
         <svg
           className={`w-3 h-3 transition-transform ${open ? "rotate-180" : ""}`}
           fill="none"
@@ -89,7 +99,7 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
                   width={24}
                   height={16}
                 />
-                <span>{l === "bg" ? "Български" : "English"}</span>
+                <span>{l === "bg" ? "BG" : "EN"}</span>
                 {locale === l && (
                   <svg className="w-4 h-4 ml-auto text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
