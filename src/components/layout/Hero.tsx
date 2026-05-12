@@ -85,7 +85,7 @@ function HeroContent() {
                     return (
                         <div
                             key={stat.position}
-                            className={`absolute ${isTop ? 'top-25 xl:top-6' : 'bottom-6'} ${isLeft ? 'left-6' : 'right-6'} z-10 opacity-0 animate-[fade-in_600ms_ease_forwards]`}
+                            className={`absolute ${isTop ? 'top-25 xl:top-6' : 'bottom-25 xl:bottom-6'} ${isLeft ? 'left-6' : 'right-6'} z-10 opacity-0 animate-[fade-in_600ms_ease_forwards]`}
                         >
                             <CornerBadge value={stat.value} label={m[stat.labelKey as keyof typeof m]()} />
                         </div>

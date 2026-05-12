@@ -368,11 +368,6 @@ export function Navbar() {
                         {/* Right side: search + language switcher + theme toggle + CTA / hamburger */}
                         <div className="flex items-center -mr-3 gap-1">
 
-                            <div className="flex justify-center items-center xl:hidden">
-                                <LanguageSwitcher />
-                                <ThemeToggle />
-                            </div>
-
                             {/* Desktop search toggle button */}
                             <button
                                 type="button"
@@ -553,6 +548,12 @@ export function Navbar() {
                             >
                                 <span>{m["nav.contact"]()}</span>
                             </Link>
+
+                            {/* Language & Theme switchers */}
+                            <div className="flex items-center justify-center gap-2 mt-3 pt-3 border-t border-foreground/[0.08]">
+                                <LanguageSwitcher />
+                                <ThemeToggle />
+                            </div>
                         </nav>
                     </div>
                 </div>
