@@ -28,6 +28,22 @@ export function buildBentoSpecs(images: ProjectImage[]): CellSpec[] {
     }
   };
 
+  // Special case: 2 images with a vertical one — the non-vertical spans full height
+  if (images.length === 2) {
+    if (images[0].ar === "V") {
+      specs.push({ cols: 1, rows: 2 }); // first: vertical
+      specs.push({ cols: 2, rows: 2 }); // second: spans full height
+    } else if (images[1].ar === "V") {
+      specs.push({ cols: 2, rows: 2 }); // first: spans full height
+      specs.push({ cols: 1, rows: 2 }); // second: vertical
+    } else {
+      // Both landscape/square — default even split
+      specs.push({ cols: 2, rows: 1 });
+      specs.push({ cols: 1, rows: 1 });
+    }
+    return specs;
+  }
+
   for (let i = 0; i < images.length; i++) {
     const ar = images[i].ar;
     const remaining = 3 - cursor;

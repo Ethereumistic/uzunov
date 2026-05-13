@@ -118,11 +118,25 @@ export function ProjectDetailView({
                     onImageClick={openLightbox}
                   />
                   {images.length > 1 && (
-                    <ProjectBentoGrid
-                      images={images.slice(1)}
-                      resolvedUrls={resolvedUrls.slice(1)}
-                      onImageClick={(i) => openLightbox(i + 1)}
-                    />
+                    images.length === 2 ? (
+                      <button
+                        onClick={() => openLightbox(1)}
+                        className="relative overflow-hidden rounded-3xl group hover:border-[#1a1916]/20 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2"
+                      >
+                        <img
+                          src={resolvedUrls[1] ?? images[1]?.url_legacy ?? ""}
+                          alt={`Изображение 2`}
+                          className="w-full h-64 md:h-96 object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-black/0 transition-colors duration-300" />
+                      </button>
+                    ) : (
+                      <ProjectBentoGrid
+                        images={images.slice(1)}
+                        resolvedUrls={resolvedUrls.slice(1)}
+                        onImageClick={(i) => openLightbox(i + 1)}
+                      />
+                    )
                   )}
                 </>
               ) : (
