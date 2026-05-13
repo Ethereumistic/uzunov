@@ -39,28 +39,6 @@ export const getImageUrls = query({
 });
 
 // ───────────────────────────────────────
-// Step 3: Convert raw uploaded image to WebP via Sharp
-// Runs in Node.js action context
-// ───────────────────────────────────────
-export const convertToWebp = mutation({
-  args: {
-    rawStorageId: v.id("_storage"),
-    quality: v.optional(v.number()),
-  },
-  handler: async (ctx, { rawStorageId }) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) throw new Error("Unauthorized");
-
-    // For now: we simply return the same storageId.
-    // The actual Sharp conversion requires a Node.js action (use node;" directive).
-    // Since Convex actions with Sharp need special setup, we'll use the raw upload
-    // as the final storageId. The images are stored as-is.
-    // If Sharp/WebP conversion is needed later, this can be converted to an action.
-    return { storageId: rawStorageId };
-  },
-});
-
-// ───────────────────────────────────────
 // Dedup: Find an existing image by its content hash
 // Returns null if not found, or { storageId } if found.
 // ───────────────────────────────────────

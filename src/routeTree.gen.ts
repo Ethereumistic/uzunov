@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as AdminLoginRouteImport } from './routes/admin-login'
@@ -39,6 +40,11 @@ import { Route as AdminBlogPostIdEditRouteImport } from './routes/admin/blog/$po
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProjectsRoute = ProjectsRouteImport.update({
@@ -174,6 +180,7 @@ export interface FileRoutesByFullPath {
   '/admin-login': typeof AdminLoginRoute
   '/privacy': typeof PrivacyRoute
   '/projects': typeof ProjectsRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
@@ -200,6 +207,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin-login': typeof AdminLoginRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
@@ -229,6 +237,7 @@ export interface FileRoutesById {
   '/admin-login': typeof AdminLoginRoute
   '/privacy': typeof PrivacyRoute
   '/projects': typeof ProjectsRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
@@ -259,6 +268,7 @@ export interface FileRouteTypes {
     | '/admin-login'
     | '/privacy'
     | '/projects'
+    | '/sitemap.xml'
     | '/terms'
     | '/blog/$slug'
     | '/demo/tanstack-query'
@@ -285,6 +295,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin-login'
     | '/privacy'
+    | '/sitemap.xml'
     | '/terms'
     | '/blog/$slug'
     | '/demo/tanstack-query'
@@ -313,6 +324,7 @@ export interface FileRouteTypes {
     | '/admin-login'
     | '/privacy'
     | '/projects'
+    | '/sitemap.xml'
     | '/terms'
     | '/blog/$slug'
     | '/demo/tanstack-query'
@@ -342,6 +354,7 @@ export interface RootRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
   PrivacyRoute: typeof PrivacyRoute
   ProjectsRoute: typeof ProjectsRouteWithChildren
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   BlogSlugRoute: typeof BlogSlugRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
@@ -363,6 +376,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/projects': {
@@ -585,6 +605,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
   PrivacyRoute: PrivacyRoute,
   ProjectsRoute: ProjectsRouteWithChildren,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   BlogSlugRoute: BlogSlugRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
