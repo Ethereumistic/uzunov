@@ -199,7 +199,7 @@ export function ProjectEditor({ initialData, projectId }: ProjectEditorProps) {
         category: form.category,
         area: form.area ? parseFloat(form.area) : undefined,
         completionDate: form.completionDate || undefined,
-        featured: form.featured,
+        featuredOrder: form.featured ? (initialData?.featuredOrder ?? 0) : undefined,
         status: form.status,
         awards: form.awards,
         details: form.details.map((d) => ({

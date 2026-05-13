@@ -32,7 +32,7 @@ export const seedFromJson = internalMutation({
         category: p.category,
         area: p.area ?? undefined,
         completionDate: p.completionDate ?? undefined,
-        featured: p.featured ?? false,
+        featuredOrder: p.featured ? 0 : undefined,
         status: p.status,
 
         awards: (p.awards ?? []).map((a: string) => ({

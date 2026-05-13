@@ -13,6 +13,19 @@ export const list = query({
   },
 });
 
+/** List featured projects, ordered by featuredOrder */
+export const listFeatured = query({
+  args: {},
+  handler: async (ctx) => {
+    return await ctx.db
+      .query("projects")
+      .withIndex("by_featured_order")
+      .filter((q) => q.neq(q.field("featuredOrder"), undefined))
+      .order("asc")
+      .collect();
+  },
+});
+
 /** List projects filtered by category */
 export const listByCategory = query({
   args: {
@@ -79,7 +92,7 @@ export const create = mutation({
     ),
     area: v.optional(v.number()),
     completionDate: v.optional(v.string()),
-    featured: v.boolean(),
+    featuredOrder: v.optional(v.number()),
     status: v.union(v.literal("done"), v.literal("in-progress")),
     awards: v.array(
       v.object({
@@ -141,7 +154,7 @@ export const update = mutation({
     ),
     area: v.optional(v.number()),
     completionDate: v.optional(v.string()),
-    featured: v.boolean(),
+    featuredOrder: v.optional(v.number()),
     status: v.union(v.literal("done"), v.literal("in-progress")),
     awards: v.array(
       v.object({
@@ -286,5 +299,60 @@ export const reorder = mutation({
     for (const { id, order } of orders) {
       await ctx.db.patch(id, { order, updatedAt: Date.now() });
     }
+  },
+});
+
+/** Update featured order — assign order values to featured projects */
+export const reorderFeatured = mutation({
+  args: {
+    orders: v.array(
+      v.object({
+        id: v.id("projects"),
+        featuredOrder: v.number(),
+      }),
+    ),
+  },
+  handler: async (ctx, { orders }) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthorized");
+
+    for (const { id, featuredOrder } of orders) {
+      await ctx.db.patch(id, { featuredOrder, updatedAt: Date.now() });
+    }
+  },
+});
+
+/** Remove a project from featured list */
+export const removeFeatured = mutation({
+  args: {
+    id: v.id("projects"),
+  },
+  handler: async (ctx, { id }) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthorized");
+
+    await ctx.db.patch(id, { featuredOrder: undefined, updatedAt: Date.now() });
+  },
+});
+
+/** Add a project to featured list (appends to end) */
+export const addFeatured = mutation({
+  args: {
+    id: v.id("projects"),
+  },
+  handler: async (ctx, { id }) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthorized");
+
+    // Find the next available order number
+    const allFeatured = await ctx.db
+      .query("projects")
+      .withIndex("by_featured_order")
+      .filter((q) => q.neq(q.field("featuredOrder"), undefined))
+      .order("desc")
+      .first();
+
+    const nextOrder = allFeatured ? (allFeatured.featuredOrder ?? 0) + 1 : 0;
+    await ctx.db.patch(id, { featuredOrder: nextOrder, updatedAt: Date.now() });
   },
 });

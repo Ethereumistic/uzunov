@@ -11,6 +11,7 @@
 import type * as auth from "../auth.js";
 import type * as http from "../http.js";
 import type * as images from "../images.js";
+import type * as migrateFeatured from "../migrateFeatured.js";
 import type * as migrations from "../migrations.js";
 import type * as posts from "../posts.js";
 import type * as projects from "../projects.js";
@@ -29,6 +30,7 @@ declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   http: typeof http;
   images: typeof images;
+  migrateFeatured: typeof migrateFeatured;
   migrations: typeof migrations;
   posts: typeof posts;
   projects: typeof projects;

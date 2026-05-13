@@ -14,11 +14,13 @@
     "prepare": "vp config"
   },
   "dependencies": {
+    "@auth/core": "^0.40.0",
     "@cloudflare/vite-plugin": "^1.36.3",
     "@convex-dev/auth": "^0.0.92",
     "@convex-dev/react-query": "0.1.0",
     "@faker-js/faker": "^10.4.0",
     "@inlang/paraglide-js": "^2.18.0",
+    "@radix-ui/react-collapsible": "^1.1.12",
     "@t3-oss/env-core": "^0.13.11",
     "@tailwindcss/vite": "^4.3.0",
     "@tanstack/match-sorter-utils": "latest",

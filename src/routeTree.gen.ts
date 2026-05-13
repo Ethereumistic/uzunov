@@ -34,6 +34,7 @@ import { Route as DemoFormSimpleRouteImport } from './routes/demo/form.simple'
 import { Route as DemoFormAddressRouteImport } from './routes/demo/form.address'
 import { Route as AdminProjectsNewRouteImport } from './routes/admin/projects/new'
 import { Route as AdminBlogNewRouteImport } from './routes/admin/blog/new'
+import { Route as AdminProjectsFeaturedIndexRouteImport } from './routes/admin/projects/featured/index'
 import { Route as AdminProjectsProjectIdEditRouteImport } from './routes/admin/projects/$projectId/edit'
 import { Route as AdminBlogPostIdEditRouteImport } from './routes/admin/blog/$postId/edit'
 
@@ -162,6 +163,12 @@ const AdminBlogNewRoute = AdminBlogNewRouteImport.update({
   path: '/blog/new',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminProjectsFeaturedIndexRoute =
+  AdminProjectsFeaturedIndexRouteImport.update({
+    id: '/projects/featured/',
+    path: '/projects/featured/',
+    getParentRoute: () => AdminRoute,
+  } as any)
 const AdminProjectsProjectIdEditRoute =
   AdminProjectsProjectIdEditRouteImport.update({
     id: '/projects/$projectId/edit',
@@ -202,6 +209,7 @@ export interface FileRoutesByFullPath {
   '/admin/projects/': typeof AdminProjectsIndexRoute
   '/admin/blog/$postId/edit': typeof AdminBlogPostIdEditRoute
   '/admin/projects/$projectId/edit': typeof AdminProjectsProjectIdEditRoute
+  '/admin/projects/featured/': typeof AdminProjectsFeaturedIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -229,6 +237,7 @@ export interface FileRoutesByTo {
   '/admin/projects': typeof AdminProjectsIndexRoute
   '/admin/blog/$postId/edit': typeof AdminBlogPostIdEditRoute
   '/admin/projects/$projectId/edit': typeof AdminProjectsProjectIdEditRoute
+  '/admin/projects/featured': typeof AdminProjectsFeaturedIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -259,6 +268,7 @@ export interface FileRoutesById {
   '/admin/projects/': typeof AdminProjectsIndexRoute
   '/admin/blog/$postId/edit': typeof AdminBlogPostIdEditRoute
   '/admin/projects/$projectId/edit': typeof AdminProjectsProjectIdEditRoute
+  '/admin/projects/featured/': typeof AdminProjectsFeaturedIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -290,6 +300,7 @@ export interface FileRouteTypes {
     | '/admin/projects/'
     | '/admin/blog/$postId/edit'
     | '/admin/projects/$projectId/edit'
+    | '/admin/projects/featured/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -317,6 +328,7 @@ export interface FileRouteTypes {
     | '/admin/projects'
     | '/admin/blog/$postId/edit'
     | '/admin/projects/$projectId/edit'
+    | '/admin/projects/featured'
   id:
     | '__root__'
     | '/'
@@ -346,6 +358,7 @@ export interface FileRouteTypes {
     | '/admin/projects/'
     | '/admin/blog/$postId/edit'
     | '/admin/projects/$projectId/edit'
+    | '/admin/projects/featured/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -546,6 +559,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBlogNewRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/projects/featured/': {
+      id: '/admin/projects/featured/'
+      path: '/projects/featured'
+      fullPath: '/admin/projects/featured/'
+      preLoaderRoute: typeof AdminProjectsFeaturedIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/projects/$projectId/edit': {
       id: '/admin/projects/$projectId/edit'
       path: '/projects/$projectId/edit'
@@ -571,6 +591,7 @@ interface AdminRouteChildren {
   AdminProjectsIndexRoute: typeof AdminProjectsIndexRoute
   AdminBlogPostIdEditRoute: typeof AdminBlogPostIdEditRoute
   AdminProjectsProjectIdEditRoute: typeof AdminProjectsProjectIdEditRoute
+  AdminProjectsFeaturedIndexRoute: typeof AdminProjectsFeaturedIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
@@ -581,6 +602,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminProjectsIndexRoute: AdminProjectsIndexRoute,
   AdminBlogPostIdEditRoute: AdminBlogPostIdEditRoute,
   AdminProjectsProjectIdEditRoute: AdminProjectsProjectIdEditRoute,
+  AdminProjectsFeaturedIndexRoute: AdminProjectsFeaturedIndexRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)

@@ -50,7 +50,7 @@ export interface Project {
   category: ProjectCategory;
   area?: number;
   completionDate?: string;
-  featured: boolean;
+  featuredOrder?: number;  // undefined = not featured; number = featured sort order
   status: ProjectStatus;
   awards: ProjectAward[];
   images: ProjectImage[];

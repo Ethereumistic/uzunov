@@ -13,7 +13,7 @@ export interface ProjectFormState {
   category: ProjectCategory;
   area: string; // string in form, parsed to number on save
   completionDate: string; // ISO date string
-  featured: boolean;
+  featured: boolean; // true = has featuredOrder, false = not featured
   status: ProjectStatus;
   awards: Array<{ text_bg: string; text_en: string }>;
   details: Array<{ name_bg: string; name_en: string; area: string }>;

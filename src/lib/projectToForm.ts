@@ -19,7 +19,7 @@ export function projectToForm(project: Project): ProjectFormState {
     category: project.category,
     area: project.area?.toString() ?? "",
     completionDate: project.completionDate ?? "",
-    featured: project.featured,
+    featured: project.featuredOrder !== undefined,
     status: project.status,
     awards: project.awards.map((a) => ({ text_bg: a.text_bg, text_en: a.text_en })),
     details:

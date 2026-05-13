@@ -30,7 +30,8 @@ export default defineSchema({
     ),
     area: v.optional(v.number()),
     completionDate: v.optional(v.string()),  // ISO date string "YYYY-MM-DD"
-    featured: v.boolean(),
+    featuredOrder: v.optional(v.number()),  // null = not featured; number = featured sort order (lower = first)
+    featured: v.optional(v.boolean()),       // TEMPORARY: for migration only, will be removed
     status: v.union(v.literal("done"), v.literal("in-progress")),
 
     // ── Awards (bilingual array) ──
@@ -62,7 +63,7 @@ export default defineSchema({
   })
     .index("by_slug", ["slug"])
     .index("by_category", ["category"])
-    .index("by_featured", ["featured"])
+    .index("by_featured_order", ["featuredOrder"])
     .index("by_order", ["order"])
     .index("by_category_order", ["category", "order"]),
 

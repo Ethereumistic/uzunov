@@ -23,7 +23,7 @@ export function formToProject(
     category: form.category,
     area: form.area ? parseFloat(form.area) : undefined,
     completionDate: form.completionDate || undefined,
-    featured: form.featured,
+    featuredOrder: form.featured ? 0 : undefined,
     status: form.status,
     awards: form.awards,
     details: form.details.map((d) => ({

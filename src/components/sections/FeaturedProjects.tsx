@@ -10,8 +10,8 @@ import { m } from "../../paraglide/messages"
 type ProjectDoc = Doc<"projects">
 
 export function FeaturedProjects() {
-  const allProjects = useQuery(api.projects.list)
-  const featuredProjects = (allProjects ?? []).filter((p) => p.featured && p.images.length > 0)
+  const featuredProjects = useQuery(api.projects.listFeatured) ?? []
+  const visibleProjects = featuredProjects.filter((p) => p.images.length > 0)
 
   return (
     <section id="projects" className="w-full py-24 px-0 md:px-5">
@@ -30,11 +30,15 @@ export function FeaturedProjects() {
       </div>
 
       {/* ── Cards grid */}
-      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-5">
-        {featuredProjects.map((project) => (
-          <ProjectCardWithImage key={project._id} project={project} />
-        ))}
-      </div>
+      {visibleProjects.length === 0 ? (
+        <p className="text-center text-foreground/50 py-12">Няма отбелязани проекти за показване.</p>
+      ) : (
+        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-5">
+          {visibleProjects.map((project) => (
+            <ProjectCardWithImage key={project._id} project={project} />
+          ))}
+        </div>
+      )}
 
       {/* ── CTA button */}
       <div className="mt-16 flex justify-center">

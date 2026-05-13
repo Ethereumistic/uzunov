@@ -2,7 +2,15 @@ import { Link, useRouter } from "@tanstack/react-router";
 import { useQuery } from "convex/react";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { api } from "../../../convex/_generated/api";
-import { Building2, LogOut, Globe, BookOpen } from "lucide-react";
+import {
+  Building2,
+  LogOut,
+  Globe,
+  BookOpen,
+  ChevronDown,
+  ChevronRight,
+  Star,
+} from "lucide-react";
 import { LanguageSwitcher } from "#/components/LanguageSwitcher";
 import { ThemeToggle } from "#/components/ThemeToggle";
 import { m } from "../../paraglide/messages";
@@ -15,6 +23,7 @@ import {
   SidebarMenuButton,
   SidebarFooter,
 } from "#/components/ui/sidebar";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "#/components/ui/collapsible";
 import { Badge } from "#/components/ui/badge";
 import {
   DropdownMenu,
@@ -24,6 +33,7 @@ import {
   DropdownMenuTrigger,
 } from "#/components/ui/dropdown-menu";
 import { Logo } from "#/components/layout/Logo";
+import { useState } from "react";
 
 // Deterministic avatar color from email string
 function avatarColor(email: string): string {
@@ -57,6 +67,7 @@ export function AdminSidebar() {
   const { signOut } = useAuthActions();
   const router = useRouter();
   const user = useQuery(api.users.getCurrentUser);
+  const [projectsOpen, setProjectsOpen] = useState(true);
 
   const email = user?.email ?? "";
   const initial = email.charAt(0).toUpperCase() || "A";
@@ -79,14 +90,39 @@ export function AdminSidebar() {
 
       <SidebarContent>
         <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <Link to="/admin/projects" className="flex items-center gap-2">
-                <Building2 className="h-4 w-4" />
-                <span>{m["admin.sidebar.projects"]()}</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          {/* Projects collapsible */}
+          <Collapsible open={projectsOpen} onOpenChange={setProjectsOpen}>
+            <SidebarMenuItem>
+              <CollapsibleTrigger asChild>
+                <SidebarMenuButton className="flex items-center gap-2 w-full">
+                  <Building2 className="h-4 w-4" />
+                  <span>{m["admin.sidebar.projects"]()}</span>
+                  {projectsOpen ? (
+                    <ChevronDown className="h-4 w-4 ml-auto" />
+                  ) : (
+                    <ChevronRight className="h-4 w-4 ml-auto" />
+                  )}
+                </SidebarMenuButton>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <div className="pl-6 space-y-1 mt-1">
+                  <SidebarMenuButton asChild className="text-sm">
+                    <Link to="/admin/projects" className="flex items-center gap-2">
+                      <span className="h-1 w-1 rounded-full bg-current opacity-40" />
+                      <span>Всички проекти</span>
+                    </Link>
+                  </SidebarMenuButton>
+                  <SidebarMenuButton asChild className="text-sm">
+                    <Link to="/admin/projects/featured" className="flex items-center gap-2">
+                      <Star className="h-3.5 w-3.5 text-amber-500 fill-amber-500" />
+                      <span>Отличени проекти</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </div>
+              </CollapsibleContent>
+            </SidebarMenuItem>
+          </Collapsible>
+
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link to="/admin/blog" className="flex items-center gap-2">
