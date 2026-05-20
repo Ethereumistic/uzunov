@@ -1,7 +1,11 @@
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
 
-import { getContext } from "./integrations/tanstack-query/root-provider";
+import { getQueryClient } from "./integrations/convex/provider";
+
+function getContext() {
+  return { queryClient: getQueryClient() };
+}
 
 import { deLocalizeUrl, localizeUrl } from "./paraglide/runtime";
 
