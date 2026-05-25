@@ -94,7 +94,7 @@ export function ProjectDetailCard({ project, locale: propLocale }: ProjectDetail
             value={`${project.area.toLocaleString(isBg ? "bg-BG" : "en-US")} ${m["project.areaUnit"]()}`}
           />
         )}
-        <DetailRow icon={<User size={15} />} label={m["project.investor"]()} value={investor} />
+        {investor && <DetailRow icon={<User size={15} />} label={m["project.investor"]()} value={investor} />}
         <DetailRow icon={<Building2 size={15} />} label={m["project.status.completed"]()} value={project.status === "done" ? m["project.status.completed"]() : m["project.status.inProgress"]()} />
         {project.completionDate && (
           <DetailRow

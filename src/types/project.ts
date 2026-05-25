@@ -45,8 +45,8 @@ export interface Project {
   description_en?: string;
   location_bg: string;
   location_en: string;
-  investor_bg: string;
-  investor_en: string;
+  investor_bg?: string;
+  investor_en?: string;
   category: ProjectCategory;
   area?: number;
   completionDate?: string;

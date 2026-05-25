@@ -17,7 +17,7 @@ export interface Project {
   category: "Office" | "Healthcare" | "Commercial" | "Industrial" | "Residential" | "Interior"
   location: string
   area: number | null
-  investor: string
+  investor: string | null
   completionDate: string | null
   featured: boolean
   status: "done" | "in-progress"

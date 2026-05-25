@@ -37,11 +37,12 @@ export const seed = internalMutation({
       }
 
       // Translate investor_en - if empty or same as bg
-      const needsInvestorTranslation = !project.investor_en || 
+      const needsInvestorTranslation = project.investor_bg &&
+        (!project.investor_en || 
         project.investor_en.trim() === "" ||
-        project.investor_en === project.investor_bg;
+        project.investor_en === project.investor_bg);
       if (needsInvestorTranslation) {
-        const translated = translateInvestor(project.investor_bg);
+        const translated = translateInvestor(project.investor_bg!);
         if (translated !== project.investor_en) {
           updates.investor_en = translated;
         }

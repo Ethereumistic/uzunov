@@ -179,8 +179,8 @@ export function ProjectEditor({ initialData, projectId }: ProjectEditorProps) {
   };
 
   const handleSave = async () => {
-    if (!form.title_bg || !form.slug || !form.location_bg || !form.investor_bg) {
-      alert("Please fill in all required fields (BG title, slug, location, investor)");
+    if (!form.title_bg || !form.slug || !form.location_bg) {
+      alert("Please fill in all required fields (BG title, slug, location)");
       return;
     }
 
@@ -194,8 +194,8 @@ export function ProjectEditor({ initialData, projectId }: ProjectEditorProps) {
         description_en: form.description_en || undefined,
         location_bg: form.location_bg,
         location_en: form.location_en,
-        investor_bg: form.investor_bg,
-        investor_en: form.investor_en,
+        investor_bg: form.investor_bg || undefined,
+        investor_en: form.investor_en || undefined,
         category: form.category,
         area: form.area ? parseFloat(form.area) : undefined,
         completionDate: form.completionDate || undefined,

@@ -16,8 +16,8 @@ export default defineSchema({
     description_en: v.optional(v.string()),
     location_bg: v.string(),
     location_en: v.string(),
-    investor_bg: v.string(),
-    investor_en: v.string(),
+    investor_bg: v.optional(v.string()),
+    investor_en: v.optional(v.string()),
 
     // ── Language-neutral fields ──
     category: v.union(

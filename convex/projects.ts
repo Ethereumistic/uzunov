@@ -80,8 +80,8 @@ export const create = mutation({
     description_en: v.optional(v.string()),
     location_bg: v.string(),
     location_en: v.string(),
-    investor_bg: v.string(),
-    investor_en: v.string(),
+    investor_bg: v.optional(v.string()),
+    investor_en: v.optional(v.string()),
     category: v.union(
       v.literal("Office"),
       v.literal("Healthcare"),
@@ -142,8 +142,8 @@ export const update = mutation({
     description_en: v.optional(v.string()),
     location_bg: v.string(),
     location_en: v.string(),
-    investor_bg: v.string(),
-    investor_en: v.string(),
+    investor_bg: v.optional(v.string()),
+    investor_en: v.optional(v.string()),
     category: v.union(
       v.literal("Office"),
       v.literal("Healthcare"),
