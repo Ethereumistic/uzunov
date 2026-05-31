@@ -135,7 +135,7 @@ function AdminBlogPage() {
                 onDrop={handleDrop}
                 onDragEnd={handleDragEnd}
                 className={`
-                  group relative flex rounded-xl border bg-card text-card-foreground shadow-sm
+                  group relative flex overflow-hidden rounded-xl border bg-card text-card-foreground shadow-sm
                   transition-all duration-150 cursor-grab active:cursor-grabbing
                   ${isDragging ? "opacity-40 scale-[0.98]" : "opacity-100"}
                   ${isOver && !isDragging ? "border-primary ring-2 ring-primary/20" : "border-border"}
@@ -153,7 +153,7 @@ function AdminBlogPage() {
                 </div>
 
                 {/* Content */}
-                <div className="flex flex-1 items-center gap-4 px-4 py-3">
+                <div className="flex flex-1 min-w-0 items-center gap-4 px-4 py-3">
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold truncate">{post.title_bg}</h3>
                     <div className="flex items-center gap-2 mt-1.5">

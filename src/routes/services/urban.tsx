@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { ServiceLayout } from '#/components/services/ServiceLayout'
 import { m } from '#/paraglide/messages'
 
-const baseUrl = 'https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/services/interior'
+const baseUrl = 'https://cdn.jsdelivr.net/gh/Ethereumistic/uzunov-assets/services/urban'
 
 export const Route = createFileRoute('/services/urban')({
     component: ServiceUrbanPage,
@@ -30,7 +30,7 @@ function ServiceUrbanPage() {
                 `${baseUrl}/4_S.webp`,
                 `${baseUrl}/5_S.webp`
             ]}
-            ctaImage={`${baseUrl}/6_S.webp`}
+            ctaImage={`${baseUrl}/1_S.webp`}
         >
             <div className="prose prose-stone lg:prose-lg max-w-none">
                 <h2 className="text-3xl font-display font-semibold mb-6 text-foreground">{m["service.urban.heading"]()}</h2>

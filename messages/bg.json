@@ -2,13 +2,11 @@
   "nav.home": "Начало",
   "nav.about": "За нас",
   "nav.projects": "Проекти",
-  "nav.blog": "Блог",
+  "nav.blog": "Актуално",
   "nav.services": "Услуги",
   "nav.contact": "Контакт",
-
   "logo.alt": "Узунов Проект Лого",
   "logo.text": "Узунов Проект",
-
   "hero.headline.line1": "Пространства,",
   "hero.headline.line2": "изградени с намерение",
   "hero.subtitle.line1": "Архитектура, ориентирана към хората.",
@@ -23,7 +21,6 @@
   "aria.slide": "Слайд {number}",
   "aria.visualPanel": "Архитектурен визуален панел",
   "aria.menuToggle": "Toggle menu",
-
   "footer.motto": "Архитектурата е изкуство, което балансира иновации и практичност.",
   "footer.studio": "Студио",
   "footer.contacts": "Контакти",
@@ -32,7 +29,6 @@
   "footer.privacy": "Поверителност",
   "footer.terms": "Условия",
   "footer.developedBy": "Разработен и поддържан от",
-
   "services.architecture.title": "Архитектура",
   "services.architecture.description": "Цялостни архитектурни решения от концепция до реализация.",
   "services.urban.title": "Градоустройство",
@@ -47,7 +43,6 @@
   "services.projectManagement.description": "Координация и контрол на целия инвестиционен процес.",
   "services.sectionTitle": "Нашите Услуги",
   "services.otherServices": "Други услуги",
-
   "service.architecture.title": "Архитектурно Проектиране",
   "service.architecture.subtitle": "Комплексни архитектурни решения, съобразени с вашите изисквания и съвременните стандарти.",
   "service.architecture.heading": "От концепция до реализация",
@@ -56,7 +51,6 @@
   "service.architecture.item2": "Технически и работни проекти за всички видове сгради",
   "service.architecture.item3": "Реконструкция и адаптация на съществуващи обекти",
   "service.architecture.item4": "Проектиране на обществени, жилищни и индустриални сгради",
-
   "service.urban.title": "Градоустройство",
   "service.urban.subtitle": "Създаваме устойчива градска среда, която балансира нуждите на хората, природата и икономиката.",
   "service.urban.heading": "От генерален план до реализация",
@@ -65,7 +59,6 @@
   "service.urban.item2": "Обхваща населените места – градове, села, квартали, като планира тяхното развитие във времето.",
   "service.urban.item3": "Включва изготвянето на общи и подробни устройствени планове (ОУП и ПУП), които определят какво и къде може да се строи.",
   "service.urban.item4": "Балансира нуждите на жилищните зони, индустриалните райони, транспортните връзки и местата за отдих",
-
   "service.engineering.title": "Инженерно Проектиране",
   "service.engineering.subtitle": "Пълно инженерно обезпечаване за сигурност и ефективност на вашите сгради.",
   "service.engineering.heading": "Екип от опитни инженерни специалисти",
@@ -77,7 +70,6 @@
   "service.engineering.item5": "Вертикално планиране",
   "service.engineering.item6": "Паркоустройство и благоустрояване",
   "service.engineering.item7": "Изготвяне на проекти по части Пожарна безопасност, План за безопасност и здраве и План за управление на строителните отпадъци",
-
   "service.consulting.title": "Консултантски Услуги",
   "service.consulting.subtitle": "Цялостни консултантски услуги от идеята до въвеждането в експлоатация.",
   "service.consulting.heading": "Вашият доверен партньор",
@@ -86,7 +78,6 @@
   "service.consulting.item2": "Избор на подходящ терен за инвестиционни намерения и градоустройствени анализи",
   "service.consulting.item3": "Оптимизация на разходите по време на строителството",
   "service.consulting.item4": "Контакти с представители на строителни производители и вносители , избор на материали и предоставяне на мостри",
-
   "service.3d.title": "3D Визуализации",
   "service.3d.subtitle": "Висококачествени реалистични 3D визуализации за по-ясно разбиране и представяне на вашия проект.",
   "service.3d.heading": "Фотореализъм и детайл",
@@ -95,7 +86,6 @@
   "service.3d.item2": "Интериорни 3D рендери на пространства",
   "service.3d.item3": "Виртуални разходки и 360-градусови панорами",
   "service.3d.item4": "Продуктови и детайлни студийни рендери",
-
   "service.projects.title": "Управление на Проекти",
   "service.projects.subtitle": "Оптимално планиране и контрол на строителния процес от начало до край.",
   "service.projects.heading": "Контрол и координация",
@@ -105,7 +95,6 @@
   "service.projects.item3": "Координация между всички участници в процеса",
   "service.projects.item4": "Организация на тръжни процедури и избор на изпълнители",
   "services.otherServices": "Други услуги",
-
   "about.title": "За УЗУНОВ ПРОЕКТ",
   "about.description": "Повече от две десетилетия създаваме архитектурни решения, които вдъхновяват и издържат изпитанието на времето.",
   "about.philosophy": "Философия",
@@ -114,7 +103,6 @@
   "about.mission.text": "Превръщаме идеите ви в реалност с иновации.",
   "about.vision": "Визия",
   "about.vision.text": "Оформяме бъдещето с устойчива архитектура.",
-
   "contact.title": "Да създадем нещо значимо",
   "contact.description": "Разкажете ни за вашия проект и ще се свържем с вас в рамките на 24 часа.",
   "contact.writeUs": "Пишете ни",
@@ -132,7 +120,6 @@
   "contact.sent": "Изпратено ✓",
   "contact.send": "Изпрати запитване",
   "contact.openMap": "Отвори картата",
-
   "projects.title": "Нашите проекти",
   "projects.subtitle": "Вижте нашите най-добри работи и се вдъхновете.",
   "projects.empty": "Няма намерени проекти.",
@@ -143,7 +130,6 @@
   "projects.notFound": "Проектът не е намерен",
   "projects.backToProjects": "Обратно към проекти",
   "projects.noProjectsFound": "Няма намерени проекти.",
-
   "project.location": "Местоположение",
   "project.area": "Разгърната площ",
   "project.investor": "Инвеститор",
@@ -155,14 +141,12 @@
   "project.award": "Награда",
   "project.photos": "снимки",
   "project.areaUnit": "м²",
-
   "projectDetail.backToProjects": "Обратно към проекти",
   "projectDetail.award": "Награда",
   "projectDetail.close": "Затвори",
   "projectDetail.previous": "Предишна",
   "projectDetail.next": "Следваща",
   "projectDetail.image": "Изображение",
-
   "blog.title": "Блог",
   "blog.subtitle": "Новини, идеи и прозрения от света на архитектурата.",
   "blog.empty": "Няма публикувани статии.",
@@ -170,17 +154,14 @@
   "blog.notFound": "Статията не е намерена",
   "blog.backToBlog": "Обратно към блога",
   "blog.onlyBulgarian": "Тази статия е налична само на български.",
-
   "cta.haveIdea": "Имате идея?",
   "cta.contactConsultation": "Свържете се с нас за консултация по вашия следващ проект",
   "cta.contactUs": "Свържете се с нас",
-
   "numbers.title": "Студиото в цифри",
   "numbers.description": "Повече от три десетилетия опит в създаването на пространства, които остават.",
   "numbers.years": "Години опит",
   "numbers.projectsCount": "Реализирани проекта",
   "numbers.clients": "Доволни клиенти",
-
   "categories.all": "Всички",
   "categories.office": "Офиси",
   "categories.healthcare": "Здравеопазване",
@@ -188,15 +169,12 @@
   "categories.industrial": "Индустриални",
   "categories.residential": "Жилищни",
   "categories.interior": "Интериор",
-
   "aria.previous": "Предишна",
   "aria.next": "Следваща",
   "aria.image": "Изображение {number}",
   "aria.close": "Затвори",
-
   "languageSwitcher.bulgarian": "Български",
   "languageSwitcher.english": "English",
-
   "legal.privacy.title": "Политика за поверителност",
   "legal.privacy.titleMain": "Политика за",
   "legal.privacy.titleSub": "поверителност",
@@ -204,7 +182,6 @@
   "legal.terms.titleMain": "Общи",
   "legal.terms.titleSub": "условия",
   "legal.onlyBulgarian": "Този документ е наличен само на български.",
-
   "legal.terms.lastUpdate": "Последна актуализация: 25.03.2026г.",
   "legal.terms.s1.title": "1. Общи разпоредби",
   "legal.terms.s1.p1": "С достъпа и използването на този уебсайт Вие се съгласявате да спазвате настоящите Общи условия. Уебсайтът е собственост на УЗУНОВ ПРОЕКТ ЕООД, ЕИК 107562605.",
@@ -225,7 +202,6 @@
   "legal.terms.s5.p1": "УЗУНОВ ПРОЕКТ ЕООД си запазва правото да актуализира и променя тези Общи условия по всяко време без предварително известие. Новите условия влизат в сила в момента на тяхното публикуване на уебсайта.",
   "legal.terms.s6.title": "6. Контакти",
   "legal.terms.s6.p1": "За въпроси относно тези условия, можете да се свържете с нас на:",
-
   "legal.privacy.lastUpdate": "Последна актуализация: 25.03.2026г.",
   "legal.privacy.s1.title": "1. Данни за администратора на лични данни",
   "legal.privacy.s1.p1": "Администратор на личните данни, събирани чрез този уебсайт, е:",
@@ -265,7 +241,6 @@
   "admin.sidebar.blog": "Блог",
   "admin.sidebar.backToWebsite": "Обратно към сайта",
   "admin.sidebar.signOut": "Изход",
-
   "search.placeholder": "Търсене на проекти, статии, услуги…",
   "search.noResults": "Няма намерени резултати"
 }

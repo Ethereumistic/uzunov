@@ -2,13 +2,11 @@
   "nav.home": "Home",
   "nav.about": "About",
   "nav.projects": "Projects",
-  "nav.blog": "Blog",
+  "nav.blog": "Articles",
   "nav.services": "Services",
   "nav.contact": "Contact",
-
   "logo.alt": "Uzunov Project Logo",
   "logo.text": "Uzunov Project",
-
   "hero.headline.line1": "Spaces,",
   "hero.headline.line2": "built with intention",
   "hero.subtitle.line1": "Architecture, oriented towards people.",
@@ -23,7 +21,6 @@
   "aria.slide": "Slide {number}",
   "aria.visualPanel": "Architectural visual panel",
   "aria.menuToggle": "Toggle menu",
-
   "footer.motto": "Architecture is the art that balances innovation and practicality.",
   "footer.studio": "Studio",
   "footer.contacts": "Contacts",
@@ -32,7 +29,6 @@
   "footer.privacy": "Privacy",
   "footer.terms": "Terms",
   "footer.developedBy": "Developed and maintained by",
-
   "services.architecture.title": "Architecture",
   "services.architecture.description": "Comprehensive architectural solutions from concept to realization.",
   "services.urban.title": "Urban Planning",
@@ -47,7 +43,6 @@
   "services.projectManagement.description": "Coordination and control of the entire investment process.",
   "services.sectionTitle": "Our Services",
   "services.otherServices": "Other services",
-
   "service.architecture.title": "Architectural Design",
   "service.architecture.subtitle": "Comprehensive architectural solutions tailored to your requirements and modern standards.",
   "service.architecture.heading": "From Concept to Realization",
@@ -56,7 +51,6 @@
   "service.architecture.item2": "Technical and working drawings for all types of buildings",
   "service.architecture.item3": "Reconstruction and adaptation of existing facilities",
   "service.architecture.item4": "Design of public, residential, and industrial buildings",
-
   "service.urban.title": "Urban Planning",
   "service.urban.subtitle": "Creating sustainable urban environments that balance the needs of people, nature, and the economy.",
   "service.urban.heading": "From Master Plan to Implementation",
@@ -65,7 +59,6 @@
   "service.urban.item2": "Covers settlements – cities, villages, neighborhoods – planning their development over time.",
   "service.urban.item3": "Includes preparation of general and detailed development plans (GDP and DDP) that determine what and where can be built.",
   "service.urban.item4": "Balances the needs of residential zones, industrial areas, transport connections, and recreation areas",
-
   "service.engineering.title": "Engineering Design",
   "service.engineering.subtitle": "Full engineering support for safety and efficiency of your buildings.",
   "service.engineering.heading": "Team of experienced engineering experts",
@@ -77,7 +70,6 @@
   "service.engineering.item5": "Vertical planning",
   "service.engineering.item6": "Landscaping and amenity design",
   "service.engineering.item7": "Preparation of Fire Safety, Health and Safety Plan, and Construction Waste Management Plan projects",
-
   "service.consulting.title": "Consulting Services",
   "service.consulting.subtitle": "Complete consulting services from idea to commissioning.",
   "service.consulting.heading": "Your Trusted Partner",
@@ -86,7 +78,6 @@
   "service.consulting.item2": "Selection of suitable land for investment intentions and urban planning analysis",
   "service.consulting.item3": "Cost optimization during construction",
   "service.consulting.item4": "Contacts with representatives of construction manufacturers and importers, selection of materials, and provision of samples",
-
   "service.3d.title": "3D Visualizations",
   "service.3d.subtitle": "High-quality realistic 3D visualizations for a clearer understanding and presentation of your project.",
   "service.3d.heading": "Photorealism and Detail",
@@ -95,7 +86,6 @@
   "service.3d.item2": "Interior 3D renders of spaces",
   "service.3d.item3": "Virtual walkthroughs and 360-degree panoramas",
   "service.3d.item4": "Product and detail studio renders",
-
   "service.projects.title": "Project Management",
   "service.projects.subtitle": "Optimal planning and control of the construction process from start to finish.",
   "service.projects.heading": "Control and Coordination",
@@ -105,7 +95,6 @@
   "service.projects.item3": "Coordination of all participants in the process",
   "service.projects.item4": "Organization of tender procedures and selection of contractors",
   "services.otherServices": "Other services",
-
   "about.title": "About UZUNOV PROJECT",
   "about.description": "More than two decades creating architectural solutions that inspire and stand the test of time.",
   "about.philosophy": "Philosophy",
@@ -114,7 +103,6 @@
   "about.mission.text": "We turn your ideas into reality with innovation.",
   "about.vision": "Vision",
   "about.vision.text": "We shape the future with sustainable architecture.",
-
   "contact.title": "Let's create something meaningful",
   "contact.description": "Tell us about your project and we'll get back to you within 24 hours.",
   "contact.writeUs": "Write to Us",
@@ -132,7 +120,6 @@
   "contact.sent": "Sent ✓",
   "contact.send": "Send Inquiry",
   "contact.openMap": "Open Map",
-
   "projects.title": "Our Projects",
   "projects.subtitle": "See our best work and get inspired.",
   "projects.empty": "No projects found.",
@@ -143,7 +130,6 @@
   "projects.notFound": "Project not found",
   "projects.backToProjects": "Back to Projects",
   "projects.noProjectsFound": "No projects found.",
-
   "project.location": "Location",
   "project.area": "Total Floor Area",
   "project.investor": "Investor",
@@ -155,14 +141,12 @@
   "project.award": "Award",
   "project.photos": "photos",
   "project.areaUnit": "m²",
-
   "projectDetail.backToProjects": "Back to Projects",
   "projectDetail.award": "Award",
   "projectDetail.close": "Close",
   "projectDetail.previous": "Previous",
   "projectDetail.next": "Next",
   "projectDetail.image": "Image",
-
   "blog.title": "Blog",
   "blog.subtitle": "News, ideas, and insights from the world of architecture.",
   "blog.empty": "No published articles.",
@@ -170,17 +154,14 @@
   "blog.notFound": "Article not found",
   "blog.backToBlog": "Back to Blog",
   "blog.onlyBulgarian": "This article is only available in Bulgarian.",
-
   "cta.haveIdea": "Have an idea?",
   "cta.contactConsultation": "Contact us for a consultation on your next project",
   "cta.contactUs": "Contact Us",
-
   "numbers.title": "The Studio in Numbers",
   "numbers.description": "Over three decades of experience creating spaces that endure.",
   "numbers.years": "Years of Experience",
   "numbers.projectsCount": "Completed Projects",
   "numbers.clients": "Satisfied Clients",
-
   "categories.all": "All",
   "categories.office": "Office",
   "categories.healthcare": "Healthcare",
@@ -188,15 +169,12 @@
   "categories.industrial": "Industrial",
   "categories.residential": "Residential",
   "categories.interior": "Interior",
-
   "aria.previous": "Previous",
   "aria.next": "Next",
   "aria.image": "Image {number}",
   "aria.close": "Close",
-
   "languageSwitcher.bulgarian": "Български",
   "languageSwitcher.english": "English",
-
   "legal.privacy.title": "Privacy Policy",
   "legal.privacy.titleMain": "Privacy",
   "legal.privacy.titleSub": "Policy",
@@ -204,7 +182,6 @@
   "legal.terms.titleMain": "Terms",
   "legal.terms.titleSub": "& Conditions",
   "legal.onlyBulgarian": "This document is only available in Bulgarian.",
-
   "legal.terms.lastUpdate": "Last updated: 25.03.2026",
   "legal.terms.s1.title": "1. General Provisions",
   "legal.terms.s1.p1": "By accessing and using this website, you agree to comply with these Terms and Conditions. The website is owned by UZUNOV PROJET EOOD, EIK 107562605.",
@@ -225,7 +202,6 @@
   "legal.terms.s5.p1": "UZUNOV PROJET EOOD reserves the right to update and amend these Terms and Conditions at any time without prior notice. The new terms shall take effect upon their publication on the website.",
   "legal.terms.s6.title": "6. Contacts",
   "legal.terms.s6.p1": "For questions regarding these terms, you can contact us at:",
-
   "legal.privacy.lastUpdate": "Last updated: 25.03.2026",
   "legal.privacy.s1.title": "1. Data Controller Information",
   "legal.privacy.s1.p1": "The data controller for personal data collected through this website is:",
@@ -265,7 +241,6 @@
   "admin.sidebar.blog": "Blog",
   "admin.sidebar.backToWebsite": "Back to Website",
   "admin.sidebar.signOut": "Sign Out",
-
   "search.placeholder": "Search projects, posts, services…",
   "search.noResults": "No results found"
 }

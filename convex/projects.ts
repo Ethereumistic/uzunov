@@ -122,9 +122,15 @@ export const create = mutation({
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) throw new Error("Unauthorized");
 
+    // Convert empty investor strings to undefined so Convex omits the field
+    const investor_bg = args.investor_bg || undefined;
+    const investor_en = args.investor_en || undefined;
+
     const now = Date.now();
     return await ctx.db.insert("projects", {
       ...args,
+      investor_bg,
+      investor_en,
       createdAt: now,
       updatedAt: now,
     });
@@ -185,6 +191,12 @@ export const update = mutation({
     if (!identity) throw new Error("Unauthorized");
 
     const { id, ...fields } = args;
+
+    // Convert empty investor strings to undefined so Convex clears the field
+    // (JSON.stringify strips undefined keys, so the client sends "" instead)
+    if (fields.investor_bg === "") fields.investor_bg = undefined;
+    if (fields.investor_en === "") fields.investor_en = undefined;
+
     return await ctx.db.patch(id, {
       ...fields,
       updatedAt: Date.now(),
