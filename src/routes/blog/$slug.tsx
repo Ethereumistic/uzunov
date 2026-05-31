@@ -136,7 +136,7 @@ function BlogPostDetailView({ post, locale }: { post: any; locale: "bg" | "en" }
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-5 lg:gap-10 items-start">
             {/* LEFT COLUMN: Images */}
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 lg:sticky lg:top-28 lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto">
               {/* Cover image - main hero */}
               {coverUrl && (
                 <div
@@ -186,7 +186,7 @@ function BlogPostDetailView({ post, locale }: { post: any; locale: "bg" | "en" }
             </div>
 
             {/* RIGHT COLUMN: Title + Date + Body */}
-            <div className="lg:sticky lg:top-28">
+            <div>
               {/* Title */}
               <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3 leading-tight">
                 {title}
